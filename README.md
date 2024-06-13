@@ -1,4 +1,4 @@
-## ZINEB&ELISA
+## ZIEL CARS
 
 ZINEB&ELISA is a car rental platform, supplier-oriented, with a backend for managing car fleets and bookings, as well as a frontend and a mobile app for renting cars.
 
