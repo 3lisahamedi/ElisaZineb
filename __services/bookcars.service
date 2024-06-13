@@ -1,0 +1,15 @@
+[Unit]
+Description=ZINEB&ELISA API
+Wants=mongod.service
+After=mongod.service
+
+[Service]
+ExecStart=/usr/bin/npm start
+WorkingDirectory=/opt/ZINEB&ELISA/api
+Type=simple
+Restart=always
+StandardOutput=append:/var/log/ZINEB&ELISA.log
+StandardError=append:/var/log/ZINEB&ELISA.log
+
+[Install]
+WantedBy=multi-user.target
