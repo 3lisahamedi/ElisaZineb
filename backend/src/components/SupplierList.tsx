@@ -16,8 +16,8 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon
 } from '@mui/icons-material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import Const from '../config/const'
 import { strings as commonStrings } from '../lang/common'
@@ -29,9 +29,9 @@ import Pager from './Pager'
 import '../assets/css/supplier-list.css'
 
 interface SupplierListProps {
-  user?: bookcarsTypes.User
+  user?: BookCarsTypes.User
   keyword?: string
-  onLoad?: bookcarsTypes.DataEvent<bookcarsTypes.User>
+  onLoad?: BookCarsTypes.DataEvent<BookCarsTypes.User>
   onDelete?: (rowCount: number) => void
 }
 
@@ -45,7 +45,7 @@ const SupplierList = ({
   const [init, setInit] = useState(true)
   const [loading, setLoading] = useState(false)
   const [fetch, setFetch] = useState(false)
-  const [rows, setRows] = useState<bookcarsTypes.User[]>([])
+  const [rows, setRows] = useState<BookCarsTypes.User[]>([])
   const [rowCount, setRowCount] = useState(0)
   const [totalRecords, setTotalRecords] = useState(0)
   const [page, setPage] = useState(1)
@@ -197,7 +197,7 @@ const SupplierList = ({
               <article key={supplier._id}>
                 <div className="supplier-item">
                   <div className="supplier-item-avatar">
-                    <img src={bookcarsHelper.joinURL(env.CDN_USERS, supplier.avatar)} alt={supplier.fullName} />
+                    <img src={BookCarsHelper.joinURL(env.CDN_USERS, supplier.avatar)} alt={supplier.fullName} />
                   </div>
                   <span className="supplier-item-title">{supplier.fullName}</span>
                 </div>

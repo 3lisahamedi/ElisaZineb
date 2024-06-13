@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import { strings as commonStrings } from '../lang/common'
 import * as helper from '../common/helper'
 
@@ -8,7 +8,7 @@ import '../assets/css/user-type-filter.css'
 
 interface UserTypeFilterProps {
   className?: string
-  onChange?: (types: bookcarsTypes.UserType[]) => void
+  onChange?: (types: BookCarsTypes.UserType[]) => void
 }
 
 const UserTypeFilter = ({
@@ -16,7 +16,7 @@ const UserTypeFilter = ({
   onChange
 }: UserTypeFilterProps) => {
   const userTypes = helper.getUserTypes()
-  const [checkedUserTypes, setCheckedUserTypes] = useState<bookcarsTypes.UserType[]>(userTypes.map((user) => user.value))
+  const [checkedUserTypes, setCheckedUserTypes] = useState<BookCarsTypes.UserType[]>(userTypes.map((user) => user.value))
   const [allChecked, setAllChecked] = useState(true)
   const refs = useRef<(HTMLInputElement)[]>([])
 
@@ -27,7 +27,7 @@ const UserTypeFilter = ({
   }, [])
 
   const handleUserTypeChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
-    const userType = e.currentTarget.getAttribute('data-value') as bookcarsTypes.UserType
+    const userType = e.currentTarget.getAttribute('data-value') as BookCarsTypes.UserType
     const checkbox = e.currentTarget as HTMLInputElement
 
     if (checkbox.checked) {
@@ -48,7 +48,7 @@ const UserTypeFilter = ({
     setCheckedUserTypes(checkedUserTypes)
 
     if (onChange) {
-      onChange(bookcarsHelper.clone(checkedUserTypes))
+      onChange(BookCarsHelper.clone(checkedUserTypes))
     }
   }
 
@@ -80,7 +80,7 @@ const UserTypeFilter = ({
       setCheckedUserTypes(_userTypes)
 
       if (onChange) {
-        onChange(bookcarsHelper.clone(_userTypes))
+        onChange(BookCarsHelper.clone(_userTypes))
       }
     }
   }

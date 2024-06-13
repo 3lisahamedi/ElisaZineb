@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/cars'
 import Accordion from './Accordion'
@@ -9,7 +9,7 @@ import '../assets/css/mileage-filter.css'
 
 interface MileageFilterProps {
   className?: string
-  onChange?: (value: bookcarsTypes.Mileage[]) => void
+  onChange?: (value: BookCarsTypes.Mileage[]) => void
 }
 
 const MileageFilter = ({
@@ -17,7 +17,7 @@ const MileageFilter = ({
   onChange
 }: MileageFilterProps) => {
   const [allChecked, setAllChecked] = useState(true)
-  const [values, setValues] = useState([bookcarsTypes.Mileage.Limited, bookcarsTypes.Mileage.Unlimited])
+  const [values, setValues] = useState([BookCarsTypes.Mileage.Limited, BookCarsTypes.Mileage.Unlimited])
 
   const limitedRef = useRef<HTMLInputElement>(null)
   const unlimitedRef = useRef<HTMLInputElement>(null)
@@ -31,14 +31,14 @@ const MileageFilter = ({
 
   const handleLimitedMileageChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
     if ('checked' in e.currentTarget && e.currentTarget.checked) {
-      values.push(bookcarsTypes.Mileage.Limited)
+      values.push(BookCarsTypes.Mileage.Limited)
 
       if (values.length === 2) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.Mileage.Limited),
+        values.findIndex((v) => v === BookCarsTypes.Mileage.Limited),
         1,
       )
 
@@ -50,7 +50,7 @@ const MileageFilter = ({
     setValues(values)
 
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
@@ -64,14 +64,14 @@ const MileageFilter = ({
 
   const handleUnlimitedMileageChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
     if ('checked' in e.currentTarget && e.currentTarget.checked) {
-      values.push(bookcarsTypes.Mileage.Unlimited)
+      values.push(BookCarsTypes.Mileage.Unlimited)
 
       if (values.length === 2) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.Mileage.Unlimited),
+        values.findIndex((v) => v === BookCarsTypes.Mileage.Unlimited),
         1,
       )
 
@@ -83,7 +83,7 @@ const MileageFilter = ({
     setValues(values)
 
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
@@ -116,13 +116,13 @@ const MileageFilter = ({
         unlimitedRef.current.checked = true
       }
 
-      const _values = [bookcarsTypes.Mileage.Limited, bookcarsTypes.Mileage.Unlimited]
+      const _values = [BookCarsTypes.Mileage.Limited, BookCarsTypes.Mileage.Unlimited]
 
       setAllChecked(true)
       setValues(_values)
 
       if (onChange) {
-        onChange(bookcarsHelper.clone(_values))
+        onChange(BookCarsHelper.clone(_values))
       }
     }
   }

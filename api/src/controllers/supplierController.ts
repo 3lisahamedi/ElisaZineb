@@ -2,7 +2,7 @@ import path from 'node:path'
 import fs from 'node:fs/promises'
 import escapeStringRegexp from 'escape-string-regexp'
 import { Request, Response } from 'express'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import i18n from '../lang/i18n'
 import * as env from '../config/env.config'
 import User from '../models/User'
@@ -24,14 +24,14 @@ import * as logger from '../common/logger'
  * @returns {unknown}
  */
 export const validate = async (req: Request, res: Response) => {
-  const { body }: { body: bookcarsTypes.ValidateSupplierPayload } = req
+  const { body }: { body: BookCarsTypes.ValidateSupplierPayload } = req
   const { fullName } = body
 
   try {
     const keyword = escapeStringRegexp(fullName)
     const options = 'i'
     const user = await User.findOne({
-      type: bookcarsTypes.UserType.Supplier,
+      type: BookCarsTypes.UserType.Supplier,
       fullName: { $regex: new RegExp(`^${keyword}$`), $options: options },
     })
     return user ? res.sendStatus(204) : res.sendStatus(200)
@@ -51,7 +51,7 @@ export const validate = async (req: Request, res: Response) => {
  * @returns {unknown}
  */
 export const update = async (req: Request, res: Response) => {
-  const { body }: { body: bookcarsTypes.UpdateSupplierPayload } = req
+  const { body }: { body: BookCarsTypes.UpdateSupplierPayload } = req
   const { _id } = body
 
   try {
@@ -207,7 +207,7 @@ export const getSuppliers = async (req: Request, res: Response) => {
       [
         {
           $match: {
-            type: bookcarsTypes.UserType.Supplier,
+            type: BookCarsTypes.UserType.Supplier,
             fullName: { $regex: keyword, $options: options },
           },
         },
@@ -250,7 +250,7 @@ export const getAllSuppliers = async (req: Request, res: Response) => {
   try {
     let data = await User.aggregate(
       [
-        { $match: { type: bookcarsTypes.UserType.Supplier } },
+        { $match: { type: BookCarsTypes.UserType.Supplier } },
         { $sort: { fullName: 1, _id: 1 } },
       ],
       { collation: { locale: env.DEFAULT_LANGUAGE, strength: 2 } },

@@ -1,12 +1,12 @@
 import axiosInstance from './axiosInstance'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 /**
  * Get all suppliers.
  *
- * @returns {Promise<bookcarsTypes.User[]>}
+ * @returns {Promise<BookCarsTypes.User[]>}
  */
-export const getAllSuppliers = (): Promise<bookcarsTypes.User[]> =>
+export const getAllSuppliers = (): Promise<BookCarsTypes.User[]> =>
   axiosInstance
     .get(
       '/api/all-suppliers'

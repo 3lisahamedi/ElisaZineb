@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import * as helper from '../common/helper'
 import env from '../config/env.config'
 import { strings } from '../lang/cars'
@@ -21,17 +21,17 @@ import * as SupplierService from '../services/SupplierService'
 import '../assets/css/cars.css'
 
 const Cars = () => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [admin, setAdmin] = useState(false)
-  const [allSuppliers, setAllSuppliers] = useState<bookcarsTypes.User[]>([])
+  const [allSuppliers, setAllSuppliers] = useState<BookCarsTypes.User[]>([])
   const [suppliers, setSuppliers] = useState<string[]>()
   const [keyword, setKeyword] = useState('')
   const [rowCount, setRowCount] = useState(0)
   const [loading, setLoading] = useState(true)
-  const [gearbox, setGearbox] = useState<string[]>([bookcarsTypes.GearboxType.Automatic, bookcarsTypes.GearboxType.Manual])
-  const [carType, setCarType] = useState<string[]>(bookcarsHelper.getAllCarTypes())
-  const [mileage, setMileage] = useState<string[]>([bookcarsTypes.Mileage.Limited, bookcarsTypes.Mileage.Unlimited])
-  const [availability, setAvailability] = useState<string[]>([bookcarsTypes.Availablity.Available, bookcarsTypes.Availablity.Unavailable])
+  const [gearbox, setGearbox] = useState<string[]>([BookCarsTypes.GearboxType.Automatic, BookCarsTypes.GearboxType.Manual])
+  const [carType, setCarType] = useState<string[]>(BookCarsHelper.getAllCarTypes())
+  const [mileage, setMileage] = useState<string[]>([BookCarsTypes.Mileage.Limited, BookCarsTypes.Mileage.Unlimited])
+  const [availability, setAvailability] = useState<string[]>([BookCarsTypes.Availablity.Available, BookCarsTypes.Availablity.Unavailable])
   const [deposit, setDeposit] = useState(-1)
   const [language, setLanguage] = useState(env.DEFAULT_LANGUAGE)
 
@@ -43,7 +43,7 @@ const Cars = () => {
     setSuppliers(newSuppliers)
   }
 
-  const handleCarListLoad: bookcarsTypes.DataEvent<bookcarsTypes.Car> = (data) => {
+  const handleCarListLoad: BookCarsTypes.DataEvent<BookCarsTypes.Car> = (data) => {
     if (data) {
       setRowCount(data.rowCount)
     }
@@ -73,12 +73,12 @@ const Cars = () => {
     setAvailability(values)
   }
 
-  const onLoad = async (_user?: bookcarsTypes.User) => {
+  const onLoad = async (_user?: BookCarsTypes.User) => {
     setUser(_user)
     setLanguage(_user?.language as string)
     setAdmin(helper.admin(_user))
     const _allSuppliers = await SupplierService.getAllSuppliers()
-    const _suppliers = bookcarsHelper.flattenSuppliers(_allSuppliers)
+    const _suppliers = BookCarsHelper.flattenSuppliers(_allSuppliers)
     setAllSuppliers(_allSuppliers)
     setSuppliers(_suppliers)
     setLoading(false)

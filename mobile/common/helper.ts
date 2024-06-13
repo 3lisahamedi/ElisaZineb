@@ -8,8 +8,8 @@ import { RouteProp } from '@react-navigation/native'
 import mime from 'mime'
 import i18n from '../lang/i18n'
 import * as UserService from '../services/UserService'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import * as toastHelper from './toastHelper'
 
 /**
@@ -142,19 +142,19 @@ export const dateTime = (date: Date, time: Date) => {
  */
 export const getCarTypeShort = (type: string) => {
   switch (type) {
-    case bookcarsTypes.CarType.Diesel:
+    case BookCarsTypes.CarType.Diesel:
       return i18n.t('DIESEL_SHORT')
 
-    case bookcarsTypes.CarType.Gasoline:
+    case BookCarsTypes.CarType.Gasoline:
       return i18n.t('GASOLINE_SHORT')
 
-    case bookcarsTypes.CarType.Electric:
+    case BookCarsTypes.CarType.Electric:
       return i18n.t('ELECTRIC_SHORT')
 
-    case bookcarsTypes.CarType.Hybrid:
+    case BookCarsTypes.CarType.Hybrid:
       return i18n.t('HYBRID_SHORT')
 
-    case bookcarsTypes.CarType.PlugInHybrid:
+    case BookCarsTypes.CarType.PlugInHybrid:
       return i18n.t('PLUG_IN_HYBRID_SHORT')
 
     default:
@@ -170,10 +170,10 @@ export const getCarTypeShort = (type: string) => {
  */
 export const getGearboxTypeShort = (type: string) => {
   switch (type) {
-    case bookcarsTypes.GearboxType.Manual:
+    case BookCarsTypes.GearboxType.Manual:
       return i18n.t('GEARBOX_MANUAL_SHORT')
 
-    case bookcarsTypes.GearboxType.Automatic:
+    case BookCarsTypes.GearboxType.Automatic:
       return i18n.t('GEARBOX_AUTOMATIC_SHORT')
 
     default:
@@ -192,7 +192,7 @@ export const getMileage = (mileage: number, language: string) => {
   if (mileage === -1) {
     return i18n.t('UNLIMITED')
   }
-  return `${bookcarsHelper.formatNumber(mileage, language)} ${i18n.t('MILEAGE_UNIT')}`
+  return `${BookCarsHelper.formatNumber(mileage, language)} ${i18n.t('MILEAGE_UNIT')}`
 }
 
 /**
@@ -203,10 +203,10 @@ export const getMileage = (mileage: number, language: string) => {
  */
 export const getFuelPolicy = (type: string) => {
   switch (type) {
-    case bookcarsTypes.FuelPolicy.LikeForlike:
+    case BookCarsTypes.FuelPolicy.LikeForlike:
       return i18n.t('FUEL_POLICY_LIKE_FOR_LIKE')
 
-    case bookcarsTypes.FuelPolicy.FreeTank:
+    case BookCarsTypes.FuelPolicy.FreeTank:
       return i18n.t('FUEL_POLICY_FREE_TANK')
 
     default:
@@ -222,14 +222,14 @@ export const getFuelPolicy = (type: string) => {
  * @returns {string}
  */
 export const getCancellation = (cancellation: number, language: string) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (cancellation === -1) {
     return `${i18n.t('CANCELLATION')}${fr ? ' : ' : ': '}${i18n.t('UNAVAILABLE')}`
   } if (cancellation === 0) {
     return `${i18n.t('CANCELLATION')}${fr ? ' : ' : ': '}${i18n.t('INCLUDED')}${fr ? 'e' : ''}`
   }
-  return `${i18n.t('CANCELLATION')}${fr ? ' : ' : ': '}${bookcarsHelper.formatPrice(cancellation, i18n.t('CURRENCY'), language)}`
+  return `${i18n.t('CANCELLATION')}${fr ? ' : ' : ': '}${BookCarsHelper.formatPrice(cancellation, i18n.t('CURRENCY'), language)}`
 }
 
 /**
@@ -240,14 +240,14 @@ export const getCancellation = (cancellation: number, language: string) => {
  * @returns {string}
  */
 export const getAmendments = (amendments: number, language: string) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (amendments === -1) {
     return `${i18n.t('AMENDMENTS')}${fr ? ' : ' : ': '}${i18n.t('UNAVAILABLE')}${fr ? 's' : ''}`
   } if (amendments === 0) {
     return `${i18n.t('AMENDMENTS')}${fr ? ' : ' : ': '}${i18n.t('INCLUDED')}${fr ? 'es' : ''}`
   }
-  return `${i18n.t('AMENDMENTS')}${fr ? ' : ' : ': '}${bookcarsHelper.formatPrice(amendments, i18n.t('CURRENCY'), language)}`
+  return `${i18n.t('AMENDMENTS')}${fr ? ' : ' : ': '}${BookCarsHelper.formatPrice(amendments, i18n.t('CURRENCY'), language)}`
 }
 
 /**
@@ -258,14 +258,14 @@ export const getAmendments = (amendments: number, language: string) => {
  * @returns {string}
  */
 export const getTheftProtection = (theftProtection: number, language: string) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (theftProtection === -1) {
     return `${i18n.t('THEFT_PROTECTION')}${fr ? ' : ' : ': '}${i18n.t('UNAVAILABLE')}`
   } if (theftProtection === 0) {
     return `${i18n.t('THEFT_PROTECTION')}${fr ? ' : ' : ': '}${i18n.t('INCLUDED')}${fr ? 'e' : ''}`
   }
-  return `${i18n.t('THEFT_PROTECTION')}${fr ? ' : ' : ': '}${bookcarsHelper.formatPrice(theftProtection, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')}`
+  return `${i18n.t('THEFT_PROTECTION')}${fr ? ' : ' : ': '}${BookCarsHelper.formatPrice(theftProtection, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')}`
 }
 
 /**
@@ -276,14 +276,14 @@ export const getTheftProtection = (theftProtection: number, language: string) =>
  * @returns {string}
  */
 export const getCollisionDamageWaiver = (collisionDamageWaiver: number, language: string) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (collisionDamageWaiver === -1) {
     return `${i18n.t('COLLISION_DAMAGE_WAVER')}${fr ? ' : ' : ': '}${i18n.t('UNAVAILABLE')}`
   } if (collisionDamageWaiver === 0) {
     return `${i18n.t('COLLISION_DAMAGE_WAVER')}${fr ? ' : ' : ': '}${i18n.t('INCLUDED')}${fr ? 'e' : ''}`
   }
-  return `${i18n.t('COLLISION_DAMAGE_WAVER')}${fr ? ' : ' : ': '}${bookcarsHelper.formatPrice(collisionDamageWaiver, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')}`
+  return `${i18n.t('COLLISION_DAMAGE_WAVER')}${fr ? ' : ' : ': '}${BookCarsHelper.formatPrice(collisionDamageWaiver, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')}`
 }
 
 /**
@@ -294,14 +294,14 @@ export const getCollisionDamageWaiver = (collisionDamageWaiver: number, language
  * @returns {string}
  */
 export const getFullInsurance = (fullInsurance: number, language: string) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (fullInsurance === -1) {
     return `${i18n.t('FULL_INSURANCE')}${fr ? ' : ' : ': '}${i18n.t('UNAVAILABLE')}`
   } if (fullInsurance === 0) {
     return `${i18n.t('FULL_INSURANCE')}${fr ? ' : ' : ': '}${i18n.t('INCLUDED')}${fr ? 'e' : ''}`
   }
-  return `${i18n.t('FULL_INSURANCE')}${fr ? ' : ' : ': '}${bookcarsHelper.formatPrice(fullInsurance, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')}`
+  return `${i18n.t('FULL_INSURANCE')}${fr ? ' : ' : ': '}${BookCarsHelper.formatPrice(fullInsurance, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')}`
 }
 
 /**
@@ -312,14 +312,14 @@ export const getFullInsurance = (fullInsurance: number, language: string) => {
  * @returns {string}
  */
 export const getAdditionalDriver = (additionalDriver: number, language: string) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (additionalDriver === -1) {
     return `${i18n.t('ADDITIONAL_DRIVER')}${fr ? ' : ' : ': '}${i18n.t('UNAVAILABLE')}`
   } if (additionalDriver === 0) {
     return `${i18n.t('ADDITIONAL_DRIVER')}${fr ? ' : ' : ': '}${i18n.t('INCLUDED')}`
   }
-  return `${i18n.t('ADDITIONAL_DRIVER')}${fr ? ' : ' : ': '}${bookcarsHelper.formatPrice(additionalDriver, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')}`
+  return `${i18n.t('ADDITIONAL_DRIVER')}${fr ? ' : ' : ': '}${BookCarsHelper.formatPrice(additionalDriver, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')}`
 }
 
 /**
@@ -341,14 +341,14 @@ export const getDaysShort = (days: number) => `${days} ${i18n.t('PRICE_DAYS_PART
 /**
  * Get price.
  *
- * @param {bookcarsTypes.Car} car
+ * @param {BookCarsTypes.Car} car
  * @param {Date} from
  * @param {Date} to
- * @param {?bookcarsTypes.CarOptions} [options]
+ * @param {?BookCarsTypes.CarOptions} [options]
  * @returns {number}
  */
-export const price = (car: bookcarsTypes.Car, from: Date, to: Date, options?: bookcarsTypes.CarOptions) => {
-  const _days = bookcarsHelper.days(from, to)
+export const price = (car: BookCarsTypes.Car, from: Date, to: Date, options?: BookCarsTypes.CarOptions) => {
+  const _days = BookCarsHelper.days(from, to)
 
   let _price = car.price * _days
   if (options) {
@@ -384,14 +384,14 @@ export const price = (car: bookcarsTypes.Car, from: Date, to: Date, options?: bo
  * @returns {string}
  */
 export const getCancellationOption = (cancellation: number, language: string, hidePlus?: boolean) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (cancellation === -1) {
     return i18n.t('UNAVAILABLE')
   } if (cancellation === 0) {
     return `${i18n.t('INCLUDED')}${fr ? 'e' : ''}`
   }
-  return `${hidePlus ? '' : '+ '}${bookcarsHelper.formatPrice(cancellation, i18n.t('CURRENCY'), language)}`
+  return `${hidePlus ? '' : '+ '}${BookCarsHelper.formatPrice(cancellation, i18n.t('CURRENCY'), language)}`
 }
 
 /**
@@ -403,14 +403,14 @@ export const getCancellationOption = (cancellation: number, language: string, hi
  * @returns {string}
  */
 export const getAmendmentsOption = (amendments: number, language: string, hidePlus?: boolean) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (amendments === -1) {
     return `${i18n.t('UNAVAILABLE')}${fr ? 's' : ''}`
   } if (amendments === 0) {
     return `${i18n.t('INCLUDED')}${fr ? 'es' : ''}`
   }
-  return `${hidePlus ? '' : '+ '}${bookcarsHelper.formatPrice(amendments, i18n.t('CURRENCY'), language)}`
+  return `${hidePlus ? '' : '+ '}${BookCarsHelper.formatPrice(amendments, i18n.t('CURRENCY'), language)}`
 }
 
 /**
@@ -423,14 +423,14 @@ export const getAmendmentsOption = (amendments: number, language: string, hidePl
  * @returns {string}
  */
 export const getCollisionDamageWaiverOption = (collisionDamageWaiver: number, days: number, language: string, hidePlus?: boolean) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (collisionDamageWaiver === -1) {
     return i18n.t('UNAVAILABLE')
   } if (collisionDamageWaiver === 0) {
     return `${i18n.t('INCLUDED')}${fr ? 'e' : ''}`
   }
-  return `${hidePlus ? '' : '+ '}${bookcarsHelper.formatPrice(collisionDamageWaiver * days, i18n.t('CURRENCY'), language)} (${bookcarsHelper.formatPrice(collisionDamageWaiver, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')})`
+  return `${hidePlus ? '' : '+ '}${BookCarsHelper.formatPrice(collisionDamageWaiver * days, i18n.t('CURRENCY'), language)} (${BookCarsHelper.formatPrice(collisionDamageWaiver, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')})`
 }
 
 /**
@@ -443,14 +443,14 @@ export const getCollisionDamageWaiverOption = (collisionDamageWaiver: number, da
  * @returns {string}
  */
 export const getTheftProtectionOption = (theftProtection: number, days: number, language: string, hidePlus?: boolean) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (theftProtection === -1) {
     return i18n.t('UNAVAILABLE')
   } if (theftProtection === 0) {
     return `${i18n.t('INCLUDED')}${fr ? 'e' : ''}`
   }
-  return `${hidePlus ? '' : '+ '}${bookcarsHelper.formatPrice(theftProtection * days, i18n.t('CURRENCY'), language)} (${bookcarsHelper.formatPrice(theftProtection, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')})`
+  return `${hidePlus ? '' : '+ '}${BookCarsHelper.formatPrice(theftProtection * days, i18n.t('CURRENCY'), language)} (${BookCarsHelper.formatPrice(theftProtection, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')})`
 }
 
 /**
@@ -463,14 +463,14 @@ export const getTheftProtectionOption = (theftProtection: number, days: number, 
  * @returns {string}
  */
 export const getFullInsuranceOption = (fullInsurance: number, days: number, language: string, hidePlus?: boolean) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (fullInsurance === -1) {
     return i18n.t('UNAVAILABLE')
   } if (fullInsurance === 0) {
     return `${i18n.t('INCLUDED')}${fr ? 'e' : ''}`
   }
-  return `${hidePlus ? '' : '+ '}${bookcarsHelper.formatPrice(fullInsurance * days, i18n.t('CURRENCY'), language)} (${bookcarsHelper.formatPrice(fullInsurance, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')})`
+  return `${hidePlus ? '' : '+ '}${BookCarsHelper.formatPrice(fullInsurance * days, i18n.t('CURRENCY'), language)} (${BookCarsHelper.formatPrice(fullInsurance, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')})`
 }
 
 /**
@@ -488,37 +488,37 @@ export const getAdditionalDriverOption = (additionalDriver: number, days: number
   } if (additionalDriver === 0) {
     return i18n.t('INCLUDED')
   }
-  return `${hidePlus ? '' : '+ '}${bookcarsHelper.formatPrice(additionalDriver * days, i18n.t('CURRENCY'), language)} (${bookcarsHelper.formatPrice(additionalDriver, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')})`
+  return `${hidePlus ? '' : '+ '}${BookCarsHelper.formatPrice(additionalDriver * days, i18n.t('CURRENCY'), language)} (${BookCarsHelper.formatPrice(additionalDriver, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')})`
 }
 
 /**
  * Get all booking statuses.
  *
- * @returns {bookcarsTypes.StatusFilterItem[]}
+ * @returns {BookCarsTypes.StatusFilterItem[]}
  */
-export const getBookingStatuses = (): bookcarsTypes.StatusFilterItem[] => [
+export const getBookingStatuses = (): BookCarsTypes.StatusFilterItem[] => [
   {
-    value: bookcarsTypes.BookingStatus.Void,
+    value: BookCarsTypes.BookingStatus.Void,
     label: i18n.t('BOOKING_STATUS_VOID')
   },
   {
-    value: bookcarsTypes.BookingStatus.Pending,
+    value: BookCarsTypes.BookingStatus.Pending,
     label: i18n.t('BOOKING_STATUS_PENDING'),
   },
   {
-    value: bookcarsTypes.BookingStatus.Deposit,
+    value: BookCarsTypes.BookingStatus.Deposit,
     label: i18n.t('BOOKING_STATUS_DEPOSIT'),
   },
   {
-    value: bookcarsTypes.BookingStatus.Paid,
+    value: BookCarsTypes.BookingStatus.Paid,
     label: i18n.t('BOOKING_STATUS_PAID')
   },
   {
-    value: bookcarsTypes.BookingStatus.Reserved,
+    value: BookCarsTypes.BookingStatus.Reserved,
     label: i18n.t('BOOKING_STATUS_RESERVED'),
   },
   {
-    value: bookcarsTypes.BookingStatus.Cancelled,
+    value: BookCarsTypes.BookingStatus.Cancelled,
     label: i18n.t('BOOKING_STATUS_CANCELLED'),
   },
 ]
@@ -529,24 +529,24 @@ export const getBookingStatuses = (): bookcarsTypes.StatusFilterItem[] => [
  * @param {string} status
  * @returns {string}
  */
-export const getBookingStatus = (status: bookcarsTypes.BookingStatus) => {
+export const getBookingStatus = (status: BookCarsTypes.BookingStatus) => {
   switch (status) {
-    case bookcarsTypes.BookingStatus.Void:
+    case BookCarsTypes.BookingStatus.Void:
       return i18n.t('BOOKING_STATUS_VOID')
 
-    case bookcarsTypes.BookingStatus.Pending:
+    case BookCarsTypes.BookingStatus.Pending:
       return i18n.t('BOOKING_STATUS_PENDING')
 
-    case bookcarsTypes.BookingStatus.Deposit:
+    case BookCarsTypes.BookingStatus.Deposit:
       return i18n.t('BOOKING_STATUS_DEPOSIT')
 
-    case bookcarsTypes.BookingStatus.Paid:
+    case BookCarsTypes.BookingStatus.Paid:
       return i18n.t('BOOKING_STATUS_PAID')
 
-    case bookcarsTypes.BookingStatus.Reserved:
+    case BookCarsTypes.BookingStatus.Reserved:
       return i18n.t('BOOKING_STATUS_RESERVED')
 
-    case bookcarsTypes.BookingStatus.Cancelled:
+    case BookCarsTypes.BookingStatus.Cancelled:
       return i18n.t('BOOKING_STATUS_CANCELLED')
 
     default:

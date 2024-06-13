@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import { strings as commonStrings } from '../lang/common'
 import * as helper from '../common/helper'
 import Accordion from '../components/Accordion'
@@ -10,7 +10,7 @@ import '../assets/css/status-filter.css'
 interface StatusFilterProps {
   className?: string
   collapse?: boolean
-  onChange?: (value: bookcarsTypes.BookingStatus[]) => void
+  onChange?: (value: BookCarsTypes.BookingStatus[]) => void
 }
 
 const StatusFilter = ({
@@ -33,7 +33,7 @@ const StatusFilter = ({
   }, [])
 
   const handleCheckStatusChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
-    const status = e.currentTarget.getAttribute('data-value') as bookcarsTypes.BookingStatus
+    const status = e.currentTarget.getAttribute('data-value') as BookCarsTypes.BookingStatus
 
     if ('checked' in e.currentTarget && e.currentTarget.checked) {
       checkedStatuses.push(status)
@@ -52,7 +52,7 @@ const StatusFilter = ({
 
     setCheckedStatuses(checkedStatuses)
     if (onChange) {
-      onChange(bookcarsHelper.clone(checkedStatuses))
+      onChange(BookCarsHelper.clone(checkedStatuses))
     }
   }
 
@@ -88,7 +88,7 @@ const StatusFilter = ({
       setCheckedStatuses(allStatuses)
 
       if (onChange) {
-        onChange(bookcarsHelper.clone(allStatuses))
+        onChange(BookCarsHelper.clone(allStatuses))
       }
     }
   }

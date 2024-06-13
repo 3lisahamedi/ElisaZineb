@@ -1,15 +1,15 @@
 [Unit]
-Description=ZINEB&ELISA API
+Description=BookCars API
 Wants=mongod.service
 After=mongod.service
 
 [Service]
 ExecStart=/usr/bin/npm start
-WorkingDirectory=/opt/ZINEB&ELISA/api
+WorkingDirectory=/opt/BookCars/api
 Type=simple
 Restart=always
-StandardOutput=append:/var/log/ZINEB&ELISA.log
-StandardError=append:/var/log/ZINEB&ELISA.log
+StandardOutput=append:/var/log/BookCars.log
+StandardError=append:/var/log/BookCars.log
 
 [Install]
 WantedBy=multi-user.target

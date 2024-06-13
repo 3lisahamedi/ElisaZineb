@@ -12,7 +12,7 @@ import {
 import { Info as InfoIcon } from '@mui/icons-material'
 import validator from 'validator'
 import { useNavigate } from 'react-router-dom'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import Layout from '../components/Layout'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/create-supplier'
@@ -179,7 +179,7 @@ const CreateSupplier = () => {
     }
   }
 
-  const onLoad = (user?: bookcarsTypes.User) => {
+  const onLoad = (user?: BookCarsTypes.User) => {
     if (user && user.verified) {
       setVisible(true)
     }
@@ -210,14 +210,14 @@ const CreateSupplier = () => {
         return
       }
 
-      const data: bookcarsTypes.CreateUserPayload = {
+      const data: BookCarsTypes.CreateUserPayload = {
         email,
         fullName,
         phone,
         location,
         bio,
         language: UserService.getLanguage(),
-        type: bookcarsTypes.RecordType.Supplier,
+        type: BookCarsTypes.RecordType.Supplier,
         avatar,
         payLater,
       }
@@ -245,7 +245,7 @@ const CreateSupplier = () => {
           </h1>
           <form onSubmit={handleSubmit}>
             <Avatar
-              type={bookcarsTypes.RecordType.Supplier}
+              type={BookCarsTypes.RecordType.Supplier}
               mode="create"
               record={null}
               size="large"

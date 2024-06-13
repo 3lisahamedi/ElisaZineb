@@ -17,8 +17,8 @@ import {
   Clear as UncheckIcon,
   Info as InfoIcon,
 } from '@mui/icons-material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import Const from '../config/const'
 import * as helper from '../common/helper'
@@ -42,15 +42,15 @@ interface CarListProps {
   gearbox?: string[]
   mileage?: string[]
   deposit?: number
-  cars?: bookcarsTypes.Car[]
+  cars?: BookCarsTypes.Car[]
   reload?: boolean
-  booking?: bookcarsTypes.Booking
+  booking?: BookCarsTypes.Booking
   className?: string
   hidePrice?: boolean
   hideSupplier?: boolean
   loading?: boolean
   sizeAuto?: boolean
-  onLoad?: bookcarsTypes.DataEvent<bookcarsTypes.Car>
+  onLoad?: BookCarsTypes.DataEvent<BookCarsTypes.Car>
 }
 
 const CarList = ({
@@ -79,7 +79,7 @@ const CarList = ({
   const [init, setInit] = useState(true)
   const [loading, setLoading] = useState(false)
   const [fetch, setFetch] = useState(false)
-  const [rows, setRows] = useState<bookcarsTypes.Car[]>([])
+  const [rows, setRows] = useState<BookCarsTypes.Car[]>([])
   const [rowCount, setRowCount] = useState(0)
   const [totalRecords, setTotalRecords] = useState(0)
   const [page, setPage] = useState(1)
@@ -91,7 +91,7 @@ const CarList = ({
 
   useEffect(() => {
     if (from && to) {
-      setDays(bookcarsHelper.days(from, to))
+      setDays(BookCarsHelper.days(from, to))
     }
   }, [from, to])
 
@@ -124,7 +124,7 @@ const CarList = ({
   ) => {
     try {
       setLoading(true)
-      const payload: bookcarsTypes.GetCarsPayload = {
+      const payload: BookCarsTypes.GetCarsPayload = {
         suppliers: _suppliers ?? [],
         pickupLocation: _pickupLocation,
         carType: __carType,
@@ -260,11 +260,11 @@ const CarList = ({
                 <h2>{car.name}</h2>
               </div>
               <div className="car">
-                <img src={bookcarsHelper.joinURL(env.CDN_CARS, car.image)} alt={car.name} className="car-img" />
+                <img src={BookCarsHelper.joinURL(env.CDN_CARS, car.image)} alt={car.name} className="car-img" />
                 {!hideSupplier && (
                   <div className="car-supplier" style={sizeAuto ? { bottom: 10 } : {}}>
                     <span className="car-supplier-logo">
-                      <img src={bookcarsHelper.joinURL(env.CDN_USERS, car.supplier.avatar)} alt={car.supplier.fullName} />
+                      <img src={BookCarsHelper.joinURL(env.CDN_USERS, car.supplier.avatar)} alt={car.supplier.fullName} />
                     </span>
                     <span className="car-supplier-info">{car.supplier.fullName}</span>
                   </div>
@@ -272,7 +272,7 @@ const CarList = ({
               </div>
               <div className="car-info" style={hidePrice && !env.isMobile() ? { width: '57%' } : {}}>
                 <ul className="car-info-list">
-                  {car.type !== bookcarsTypes.CarType.Unknown && (
+                  {car.type !== BookCarsTypes.CarType.Unknown && (
                     <li className="car-type">
                       <Tooltip title={helper.getCarTypeTooltip(car.type)} placement="top">
                         <div className="car-info-list-item">
@@ -409,8 +409,8 @@ const CarList = ({
               {!hidePrice && (
                 <div className="price">
                   <span className="price-days">{helper.getDays(days)}</span>
-                  <span className="price-main">{bookcarsHelper.formatPrice(helper.price(car, from as Date, to as Date), commonStrings.CURRENCY, language)}</span>
-                  <span className="price-day">{`${strings.PRICE_PER_DAY} ${bookcarsHelper.formatPrice(car.price, commonStrings.CURRENCY, language)}`}</span>
+                  <span className="price-main">{BookCarsHelper.formatPrice(helper.price(car, from as Date, to as Date), commonStrings.CURRENCY, language)}</span>
+                  <span className="price-day">{`${strings.PRICE_PER_DAY} ${BookCarsHelper.formatPrice(car.price, commonStrings.CURRENCY, language)}`}</span>
                 </div>
               )}
               {!hidePrice && (

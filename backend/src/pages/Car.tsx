@@ -17,8 +17,8 @@ import {
   Clear as UncheckIcon,
   LocationOn as LocationIcon,
 } from '@mui/icons-material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import Layout from '../components/Layout'
 import env from '../config/env.config'
 import { strings as commonStrings } from '../lang/common'
@@ -37,8 +37,8 @@ import DoorsIcon from '../assets/img/car-door.png'
 import '../assets/css/car.css'
 
 const Car = () => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
-  const [car, setCar] = useState<bookcarsTypes.Car>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
+  const [car, setCar] = useState<BookCarsTypes.Car>()
   const [error, setError] = useState(false)
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -111,7 +111,7 @@ const Car = () => {
     }
   }
 
-  const onLoad = async (_user?: bookcarsTypes.User) => {
+  const onLoad = async (_user?: BookCarsTypes.User) => {
     setLoading(true)
     setUser(_user)
     setLanguage(UserService.getLanguage())
@@ -124,10 +124,10 @@ const Car = () => {
           const _car = await CarService.getCar(id)
 
           if (_car) {
-            if (_user.type === bookcarsTypes.RecordType.Admin) {
+            if (_user.type === BookCarsTypes.RecordType.Admin) {
               try {
                 const _suppliers = await SupplierService.getAllSuppliers()
-                const supplierIds = bookcarsHelper.flattenSuppliers(_suppliers)
+                const supplierIds = BookCarsHelper.flattenSuppliers(_suppliers)
                 setSuppliers(supplierIds)
                 setCar(_car)
                 setVisible(true)
@@ -163,7 +163,7 @@ const Car = () => {
     }
   }
 
-  const edit = user && car && car.supplier && (user.type === bookcarsTypes.RecordType.Admin || user._id === car.supplier._id)
+  const edit = user && car && car.supplier && (user.type === BookCarsTypes.RecordType.Admin || user._id === car.supplier._id)
   const statuses = helper.getBookingStatuses().map((status) => status.value)
   const fr = (user && user.language === 'fr') || false
 
@@ -178,7 +178,7 @@ const Car = () => {
               </div>
               <div className="car-img">
                 <Avatar
-                  type={bookcarsTypes.RecordType.Car}
+                  type={BookCarsTypes.RecordType.Car}
                   mode="update"
                   record={car}
                   size="large"
@@ -191,12 +191,12 @@ const Car = () => {
                 />
                 <div className="car-supplier">
                   <span className="car-supplier-logo">
-                    <img src={bookcarsHelper.joinURL(env.CDN_USERS, car.supplier.avatar)} alt={car.supplier.fullName} />
+                    <img src={BookCarsHelper.joinURL(env.CDN_USERS, car.supplier.avatar)} alt={car.supplier.fullName} />
                   </span>
                   <span className="car-supplier-info">{car.supplier.fullName}</span>
                 </div>
               </div>
-              <div className="price">{`${bookcarsHelper.formatPrice(car.price, commonStrings.CURRENCY, language)}${commonStrings.DAILY}`}</div>
+              <div className="price">{`${BookCarsHelper.formatPrice(car.price, commonStrings.CURRENCY, language)}${commonStrings.DAILY}`}</div>
               <div className="car-info">
                 <ul className="car-info-list">
                   <li className="car-type">

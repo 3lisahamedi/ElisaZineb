@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView, View, TextInput as ReactTextInput } from 'react
 import { useIsFocused } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import validator from 'validator'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 import TextInput from '../components/TextInput'
 import Button from '../components/Button'
@@ -149,7 +149,7 @@ const SignInScreen = ({ navigation, route }: NativeStackScreenProps<StackParams,
       return
     }
 
-    const data: bookcarsTypes.SignInPayload = {
+    const data: BookCarsTypes.SignInPayload = {
       email,
       password,
       stayConnected,

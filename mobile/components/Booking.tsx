@@ -2,8 +2,8 @@ import React, { memo } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Locale, format } from 'date-fns'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 
 import BookingStatus from './BookingStatus'
 import Button from './Button'
@@ -12,7 +12,7 @@ import * as env from '../config/env.config'
 import i18n from '../lang/i18n'
 
 interface BookingProps {
-  booking: bookcarsTypes.Booking
+  booking: BookCarsTypes.Booking
   locale: Locale
   language: string
   onCancel: () => void
@@ -31,9 +31,9 @@ const Booking = ({
 }: BookingProps) => {
   const from = new Date(booking.from)
   const to = new Date(booking.to)
-  const days = bookcarsHelper.days(from, to)
-  const car = booking.car as bookcarsTypes.Car
-  const supplier = booking.supplier as bookcarsTypes.User
+  const days = BookCarsHelper.days(from, to)
+  const car = booking.car as BookCarsTypes.Car
+  const supplier = booking.supplier as BookCarsTypes.User
 
   const today = new Date()
   today.setHours(0)
@@ -41,7 +41,7 @@ const Booking = ({
   today.setSeconds(0)
   today.setMilliseconds(0)
 
-  const _fr = bookcarsHelper.isFrench(language)
+  const _fr = BookCarsHelper.isFrench(language)
   const _format = _fr ? 'eee d LLL yyyy kk:mm' : 'eee, d LLL yyyy, p'
 
   return (
@@ -56,26 +56,26 @@ const Booking = ({
 
         <Text style={styles.detailTitle}>{i18n.t('DAYS')}</Text>
         <Text style={styles.detailText}>
-          {`${helper.getDaysShort(bookcarsHelper.days(from, to))} (${bookcarsHelper.capitalize(format(from, _format, { locale }))} - ${bookcarsHelper.capitalize(
+          {`${helper.getDaysShort(BookCarsHelper.days(from, to))} (${BookCarsHelper.capitalize(format(from, _format, { locale }))} - ${BookCarsHelper.capitalize(
             format(to, _format, { locale }),
           )})`}
         </Text>
 
         <Text style={styles.detailTitle}>{i18n.t('PICKUP_LOCATION')}</Text>
-        <Text style={styles.detailText}>{(booking.pickupLocation as bookcarsTypes.Location).name}</Text>
+        <Text style={styles.detailText}>{(booking.pickupLocation as BookCarsTypes.Location).name}</Text>
 
         <Text style={styles.detailTitle}>{i18n.t('DROP_OFF_LOCATION')}</Text>
-        <Text style={styles.detailText}>{(booking.dropOffLocation as bookcarsTypes.Location).name}</Text>
+        <Text style={styles.detailText}>{(booking.dropOffLocation as BookCarsTypes.Location).name}</Text>
 
         <Text style={styles.detailTitle}>{i18n.t('CAR')}</Text>
-        <Text style={styles.detailText}>{`${car.name} (${bookcarsHelper.formatPrice(car.price, i18n.t('CURRENCY'), language)})`}</Text>
+        <Text style={styles.detailText}>{`${car.name} (${BookCarsHelper.formatPrice(car.price, i18n.t('CURRENCY'), language)})`}</Text>
 
         <Text style={styles.detailTitle}>{i18n.t('SUPPLIER')}</Text>
         <View style={styles.supplier}>
           <Image
             style={styles.supplierImg}
             source={{
-              uri: bookcarsHelper.joinURL(env.CDN_USERS, supplier.avatar),
+              uri: BookCarsHelper.joinURL(env.CDN_USERS, supplier.avatar),
             }}
           />
           <Text style={styles.supplierText}>{supplier.fullName}</Text>
@@ -137,11 +137,11 @@ const Booking = ({
         )}
 
         <Text style={styles.detailTitle}>{i18n.t('COST')}</Text>
-        <Text style={styles.detailTextBold}>{`${bookcarsHelper.formatPrice(booking.price as number, i18n.t('CURRENCY'), language)}`}</Text>
+        <Text style={styles.detailTextBold}>{`${BookCarsHelper.formatPrice(booking.price as number, i18n.t('CURRENCY'), language)}`}</Text>
 
         {booking.cancellation
           && !booking.cancelRequest
-          && booking.status !== bookcarsTypes.BookingStatus.Cancelled
+          && booking.status !== BookCarsTypes.BookingStatus.Cancelled
           && new Date(booking.from) >= today
           && (
             <Button

@@ -11,7 +11,7 @@ services:
     depends_on:
       - mongo
     volumes:
-      - cdn:/var/www/cdn/bookcars
+      - cdn:/var/www/cdn/BookCars
 
   mongo:
     image: mongo:latest
@@ -41,7 +41,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - cdn:/var/www/cdn/bookcars
+      - cdn:/var/www/cdn/BookCars
 
 volumes:
   cdn:

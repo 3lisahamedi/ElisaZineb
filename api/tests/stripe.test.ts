@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import request from 'supertest'
 import mongoose from 'mongoose'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import app from '../src/app'
 import * as databaseHelper from '../src/common/databaseHelper'
 import * as testHelper from './testHelper'
@@ -34,7 +34,7 @@ describe('POST /api/create-checkout-session', () => {
     // Test create checkout session whith non existant user
     //
     const receiptEmail = testHelper.GetRandomEmail()
-    const payload: bookcarsTypes.CreatePaymentPayload = {
+    const payload: BookCarsTypes.CreatePaymentPayload = {
       amount: 234,
       currency: 'usd',
       receiptEmail,
@@ -96,7 +96,7 @@ describe('POST /api/check-checkout-session/:sessionId', () => {
     // Checkout session exists but booking does not exist
     //
     const receiptEmail = testHelper.GetRandomEmail()
-    const payload: bookcarsTypes.CreatePaymentPayload = {
+    const payload: BookCarsTypes.CreatePaymentPayload = {
       amount: 234,
       currency: 'usd',
       receiptEmail,
@@ -134,7 +134,7 @@ describe('POST /api/check-checkout-session/:sessionId', () => {
       dropOffLocation: testHelper.GetRandromObjectId(),
       from,
       to,
-      status: bookcarsTypes.BookingStatus.Void,
+      status: BookCarsTypes.BookingStatus.Void,
       expireAt,
       sessionId,
       cancellation: true,
@@ -180,7 +180,7 @@ describe('POST /api/create-payment-intent', () => {
     // Test create payment intent whith non existant user
     //
     const receiptEmail = testHelper.GetRandomEmail()
-    const payload: bookcarsTypes.CreatePaymentPayload = {
+    const payload: BookCarsTypes.CreatePaymentPayload = {
       amount: 234,
       currency: 'usd',
       receiptEmail,

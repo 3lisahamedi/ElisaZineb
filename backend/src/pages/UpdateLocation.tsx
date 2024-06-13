@@ -7,8 +7,8 @@ import {
   Button,
   Paper
 } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import Layout from '../components/Layout'
 import { strings as commonStrings } from '../lang/common'
 import { strings as clStrings } from '../lang/create-location'
@@ -25,11 +25,11 @@ import '../assets/css/update-location.css'
 const UpdateLocation = () => {
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [names, setNames] = useState<bookcarsTypes.LocationName[]>([])
+  const [names, setNames] = useState<BookCarsTypes.LocationName[]>([])
   const [nameErrors, setNameErrors] = useState<boolean[]>([])
   const [noMatch, setNoMatch] = useState(false)
   const [error, setError] = useState(false)
-  const [location, setLocation] = useState<bookcarsTypes.Location>()
+  const [location, setLocation] = useState<BookCarsTypes.Location>()
   const [nameChanged, setNameChanged] = useState(false)
 
   const _error = () => {
@@ -89,7 +89,7 @@ const UpdateLocation = () => {
         }
       }
 
-      setNameErrors(bookcarsHelper.cloneArray(nameErrors) as boolean[])
+      setNameErrors(BookCarsHelper.cloneArray(nameErrors) as boolean[])
 
       if (isValid) {
         const status = await LocationService.update(location._id, names)
@@ -100,7 +100,7 @@ const UpdateLocation = () => {
             location.values[i].value = name.name
           }
 
-          setLocation(bookcarsHelper.clone(location))
+          setLocation(BookCarsHelper.clone(location))
           helper.info(strings.LOCATION_UPDATED)
         } else {
           _error()
@@ -111,7 +111,7 @@ const UpdateLocation = () => {
     }
   }
 
-  const onLoad = async (user?: bookcarsTypes.User) => {
+  const onLoad = async (user?: BookCarsTypes.User) => {
     if (user && user.verified) {
       setLoading(true)
 
@@ -129,7 +129,7 @@ const UpdateLocation = () => {
                 }
               })
 
-              const _names: bookcarsTypes.LocationName[] = _location.values.map((value) => ({
+              const _names: BookCarsTypes.LocationName[] = _location.values.map((value) => ({
                 language: value.language || '',
                 name: value.value || '',
               }))
@@ -182,7 +182,7 @@ const UpdateLocation = () => {
                       nameErrors[index] = false
                       names[index].name = e.target.value
                       checkName()
-                      setNames(bookcarsHelper.cloneArray(names) as bookcarsTypes.LocationName[])
+                      setNames(BookCarsHelper.cloneArray(names) as BookCarsTypes.LocationName[])
                     }}
                     autoComplete="off"
                   />

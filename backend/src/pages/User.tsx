@@ -11,8 +11,8 @@ import {
 } from '@mui/material'
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import { strings as commonStrings } from '../lang/common'
 import { strings as ulStrings } from '../lang/user-list'
@@ -31,8 +31,8 @@ const User = () => {
   const navigate = useNavigate()
   const statuses = helper.getBookingStatuses().map((status) => status.value)
 
-  const [loggedUser, setLoggedUser] = useState<bookcarsTypes.User>()
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [loggedUser, setLoggedUser] = useState<BookCarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(true)
   const [noMatch, setNoMatch] = useState(false)
@@ -86,7 +86,7 @@ const User = () => {
     setOpenDeleteDialog(false)
   }
 
-  const onLoad = async (_loggedUser?: bookcarsTypes.User) => {
+  const onLoad = async (_loggedUser?: BookCarsTypes.User) => {
     if (_loggedUser && _loggedUser.verified) {
       setLoading(true)
 
@@ -109,7 +109,7 @@ const User = () => {
               const admin = helper.admin(_loggedUser)
               if (admin) {
                 const _suppliers = await SupplierService.getAllSuppliers()
-                const supplierIds = bookcarsHelper.flattenSuppliers(_suppliers)
+                const supplierIds = BookCarsHelper.flattenSuppliers(_suppliers)
                 setState(supplierIds)
               } else {
                 setState([_loggedUser._id as string])
@@ -134,18 +134,18 @@ const User = () => {
     }
   }
 
-  const edit = loggedUser && user && (loggedUser.type === bookcarsTypes.RecordType.Admin || loggedUser._id === user._id || (loggedUser.type === bookcarsTypes.RecordType.Supplier && loggedUser._id === user.supplier))
-  const supplier = user && user.type === bookcarsTypes.RecordType.Supplier
+  const edit = loggedUser && user && (loggedUser.type === BookCarsTypes.RecordType.Admin || loggedUser._id === user._id || (loggedUser.type === BookCarsTypes.RecordType.Supplier && loggedUser._id === user.supplier))
+  const supplier = user && user.type === BookCarsTypes.RecordType.Supplier
 
   let _suppliers: string[] = []
   if (loggedUser && user) {
     if ((supplier && loggedUser._id === user._id)
-      || (loggedUser.type === bookcarsTypes.RecordType.Admin && user.type === bookcarsTypes.RecordType.Supplier)
+      || (loggedUser.type === BookCarsTypes.RecordType.Admin && user.type === BookCarsTypes.RecordType.Supplier)
     ) {
       _suppliers = [user._id as string]
-    } else if (loggedUser.type === bookcarsTypes.RecordType.Supplier && user.type === bookcarsTypes.RecordType.User) {
+    } else if (loggedUser.type === BookCarsTypes.RecordType.Supplier && user.type === BookCarsTypes.RecordType.User) {
       _suppliers = [loggedUser._id as string]
-    } else if (loggedUser.type === bookcarsTypes.RecordType.Admin) {
+    } else if (loggedUser.type === BookCarsTypes.RecordType.Admin) {
       _suppliers = suppliers
     }
   }

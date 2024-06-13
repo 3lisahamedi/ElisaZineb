@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, View } from 'react-native'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 
 import * as helper from '../common/helper'
 import * as env from '../config/env.config'
@@ -24,7 +24,7 @@ const SupplierFilter = ({
   onLoad,
   onChange
 }: SupplierFilterProps) => {
-  const [suppliers, setSuppliers] = useState<bookcarsTypes.User[]>([])
+  const [suppliers, setSuppliers] = useState<BookCarsTypes.User[]>([])
   const [checkedSuppliers, setCheckedSuppliers] = useState<string[]>([])
   const [allChecked, setAllChecked] = useState(true)
 
@@ -32,11 +32,11 @@ const SupplierFilter = ({
     try {
       const allSuppliers = await SupplierService.getAllSuppliers()
       if (allSuppliers) {
-        const _suppliers = allSuppliers.map((supplier: bookcarsTypes.User) => ({
+        const _suppliers = allSuppliers.map((supplier: BookCarsTypes.User) => ({
           ...supplier,
           checked: true,
         }))
-        const _checkedSuppliers = bookcarsHelper.flattenSuppliers(_suppliers)
+        const _checkedSuppliers = BookCarsHelper.flattenSuppliers(_suppliers)
         setSuppliers(_suppliers)
         setCheckedSuppliers(_checkedSuppliers)
         if (onLoad) {
@@ -68,7 +68,7 @@ const SupplierFilter = ({
                     onValueChange={(checked) => {
                       if (checked) {
                         supplier.checked = true
-                        setSuppliers(bookcarsHelper.clone(suppliers))
+                        setSuppliers(BookCarsHelper.clone(suppliers))
                         checkedSuppliers.push(supplier._id as string)
 
                         if (checkedSuppliers.length === suppliers.length) {
@@ -76,7 +76,7 @@ const SupplierFilter = ({
                         }
                       } else {
                         supplier.checked = false
-                        setSuppliers(bookcarsHelper.clone(suppliers))
+                        setSuppliers(BookCarsHelper.clone(suppliers))
                         const index = checkedSuppliers.indexOf(supplier._id as string)
                         checkedSuppliers.splice(index, 1)
 
@@ -86,14 +86,14 @@ const SupplierFilter = ({
                       }
 
                       if (onChange) {
-                        onChange(bookcarsHelper.clone(checkedSuppliers))
+                        onChange(BookCarsHelper.clone(checkedSuppliers))
                       }
                     }}
                   >
                     <Image
                       style={styles.image}
                       source={{
-                        uri: bookcarsHelper.joinURL(env.CDN_USERS, supplier.avatar),
+                        uri: BookCarsHelper.joinURL(env.CDN_USERS, supplier.avatar),
                       }}
                     />
                   </Switch>
@@ -112,15 +112,15 @@ const SupplierFilter = ({
                   supplier.checked = false
                 })
                 setAllChecked(false)
-                setSuppliers(bookcarsHelper.clone(suppliers))
+                setSuppliers(BookCarsHelper.clone(suppliers))
                 setCheckedSuppliers(_checkedSuppliers)
               } else {
                 suppliers.forEach((supplier) => {
                   supplier.checked = true
                 })
                 setAllChecked(true)
-                setSuppliers(bookcarsHelper.clone(suppliers))
-                _checkedSuppliers = bookcarsHelper.clone(bookcarsHelper.flattenSuppliers(suppliers))
+                setSuppliers(BookCarsHelper.clone(suppliers))
+                _checkedSuppliers = BookCarsHelper.clone(BookCarsHelper.flattenSuppliers(suppliers))
                 setCheckedSuppliers(_checkedSuppliers)
 
                 if (onChange) {

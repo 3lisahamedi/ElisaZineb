@@ -3,7 +3,7 @@ import Stripe from 'stripe'
 import stripeAPI from '../stripe'
 import i18n from '../lang/i18n'
 import * as logger from '../common/logger'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import * as env from '../config/env.config'
 import * as helper from '../common/helper'
 import Booking from '../models/Booking'
@@ -27,7 +27,7 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
     name,
     description,
     customerName,
-  }: bookcarsTypes.CreatePaymentPayload = req.body
+  }: BookCarsTypes.CreatePaymentPayload = req.body
 
   try {
     //
@@ -74,7 +74,7 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
       expires_at: expireAt,
     })
 
-    const result: bookcarsTypes.PaymentResult = {
+    const result: BookCarsTypes.PaymentResult = {
       sessionId: session.id,
       customerId: customer.id,
       clientSecret: session.client_secret,
@@ -127,7 +127,7 @@ export const checkCheckoutSession = async (req: Request, res: Response) => {
     //
     if (session.payment_status === 'paid') {
       booking.expireAt = undefined
-      booking.status = bookcarsTypes.BookingStatus.Paid
+      booking.status = BookCarsTypes.BookingStatus.Paid
       await booking.save()
 
       // Send confirmation email
@@ -152,7 +152,7 @@ export const checkCheckoutSession = async (req: Request, res: Response) => {
       await bookingController.notify(user, booking.id, supplier, message)
 
       // Notify admin
-      const admin = !!env.ADMIN_EMAIL && await User.findOne({ email: env.ADMIN_EMAIL, type: bookcarsTypes.UserType.Admin })
+      const admin = !!env.ADMIN_EMAIL && await User.findOne({ email: env.ADMIN_EMAIL, type: BookCarsTypes.UserType.Admin })
       if (admin) {
         i18n.locale = admin.language
         message = i18n.t('BOOKING_PAID_NOTIFICATION')
@@ -188,7 +188,7 @@ export const createPaymentIntent = async (req: Request, res: Response) => {
     receiptEmail,
     description,
     customerName,
-  }: bookcarsTypes.CreatePaymentPayload = req.body
+  }: BookCarsTypes.CreatePaymentPayload = req.body
 
   try {
     //
@@ -228,7 +228,7 @@ export const createPaymentIntent = async (req: Request, res: Response) => {
     //
     // 3. Send result
     //
-    const result: bookcarsTypes.PaymentResult = {
+    const result: BookCarsTypes.PaymentResult = {
       paymentIntentId: paymentIntent.id,
       customerId: customer.id,
       clientSecret: paymentIntent.client_secret,

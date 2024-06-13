@@ -8,7 +8,7 @@ import Button from './Button'
 import i18n from '../lang/i18n'
 import * as helper from '../common/helper'
 import Header from './Header'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 interface LayoutProps {
   navigation: NativeStackNavigationProp<StackParams, keyof StackParams>
@@ -20,7 +20,7 @@ interface LayoutProps {
   hideTitle?: boolean
   avatar?: string | null
   children: React.ReactNode
-  onLoad: (user?: bookcarsTypes.User) => void
+  onLoad: (user?: BookCarsTypes.User) => void
 }
 
 const Layout = ({
@@ -36,7 +36,7 @@ const Layout = ({
   onLoad
 }: LayoutProps) => {
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<bookcarsTypes.User | null>(null)
+  const [user, setUser] = useState<BookCarsTypes.User | null>(null)
   const [loggedIn, setLoggedIn] = useState(false)
 
   const exit = async (_reload = false) => {

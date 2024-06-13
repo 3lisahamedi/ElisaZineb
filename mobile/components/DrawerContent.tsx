@@ -19,7 +19,7 @@ import i18n from '../lang/i18n'
 import * as env from '../config/env.config'
 import * as helper from '../common/helper'
 import * as UserService from '../services/UserService'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 interface DrawerContentProps {
   language: string
@@ -71,7 +71,7 @@ const DrawerContent = ({
 
       const currentUser = await UserService.getCurrentUser()
       if (currentUser && currentUser._id) {
-        const data: bookcarsTypes.UpdateLanguagePayload = {
+        const data: BookCarsTypes.UpdateLanguagePayload = {
           id: currentUser._id,
           language: _language,
         }

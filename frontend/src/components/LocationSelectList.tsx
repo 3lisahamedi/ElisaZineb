@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { TextFieldVariants } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import * as LocationService from '../services/LocationService'
 import * as helper from '../common/helper'
 import MultipleSelect from './MultipleSelect'
 
 interface LocationSelectListProps {
-  value?: bookcarsTypes.Location | bookcarsTypes.Location[]
+  value?: BookCarsTypes.Location | BookCarsTypes.Location[]
   multiple?: boolean
   label?: string
   required?: boolean
@@ -17,7 +17,7 @@ interface LocationSelectListProps {
   customOpen?: boolean
   readOnly?: boolean
   init?: boolean
-  onChange?: (values: bookcarsTypes.Option[]) => void
+  onChange?: (values: BookCarsTypes.Option[]) => void
 }
 
 const LocationSelectList = ({
@@ -34,20 +34,20 @@ const LocationSelectList = ({
 }: LocationSelectListProps) => {
   const [init, setInit] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [rows, setRows] = useState<bookcarsTypes.Location[]>([])
+  const [rows, setRows] = useState<BookCarsTypes.Location[]>([])
   const [fetch, setFetch] = useState(true)
   const [page, setPage] = useState(1)
   const [keyword, setKeyword] = useState('')
-  const [selectedOptions, setSelectedOptions] = useState<bookcarsTypes.Location[]>([])
+  const [selectedOptions, setSelectedOptions] = useState<BookCarsTypes.Location[]>([])
 
   useEffect(() => {
-    const _value = multiple ? value as bookcarsTypes.Location[] : [value as bookcarsTypes.Location]
-    if (value && !bookcarsHelper.arrayEqual(selectedOptions, _value)) {
+    const _value = multiple ? value as BookCarsTypes.Location[] : [value as BookCarsTypes.Location]
+    if (value && !BookCarsHelper.arrayEqual(selectedOptions, _value)) {
       setSelectedOptions(_value)
     }
   }, [value, multiple, selectedOptions])
 
-  const fetchData = async (_page: number, _keyword: string, onFetch?: bookcarsTypes.DataEvent<bookcarsTypes.Location>) => {
+  const fetchData = async (_page: number, _keyword: string, onFetch?: BookCarsTypes.DataEvent<BookCarsTypes.Location>) => {
     try {
       if (fetch || _page === 1) {
         setLoading(true)
@@ -73,7 +73,7 @@ const LocationSelectList = ({
     }
   }
 
-  const handleChange = (values: bookcarsTypes.Option[]) => {
+  const handleChange = (values: BookCarsTypes.Option[]) => {
     if (onChange) {
       onChange(values)
     }
@@ -88,7 +88,7 @@ const LocationSelectList = ({
       selectedOptions={selectedOptions}
       required={required || false}
       multiple={multiple}
-      type={bookcarsTypes.RecordType.Location}
+      type={BookCarsTypes.RecordType.Location}
       variant={variant || 'standard'}
       hidePopupIcon={hidePopupIcon}
       customOpen={customOpen}

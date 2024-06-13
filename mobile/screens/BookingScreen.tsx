@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 import i18n from '../lang/i18n'
 import * as UserService from '../services/UserService'
@@ -15,7 +15,7 @@ const BookingScreen = ({ navigation, route }: NativeStackScreenProps<StackParams
   const [language, setLanguage] = useState(env.DEFAULT_LANGUAGE)
   const [reload, setReload] = useState(false)
   const [visible, setVisible] = useState(false)
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
 
   const _init = async () => {
     setVisible(false)

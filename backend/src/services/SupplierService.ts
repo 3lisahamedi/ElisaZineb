@@ -1,13 +1,13 @@
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import axiosInstance from './axiosInstance'
 
 /**
  * Validate Supplier name.
  *
- * @param {bookcarsTypes.ValidateSupplierPayload} data
+ * @param {BookCarsTypes.ValidateSupplierPayload} data
  * @returns {Promise<number>}
  */
-export const validate = (data: bookcarsTypes.ValidateSupplierPayload): Promise<number> =>
+export const validate = (data: BookCarsTypes.ValidateSupplierPayload): Promise<number> =>
   axiosInstance
     .post(
       '/api/validate-supplier',
@@ -19,10 +19,10 @@ export const validate = (data: bookcarsTypes.ValidateSupplierPayload): Promise<n
 /**
  * Update a Supplier.
  *
- * @param {bookcarsTypes.UpdateSupplierPayload} data
+ * @param {BookCarsTypes.UpdateSupplierPayload} data
  * @returns {Promise<number>}
  */
-export const update = (data: bookcarsTypes.UpdateSupplierPayload): Promise<number> =>
+export const update = (data: BookCarsTypes.UpdateSupplierPayload): Promise<number> =>
   axiosInstance
     .put(
       '/api/update-supplier',
@@ -49,9 +49,9 @@ export const deleteSupplier = (id: string): Promise<number> =>
  * Get a Supplier by ID.
  *
  * @param {string} id
- * @returns {Promise<bookcarsTypes.User>}
+ * @returns {Promise<BookCarsTypes.User>}
  */
-export const getSupplier = (id: string): Promise<bookcarsTypes.User> =>
+export const getSupplier = (id: string): Promise<BookCarsTypes.User> =>
   axiosInstance
     .get(
       `/api/supplier/${encodeURIComponent(id)}`,
@@ -65,9 +65,9 @@ export const getSupplier = (id: string): Promise<bookcarsTypes.User> =>
  * @param {string} keyword
  * @param {number} page
  * @param {number} size
- * @returns {Promise<bookcarsTypes.Result<bookcarsTypes.User>>}
+ * @returns {Promise<BookCarsTypes.Result<BookCarsTypes.User>>}
  */
-export const getSuppliers = (keyword: string, page: number, size: number): Promise<bookcarsTypes.Result<bookcarsTypes.User>> =>
+export const getSuppliers = (keyword: string, page: number, size: number): Promise<BookCarsTypes.Result<BookCarsTypes.User>> =>
   axiosInstance
     .get(
       `/api/suppliers/${page}/${size}/?s=${encodeURIComponent(keyword)}`,
@@ -78,9 +78,9 @@ export const getSuppliers = (keyword: string, page: number, size: number): Promi
 /**
  * Get all Suppliers.
  *
- * @returns {Promise<bookcarsTypes.User[]>}
+ * @returns {Promise<BookCarsTypes.User[]>}
  */
-export const getAllSuppliers = (): Promise<bookcarsTypes.User[]> =>
+export const getAllSuppliers = (): Promise<BookCarsTypes.User[]> =>
   axiosInstance
     .get(
       '/api/all-suppliers',

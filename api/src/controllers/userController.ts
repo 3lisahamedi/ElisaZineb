@@ -7,7 +7,7 @@ import escapeStringRegexp from 'escape-string-regexp'
 import mongoose from 'mongoose'
 import { CookieOptions, Request, Response } from 'express'
 import nodemailer from 'nodemailer'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import i18n from '../lang/i18n'
 import * as env from '../config/env.config'
 import User from '../models/User'
@@ -40,11 +40,11 @@ const getStatusMessage = (lang: string, msg: string) => (
  * @async
  * @param {Request} req
  * @param {Response} res
- * @param {bookcarsTypes.UserType} userType
+ * @param {BookCarsTypes.UserType} userType
  * @returns {unknown}
  */
-const _signup = async (req: Request, res: Response, userType: bookcarsTypes.UserType) => {
-  const { body }: { body: bookcarsTypes.SignUpPayload } = req
+const _signup = async (req: Request, res: Response, userType: BookCarsTypes.UserType) => {
+  const { body }: { body: BookCarsTypes.SignUpPayload } = req
 
   //
   // Create user
@@ -130,7 +130,7 @@ const _signup = async (req: Request, res: Response, userType: bookcarsTypes.User
  * @param {Response} res
  */
 export const signup = async (req: Request, res: Response) => {
-  await _signup(req, res, bookcarsTypes.UserType.User)
+  await _signup(req, res, BookCarsTypes.UserType.User)
 }
 
 /**
@@ -142,7 +142,7 @@ export const signup = async (req: Request, res: Response) => {
  * @param {Response} res
  */
 export const adminSignup = async (req: Request, res: Response) => {
-  await _signup(req, res, bookcarsTypes.UserType.Admin)
+  await _signup(req, res, BookCarsTypes.UserType.Admin)
 }
 
 /**
@@ -155,7 +155,7 @@ export const adminSignup = async (req: Request, res: Response) => {
  * @returns {unknown}
  */
 export const create = async (req: Request, res: Response) => {
-  const { body }: { body: bookcarsTypes.CreateUserPayload } = req
+  const { body }: { body: BookCarsTypes.CreateUserPayload } = req
 
   try {
     body.verified = false
@@ -204,7 +204,7 @@ export const create = async (req: Request, res: Response) => {
         ${i18n.t('HELLO')}${user.fullName},<br><br>
         ${i18n.t('ACCOUNT_ACTIVATION_LINK')}<br><br>
         ${helper.joinURL(
-          user.type === bookcarsTypes.UserType.User ? env.FRONTEND_HOST : env.BACKEND_HOST,
+          user.type === BookCarsTypes.UserType.User ? env.FRONTEND_HOST : env.BACKEND_HOST,
           'activate',
         )}/?u=${encodeURIComponent(user.id)}&e=${encodeURIComponent(user.email)}&t=${encodeURIComponent(token.token)}<br><br>
         ${i18n.t('REGARDS')}<br>
@@ -238,12 +238,12 @@ export const checkToken = async (req: Request, res: Response) => {
     })
 
     if (user) {
-      const type = req.params.type.toLowerCase() as bookcarsTypes.AppType
+      const type = req.params.type.toLowerCase() as BookCarsTypes.AppType
 
       if (
-        ![bookcarsTypes.AppType.Frontend, bookcarsTypes.AppType.Backend].includes(type)
-        || (type === bookcarsTypes.AppType.Backend && user.type === bookcarsTypes.UserType.User)
-        || (type === bookcarsTypes.AppType.Frontend && user.type !== bookcarsTypes.UserType.User)
+        ![BookCarsTypes.AppType.Frontend, BookCarsTypes.AppType.Backend].includes(type)
+        || (type === BookCarsTypes.AppType.Backend && user.type === BookCarsTypes.UserType.User)
+        || (type === BookCarsTypes.AppType.Frontend && user.type !== BookCarsTypes.UserType.User)
         || user.active
       ) {
         return res.sendStatus(204)
@@ -315,12 +315,12 @@ export const resend = async (req: Request, res: Response) => {
     const user = await User.findOne({ email })
 
     if (user) {
-      const type = req.params.type.toLowerCase() as bookcarsTypes.AppType
+      const type = req.params.type.toLowerCase() as BookCarsTypes.AppType
 
       if (
-        ![bookcarsTypes.AppType.Frontend, bookcarsTypes.AppType.Backend].includes(type)
-        || (type === bookcarsTypes.AppType.Backend && user.type === bookcarsTypes.UserType.User)
-        || (type === bookcarsTypes.AppType.Frontend && user.type !== bookcarsTypes.UserType.User)
+        ![BookCarsTypes.AppType.Frontend, BookCarsTypes.AppType.Backend].includes(type)
+        || (type === BookCarsTypes.AppType.Backend && user.type === BookCarsTypes.UserType.User)
+        || (type === BookCarsTypes.AppType.Frontend && user.type !== BookCarsTypes.UserType.User)
       ) {
         return res.sendStatus(403)
       }
@@ -345,7 +345,7 @@ export const resend = async (req: Request, res: Response) => {
           ${i18n.t('HELLO')}${user.fullName},<br><br>  
           ${reset ? i18n.t('PASSWORD_RESET_LINK') : i18n.t('ACCOUNT_ACTIVATION_LINK')}<br><br>  
           ${helper.joinURL(
-            user.type === bookcarsTypes.UserType.User ? env.FRONTEND_HOST : env.BACKEND_HOST,
+            user.type === BookCarsTypes.UserType.User ? env.FRONTEND_HOST : env.BACKEND_HOST,
             reset ? 'reset-password' : 'activate',
           )}/?u=${encodeURIComponent(user.id)}&e=${encodeURIComponent(user.email)}&t=${encodeURIComponent(token.token)}<br><br>
           ${i18n.t('REGARDS')}<br>
@@ -373,7 +373,7 @@ export const resend = async (req: Request, res: Response) => {
  * @returns {unknown}
  */
 export const activate = async (req: Request, res: Response) => {
-  const { body }: { body: bookcarsTypes.ActivatePayload } = req
+  const { body }: { body: BookCarsTypes.ActivatePayload } = req
   const { userId } = body
 
   try {
@@ -417,7 +417,7 @@ export const activate = async (req: Request, res: Response) => {
  * @returns {unknown}
  */
 export const signin = async (req: Request, res: Response) => {
-  const { body }: { body: bookcarsTypes.SignInPayload } = req
+  const { body }: { body: BookCarsTypes.SignInPayload } = req
   const { email: emailFromBody, password, stayConnected, mobile } = body
   const email = helper.trim(emailFromBody, ' ')
 
@@ -427,15 +427,15 @@ export const signin = async (req: Request, res: Response) => {
     }
 
     const user = await User.findOne({ email })
-    const type = req.params.type.toLowerCase() as bookcarsTypes.AppType
+    const type = req.params.type.toLowerCase() as BookCarsTypes.AppType
 
     if (
       !password
       || !user
       || !user.password
-      || ![bookcarsTypes.AppType.Frontend, bookcarsTypes.AppType.Backend].includes(type)
-      || (type === bookcarsTypes.AppType.Backend && user.type === bookcarsTypes.UserType.User)
-      || (type === bookcarsTypes.AppType.Frontend && user.type !== bookcarsTypes.UserType.User)
+      || ![BookCarsTypes.AppType.Frontend, BookCarsTypes.AppType.Backend].includes(type)
+      || (type === BookCarsTypes.AppType.Backend && user.type === BookCarsTypes.UserType.User)
+      || (type === BookCarsTypes.AppType.Frontend && user.type !== BookCarsTypes.UserType.User)
     ) {
       return res.sendStatus(204)
     }
@@ -477,7 +477,7 @@ export const signin = async (req: Request, res: Response) => {
 
       const token = jwt.sign(payload, env.JWT_SECRET, options)
 
-      const loggedUser: bookcarsTypes.User = {
+      const loggedUser: BookCarsTypes.User = {
         _id: user.id,
         email: user.email,
         fullName: user.fullName,
@@ -633,7 +633,7 @@ export const deletePushToken = async (req: Request, res: Response) => {
  * @returns {unknown}
  */
 export const validateEmail = async (req: Request, res: Response) => {
-  const { body }: { body: bookcarsTypes.ValidateEmailPayload } = req
+  const { body }: { body: BookCarsTypes.ValidateEmailPayload } = req
   const { email } = body
 
   try {
@@ -726,7 +726,7 @@ export const confirmEmail = async (req: Request, res: Response) => {
  * @returns {unknown}
  */
 export const resendLink = async (req: Request, res: Response) => {
-  const { body }: { body: bookcarsTypes.ResendLinkPayload } = req
+  const { body }: { body: BookCarsTypes.ResendLinkPayload } = req
   const { email } = body
 
   try {
@@ -788,7 +788,7 @@ export const resendLink = async (req: Request, res: Response) => {
  */
 export const update = async (req: Request, res: Response) => {
   try {
-    const { body }: { body: bookcarsTypes.UpdateUserPayload } = req
+    const { body }: { body: BookCarsTypes.UpdateUserPayload } = req
     const { _id } = body
 
     if (!helper.isValidObjectId(_id)) {
@@ -821,7 +821,7 @@ export const update = async (req: Request, res: Response) => {
     user.bio = bio
     user.birthDate = birthDate ? new Date(birthDate) : undefined
     if (type) {
-      user.type = type as bookcarsTypes.UserType
+      user.type = type as BookCarsTypes.UserType
     }
     if (typeof enableEmailNotifications !== 'undefined') {
       user.enableEmailNotifications = enableEmailNotifications
@@ -848,7 +848,7 @@ export const update = async (req: Request, res: Response) => {
  * @returns {unknown}
  */
 export const updateEmailNotifications = async (req: Request, res: Response) => {
-  const { body }: { body: bookcarsTypes.UpdateEmailNotificationsPayload } = req
+  const { body }: { body: BookCarsTypes.UpdateEmailNotificationsPayload } = req
 
   try {
     const { _id } = body
@@ -886,7 +886,7 @@ export const updateEmailNotifications = async (req: Request, res: Response) => {
  */
 export const updateLanguage = async (req: Request, res: Response) => {
   try {
-    const { body }: { body: bookcarsTypes.UpdateLanguagePayload } = req
+    const { body }: { body: BookCarsTypes.UpdateLanguagePayload } = req
     const { id, language } = body
 
     if (!helper.isValidObjectId(id)) {
@@ -1100,7 +1100,7 @@ export const deleteTempAvatar = async (req: Request, res: Response) => {
  * @returns {unknown}
  */
 export const changePassword = async (req: Request, res: Response) => {
-  const { body }: { body: bookcarsTypes.ChangePasswordPayload } = req
+  const { body }: { body: BookCarsTypes.ChangePasswordPayload } = req
   const {
     _id,
     password: currentPassword,
@@ -1204,7 +1204,7 @@ export const getUsers = async (req: Request, res: Response) => {
     const options = 'i'
     const page = Number.parseInt(req.params.page, 10)
     const size = Number.parseInt(req.params.size, 10)
-    const { body }: { body: bookcarsTypes.GetUsersBody } = req
+    const { body }: { body: BookCarsTypes.GetUsersBody } = req
     const { types, user: userId } = body
 
     const $match: mongoose.FilterQuery<any> = {
@@ -1293,7 +1293,7 @@ export const deleteUsers = async (req: Request, res: Response) => {
           }
         }
 
-        if (user.type === bookcarsTypes.UserType.Supplier) {
+        if (user.type === BookCarsTypes.UserType.Supplier) {
           const additionalDrivers = (await Booking.find({ supplier: id, _additionalDriver: { $ne: null } }, { _id: 0, _additionalDriver: 1 })).map((b) => b._additionalDriver)
           await AdditionalDriver.deleteMany({ _id: { $in: additionalDrivers } })
           await Booking.deleteMany({ supplier: id })
@@ -1307,7 +1307,7 @@ export const deleteUsers = async (req: Request, res: Response) => {
               }
             }
           }
-        } else if (user.type === bookcarsTypes.UserType.User) {
+        } else if (user.type === BookCarsTypes.UserType.User) {
           await Booking.deleteMany({ driver: id })
         }
         await NotificationCounter.deleteMany({ user: id })

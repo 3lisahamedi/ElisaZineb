@@ -6,8 +6,8 @@ import {
   IconButton
 } from '@mui/material'
 import { Search as SearchIcon, Clear as ClearIcon } from '@mui/icons-material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/booking-filter'
 import LocationSelectList from './LocationSelectList'
@@ -20,7 +20,7 @@ interface BookingFilterProps {
   collapse?: boolean
   className?: string
   language?: string
-  onSubmit?: (filter: bookcarsTypes.Filter | null) => void
+  onSubmit?: (filter: BookCarsTypes.Filter | null) => void
 }
 
 const BookingFilter = ({
@@ -42,18 +42,18 @@ const BookingFilter = ({
     setKeyword(e.target.value)
   }
 
-  const handlePickupLocationChange = (locations: bookcarsTypes.Option[]) => {
+  const handlePickupLocationChange = (locations: BookCarsTypes.Option[]) => {
     setPickupLocation(locations.length > 0 ? locations[0]._id : '')
   }
 
-  const handleDropOffLocationChange = (locations: bookcarsTypes.Option[]) => {
+  const handleDropOffLocationChange = (locations: BookCarsTypes.Option[]) => {
     setDropOffLocation(locations.length > 0 ? locations[0]._id : '')
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLElement>) => {
     e.preventDefault()
 
-    let filter: bookcarsTypes.Filter | null = {
+    let filter: BookCarsTypes.Filter | null = {
       from,
       to,
       pickupLocation,
@@ -65,7 +65,7 @@ const BookingFilter = ({
       filter = null
     }
     if (onSubmit) {
-      onSubmit(bookcarsHelper.clone(filter))
+      onSubmit(BookCarsHelper.clone(filter))
     }
   }
 

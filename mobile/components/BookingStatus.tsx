@@ -1,12 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 import * as helper from '../common/helper'
 
 interface BookingStatusProps {
   style: object
-  status: bookcarsTypes.BookingStatus
+  status: BookCarsTypes.BookingStatus
 }
 
 const BookingStatus = ({
@@ -18,17 +18,17 @@ const BookingStatus = ({
         ...styles.container,
         ...style,
         backgroundColor:
-          status === bookcarsTypes.BookingStatus.Void
+          status === BookCarsTypes.BookingStatus.Void
             ? '#999'
-            : status === bookcarsTypes.BookingStatus.Pending
+            : status === BookCarsTypes.BookingStatus.Pending
               ? '#e98003'
-              : status === bookcarsTypes.BookingStatus.Deposit
+              : status === BookCarsTypes.BookingStatus.Deposit
                 ? '#22bba7'
-                : status === bookcarsTypes.BookingStatus.Paid
+                : status === BookCarsTypes.BookingStatus.Paid
                   ? '#77bc23'
-                  : status === bookcarsTypes.BookingStatus.Reserved
+                  : status === BookCarsTypes.BookingStatus.Reserved
                     ? '#188ace'
-                    : status === bookcarsTypes.BookingStatus.Cancelled
+                    : status === BookCarsTypes.BookingStatus.Cancelled
                       ? '#bc2143'
                       : 'transparent',
       }}

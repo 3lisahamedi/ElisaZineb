@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native'
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 import * as helper from '../common/helper'
 import * as env from '../config/env.config'
@@ -22,10 +22,10 @@ interface CarListProps {
   mileage?: string[]
   deposit?: number
   header?: React.ReactElement
-  cars?: bookcarsTypes.Car[]
+  cars?: BookCarsTypes.Car[]
   hidePrice?: boolean
   footerComponent?: React.ReactElement
-  onLoad?: bookcarsTypes.DataEvent<bookcarsTypes.Car>
+  onLoad?: BookCarsTypes.DataEvent<BookCarsTypes.Car>
 }
 
 const CarList = ({
@@ -49,7 +49,7 @@ const CarList = ({
   const [onScrollEnd, setOnScrollEnd] = useState(false)
   const [loading, setLoading] = useState(true)
   const [fetch, setFetch] = useState(false)
-  const [rows, setRows] = useState<bookcarsTypes.Car[]>([])
+  const [rows, setRows] = useState<BookCarsTypes.Car[]>([])
   const [page, setPage] = useState(1)
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const CarList = ({
         setLoading(true)
         setFetch(true)
 
-        const payload: bookcarsTypes.GetCarsPayload = {
+        const payload: BookCarsTypes.GetCarsPayload = {
           suppliers: _suppliers,
           pickupLocation: _pickupLocation,
           carType: __carType,

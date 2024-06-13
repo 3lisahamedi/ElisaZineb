@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import * as env from '../config/env.config'
 
 const carSchema = new Schema<env.Car>(
@@ -43,18 +43,18 @@ const carSchema = new Schema<env.Car>(
     type: {
       type: String,
       enum: [
-        bookcarsTypes.CarType.Diesel,
-        bookcarsTypes.CarType.Gasoline,
-        bookcarsTypes.CarType.Electric,
-        bookcarsTypes.CarType.Hybrid,
-        bookcarsTypes.CarType.PlugInHybrid,
-        bookcarsTypes.CarType.Unknown,
+        BookCarsTypes.CarType.Diesel,
+        BookCarsTypes.CarType.Gasoline,
+        BookCarsTypes.CarType.Electric,
+        BookCarsTypes.CarType.Hybrid,
+        BookCarsTypes.CarType.PlugInHybrid,
+        BookCarsTypes.CarType.Unknown,
       ],
       required: [true, "can't be blank"],
     },
     gearbox: {
       type: String,
-      enum: [bookcarsTypes.GearboxType.Manual, bookcarsTypes.GearboxType.Automatic],
+      enum: [BookCarsTypes.GearboxType.Manual, BookCarsTypes.GearboxType.Automatic],
       required: [true, "can't be blank"],
     },
     aircon: {
@@ -82,7 +82,7 @@ const carSchema = new Schema<env.Car>(
     },
     fuelPolicy: {
       type: String,
-      enum: [bookcarsTypes.FuelPolicy.LikeForlike, bookcarsTypes.FuelPolicy.FreeTank],
+      enum: [BookCarsTypes.FuelPolicy.LikeForlike, BookCarsTypes.FuelPolicy.FreeTank],
       required: [true, "can't be blank"],
     },
     mileage: {

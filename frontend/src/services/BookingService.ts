@@ -1,14 +1,14 @@
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import axiosInstance from './axiosInstance'
 import * as UserService from './UserService'
 
 /**
  * Complete the checkout process and create the Booking.
  *
- * @param {bookcarsTypes.CheckoutPayload} data
+ * @param {BookCarsTypes.CheckoutPayload} data
  * @returns {Promise<number>}
  */
-export const checkout = (data: bookcarsTypes.CheckoutPayload): Promise<{ status: number, bookingId: string }> =>
+export const checkout = (data: BookCarsTypes.CheckoutPayload): Promise<{ status: number, bookingId: string }> =>
   axiosInstance
     .post(
       '/api/checkout',
@@ -19,10 +19,10 @@ export const checkout = (data: bookcarsTypes.CheckoutPayload): Promise<{ status:
 /**
  * Update a Booking.
  *
- * @param {bookcarsTypes.UpsertBookingPayload} data
+ * @param {BookCarsTypes.UpsertBookingPayload} data
  * @returns {Promise<number>}
  */
-export const update = (data: bookcarsTypes.UpsertBookingPayload): Promise<number> =>
+export const update = (data: BookCarsTypes.UpsertBookingPayload): Promise<number> =>
   axiosInstance
     .put(
       '/api/update-booking',
@@ -34,12 +34,12 @@ export const update = (data: bookcarsTypes.UpsertBookingPayload): Promise<number
 /**
  * Get bookings.
  *
- * @param {bookcarsTypes.GetBookingsPayload} payload
+ * @param {BookCarsTypes.GetBookingsPayload} payload
  * @param {number} page
  * @param {number} size
- * @returns {Promise<bookcarsTypes.Result<bookcarsTypes.Booking>>}
+ * @returns {Promise<BookCarsTypes.Result<BookCarsTypes.Booking>>}
  */
-export const getBookings = (payload: bookcarsTypes.GetBookingsPayload, page: number, size: number): Promise<bookcarsTypes.Result<bookcarsTypes.Booking>> =>
+export const getBookings = (payload: BookCarsTypes.GetBookingsPayload, page: number, size: number): Promise<BookCarsTypes.Result<BookCarsTypes.Booking>> =>
   axiosInstance
     .post(
       `/api/bookings/${page}/${size}/${UserService.getLanguage()}`,
@@ -52,9 +52,9 @@ export const getBookings = (payload: bookcarsTypes.GetBookingsPayload, page: num
  * Get a Booking by ID.
  *
  * @param {string} id
- * @returns {Promise<bookcarsTypes.Booking>}
+ * @returns {Promise<BookCarsTypes.Booking>}
  */
-export const getBooking = (id: string): Promise<bookcarsTypes.Booking> =>
+export const getBooking = (id: string): Promise<BookCarsTypes.Booking> =>
   axiosInstance
     .get(
       `/api/booking/${encodeURIComponent(id)}/${UserService.getLanguage()}`,

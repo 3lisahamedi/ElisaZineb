@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { TextFieldVariants } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import * as SupplierService from '../services/SupplierService'
 import * as helper from '../common/helper'
 import MultipleSelect from './MultipleSelect'
 
 interface SupplierSelectListProps {
-  value?: bookcarsTypes.Option | bookcarsTypes.Option[]
+  value?: BookCarsTypes.Option | BookCarsTypes.Option[]
   multiple?: boolean
   label?: string
   required?: boolean
   readOnly?: boolean
   variant?: TextFieldVariants
-  onChange?: (values: bookcarsTypes.Option[]) => void
+  onChange?: (values: BookCarsTypes.Option[]) => void
 }
 
 const SupplierSelectList = ({
@@ -28,20 +28,20 @@ const SupplierSelectList = ({
 }: SupplierSelectListProps) => {
   const [init, setInit] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [rows, setRows] = useState<bookcarsTypes.Option[]>([])
+  const [rows, setRows] = useState<BookCarsTypes.Option[]>([])
   const [fetch, setFetch] = useState(true)
   const [page, setPage] = useState(1)
   const [keyword, setKeyword] = useState('')
-  const [selectedOptions, setSelectedOptions] = useState<bookcarsTypes.Option[]>([])
+  const [selectedOptions, setSelectedOptions] = useState<BookCarsTypes.Option[]>([])
 
   useEffect(() => {
     const _value = multiple ? value : [value]
-    if (value && !bookcarsHelper.arrayEqual(selectedOptions, _value)) {
-      setSelectedOptions(_value as bookcarsTypes.Option[])
+    if (value && !BookCarsHelper.arrayEqual(selectedOptions, _value)) {
+      setSelectedOptions(_value as BookCarsTypes.Option[])
     }
   }, [value, multiple, selectedOptions])
 
-  const getSuppliers = (suppliers: bookcarsTypes.User[]): bookcarsTypes.Option[] =>
+  const getSuppliers = (suppliers: BookCarsTypes.User[]): BookCarsTypes.Option[] =>
     suppliers.map((supplier) => {
       const { _id, fullName, avatar } = supplier
       return { _id: _id as string, name: fullName, image: avatar }
@@ -72,7 +72,7 @@ const SupplierSelectList = ({
     }
   }
 
-  const handleChange = (values: bookcarsTypes.Option[]) => {
+  const handleChange = (values: BookCarsTypes.Option[]) => {
     if (onChange) {
       onChange(values)
     }
@@ -88,7 +88,7 @@ const SupplierSelectList = ({
       required={required || false}
       readOnly={readOnly}
       multiple={multiple}
-      type={bookcarsTypes.RecordType.Supplier}
+      type={BookCarsTypes.RecordType.Supplier}
       variant={variant || 'standard'}
       ListboxProps={{
         onScroll: (event) => {

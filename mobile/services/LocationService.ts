@@ -1,6 +1,6 @@
 import axiosInstance from './axiosInstance'
 import * as UserService from './UserService'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 /**
  * Get locations.
@@ -9,9 +9,9 @@ import * as bookcarsTypes from ':bookcars-types'
  * @param {string} keyword
  * @param {number} page
  * @param {number} size
- * @returns {Promise<bookcarsTypes.Result<bookcarsTypes.Location>>}
+ * @returns {Promise<BookCarsTypes.Result<BookCarsTypes.Location>>}
  */
-export const getLocations = async (keyword: string, page: number, size: number): Promise<bookcarsTypes.Result<bookcarsTypes.Location>> => {
+export const getLocations = async (keyword: string, page: number, size: number): Promise<BookCarsTypes.Result<BookCarsTypes.Location>> => {
   const language = await UserService.getLanguage()
   return axiosInstance
     .get(
@@ -25,9 +25,9 @@ export const getLocations = async (keyword: string, page: number, size: number):
  *
  * @async
  * @param {string} id
- * @returns {Promise<bookcarsTypes.Location>}
+ * @returns {Promise<BookCarsTypes.Location>}
  */
-export const getLocation = async (id: string): Promise<bookcarsTypes.Location> => {
+export const getLocation = async (id: string): Promise<BookCarsTypes.Location> => {
   const language = await UserService.getLanguage()
   return axiosInstance
     .get(

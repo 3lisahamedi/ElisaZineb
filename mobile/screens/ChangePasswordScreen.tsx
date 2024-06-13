@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { ScrollView, StyleSheet, View, TextInput as ReactTextInput } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 import Layout from '../components/Layout'
 import i18n from '../lang/i18n'
@@ -15,7 +15,7 @@ const ChangePasswordScreen = ({ navigation, route }: NativeStackScreenProps<Stac
   const isFocused = useIsFocused()
   const [reload, setReload] = useState(false)
   const [visible, setVisible] = useState(false)
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [currentPassword, setCurrentPassword] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -168,7 +168,7 @@ const ChangePasswordScreen = ({ navigation, route }: NativeStackScreenProps<Stac
         return
       }
 
-      const data: bookcarsTypes.ChangePasswordPayload = {
+      const data: BookCarsTypes.ChangePasswordPayload = {
         _id: user._id,
         password: currentPassword,
         newPassword: password,

@@ -27,8 +27,8 @@ import {
 } from '@mui/icons-material'
 import { format } from 'date-fns'
 import { fr as dfnsFR, enUS as dfnsENUS } from 'date-fns/locale'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import * as BookingService from '../services/BookingService'
 import * as helper from '../common/helper'
 import { strings } from '../lang/booking-list'
@@ -41,10 +41,10 @@ import '../assets/css/booking-list.css'
 interface BookingListProps {
   suppliers?: string[]
   statuses?: string[]
-  filter?: bookcarsTypes.Filter | null
+  filter?: BookCarsTypes.Filter | null
   car?: string
   offset?: number
-  user?: bookcarsTypes.User
+  user?: BookCarsTypes.User
   containerClassName?: string
   hideDates?: boolean
   hideCarColumn?: boolean
@@ -52,7 +52,7 @@ interface BookingListProps {
   language?: string
   loading?: boolean
   checkboxSelection?: boolean
-  onLoad?: bookcarsTypes.DataEvent<bookcarsTypes.Booking>
+  onLoad?: BookCarsTypes.DataEvent<BookCarsTypes.Booking>
 }
 
 const BookingList = ({
@@ -71,17 +71,17 @@ const BookingList = ({
   checkboxSelection,
   onLoad,
 }: BookingListProps) => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(env.isMobile() ? env.BOOKINGS_MOBILE_PAGE_SIZE : env.BOOKINGS_PAGE_SIZE)
-  const [columns, setColumns] = useState<GridColDef<bookcarsTypes.Booking>[]>([])
-  const [rows, setRows] = useState<bookcarsTypes.Booking[]>([])
+  const [columns, setColumns] = useState<GridColDef<BookCarsTypes.Booking>[]>([])
+  const [rows, setRows] = useState<BookCarsTypes.Booking[]>([])
   const [rowCount, setRowCount] = useState(0)
   const [fetch, setFetch] = useState(false)
   const [selectedId, setSelectedId] = useState('')
   const [suppliers, setSuppliers] = useState<string[] | undefined>(bookingSuppliers)
   const [statuses, setStatuses] = useState<string[] | undefined>(bookingStatuses)
-  const [filter, setFilter] = useState<bookcarsTypes.Filter | undefined | null>(bookingFilter)
+  const [filter, setFilter] = useState<BookCarsTypes.Filter | undefined | null>(bookingFilter)
   const [car, setCar] = useState<string>(bookingCar || '')
   const [offset, setOffset] = useState(0)
   const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
@@ -101,14 +101,14 @@ const BookingList = ({
     }
   }, [paginationModel])
 
-  const fetchData = async (_page: number, _user?: bookcarsTypes.User) => {
+  const fetchData = async (_page: number, _user?: BookCarsTypes.User) => {
     try {
       const _pageSize = env.isMobile() ? env.BOOKINGS_MOBILE_PAGE_SIZE : pageSize
 
       if (suppliers && statuses) {
         setLoading(true)
 
-        const payload: bookcarsTypes.GetBookingsPayload = {
+        const payload: BookCarsTypes.GetBookingsPayload = {
           suppliers,
           statuses,
           filter: filter || undefined,
@@ -193,7 +193,7 @@ const BookingList = ({
       if (page === 0) {
         fetchData(0, user)
       } else {
-        const _paginationModel = bookcarsHelper.clone(paginationModel)
+        const _paginationModel = BookCarsHelper.clone(paginationModel)
         _paginationModel.page = 0
         setPaginationModel(_paginationModel)
       }
@@ -203,14 +203,14 @@ const BookingList = ({
   const getDate = (date?: string) => {
     if (date) {
       const d = new Date(date)
-      return `${bookcarsHelper.formatDatePart(d.getDate())}-${bookcarsHelper.formatDatePart(d.getMonth() + 1)}-${d.getFullYear()}`
+      return `${BookCarsHelper.formatDatePart(d.getDate())}-${BookCarsHelper.formatDatePart(d.getMonth() + 1)}-${d.getFullYear()}`
     }
 
     throw new Error('Invalid date')
   }
 
-  const getColumns = (): GridColDef<bookcarsTypes.Booking>[] => {
-    const _columns: GridColDef<bookcarsTypes.Booking>[] = [
+  const getColumns = (): GridColDef<BookCarsTypes.Booking>[] => {
+    const _columns: GridColDef<BookCarsTypes.Booking>[] = [
       {
         field: 'from',
         headerName: commonStrings.FROM,
@@ -227,14 +227,14 @@ const BookingList = ({
         field: 'price',
         headerName: strings.PRICE,
         flex: 1,
-        renderCell: ({ value }: GridRenderCellParams<bookcarsTypes.Booking, string>) => <span className="bp">{value}</span>,
-        valueGetter: (value: number) => bookcarsHelper.formatPrice(value, commonStrings.CURRENCY, language as string),
+        renderCell: ({ value }: GridRenderCellParams<BookCarsTypes.Booking, string>) => <span className="bp">{value}</span>,
+        valueGetter: (value: number) => BookCarsHelper.formatPrice(value, commonStrings.CURRENCY, language as string),
       },
       {
         field: 'status',
         headerName: strings.STATUS,
         flex: 1,
-        renderCell: ({ value }: GridRenderCellParams<bookcarsTypes.Booking, bookcarsTypes.BookingStatus>) => <span className={`bs bs-${value?.toLowerCase()}`}>{helper.getBookingStatus(value)}</span>,
+        renderCell: ({ value }: GridRenderCellParams<BookCarsTypes.Booking, BookCarsTypes.BookingStatus>) => <span className={`bs bs-${value?.toLowerCase()}`}>{helper.getBookingStatus(value)}</span>,
         valueGetter: (value: string) => value,
       },
       {
@@ -242,7 +242,7 @@ const BookingList = ({
         headerName: '',
         sortable: false,
         disableColumnMenu: true,
-        renderCell: ({ row }: GridRenderCellParams<bookcarsTypes.Booking>) => {
+        renderCell: ({ row }: GridRenderCellParams<BookCarsTypes.Booking>) => {
           const cancelBooking = (e: React.MouseEvent<HTMLElement>) => {
             e.stopPropagation() // don't select this row after clicking
             setSelectedId(row._id || '')
@@ -264,7 +264,7 @@ const BookingList = ({
               </Tooltip>
               {row.cancellation
                 && !row.cancelRequest
-                && row.status !== bookcarsTypes.BookingStatus.Cancelled
+                && row.status !== BookCarsTypes.BookingStatus.Cancelled
                 && new Date(row.from) >= today && (
                   <Tooltip title={strings.CANCEL}>
                     <IconButton onClick={cancelBooking}>
@@ -287,7 +287,7 @@ const BookingList = ({
         field: 'car',
         headerName: strings.CAR,
         flex: 1,
-        valueGetter: (value: bookcarsTypes.Car) => value?.name,
+        valueGetter: (value: BookCarsTypes.Car) => value?.name,
       })
     }
 
@@ -296,12 +296,12 @@ const BookingList = ({
         field: 'supplier',
         headerName: commonStrings.SUPPLIER,
         flex: 1,
-        renderCell: ({ row, value }: GridRenderCellParams<bookcarsTypes.Booking, string>) => (
+        renderCell: ({ row, value }: GridRenderCellParams<BookCarsTypes.Booking, string>) => (
           <div className="cell-supplier">
-            <img src={bookcarsHelper.joinURL(env.CDN_USERS, (row.supplier as bookcarsTypes.User).avatar)} alt={value} />
+            <img src={BookCarsHelper.joinURL(env.CDN_USERS, (row.supplier as BookCarsTypes.User).avatar)} alt={value} />
           </div>
         ),
-        valueGetter: (value: bookcarsTypes.User) => value?.fullName,
+        valueGetter: (value: BookCarsTypes.User) => value?.fullName,
       })
     }
 
@@ -316,7 +316,7 @@ const BookingList = ({
       if (page === 0) {
         fetchData(0, user)
       } else {
-        const _paginationModel = bookcarsHelper.clone(paginationModel)
+        const _paginationModel = BookCarsHelper.clone(paginationModel)
         _paginationModel.page = 0
         setPaginationModel(_paginationModel)
       }
@@ -403,11 +403,11 @@ const BookingList = ({
         ) : env.isMobile() ? (
           <>
             {rows.map((booking) => {
-              const _bookingCar = booking.car as bookcarsTypes.Car
-              const bookingSupplier = booking.supplier as bookcarsTypes.User
+              const _bookingCar = booking.car as BookCarsTypes.Car
+              const bookingSupplier = booking.supplier as BookCarsTypes.User
               const from = new Date(booking.from)
               const to = new Date(booking.to)
-              const days = bookcarsHelper.days(from, to)
+              const days = BookCarsHelper.days(from, to)
 
               return (
                 <div key={booking._id} className="booking-details">
@@ -416,29 +416,29 @@ const BookingList = ({
                   </div>
                   <div className="booking-detail" style={{ height: bookingDetailHeight }}>
                     <span className="booking-detail-title">{strings.CAR}</span>
-                    <div className="booking-detail-value">{`${_bookingCar.name} (${bookcarsHelper.formatPrice(_bookingCar.price, commonStrings.CURRENCY, language as string)}${commonStrings.DAILY})`}</div>
+                    <div className="booking-detail-value">{`${_bookingCar.name} (${BookCarsHelper.formatPrice(_bookingCar.price, commonStrings.CURRENCY, language as string)}${commonStrings.DAILY})`}</div>
                   </div>
                   <div className="booking-detail" style={{ height: bookingDetailHeight }}>
                     <span className="booking-detail-title">{strings.DAYS}</span>
                     <div className="booking-detail-value">
-                      {`${helper.getDaysShort(bookcarsHelper.days(from, to))} (${bookcarsHelper.capitalize(
+                      {`${helper.getDaysShort(BookCarsHelper.days(from, to))} (${BookCarsHelper.capitalize(
                         format(from, _format, { locale: _locale }),
-                      )} - ${bookcarsHelper.capitalize(format(to, _format, { locale: _locale }))})`}
+                      )} - ${BookCarsHelper.capitalize(format(to, _format, { locale: _locale }))})`}
                     </div>
                   </div>
                   <div className="booking-detail" style={{ height: bookingDetailHeight }}>
                     <span className="booking-detail-title">{commonStrings.PICKUP_LOCATION}</span>
-                    <div className="booking-detail-value">{(booking.pickupLocation as bookcarsTypes.Location).name}</div>
+                    <div className="booking-detail-value">{(booking.pickupLocation as BookCarsTypes.Location).name}</div>
                   </div>
                   <div className="booking-detail" style={{ height: bookingDetailHeight }}>
                     <span className="booking-detail-title">{commonStrings.DROP_OFF_LOCATION}</span>
-                    <div className="booking-detail-value">{(booking.dropOffLocation as bookcarsTypes.Location).name}</div>
+                    <div className="booking-detail-value">{(booking.dropOffLocation as BookCarsTypes.Location).name}</div>
                   </div>
                   <div className="booking-detail" style={{ height: bookingDetailHeight }}>
                     <span className="booking-detail-title">{commonStrings.SUPPLIER}</span>
                     <div className="booking-detail-value">
                       <div className="car-supplier">
-                        <img src={bookcarsHelper.joinURL(env.CDN_USERS, bookingSupplier.avatar)} alt={bookingSupplier.fullName} />
+                        <img src={BookCarsHelper.joinURL(env.CDN_USERS, bookingSupplier.avatar)} alt={bookingSupplier.fullName} />
                         <span className="car-supplier-name">{bookingSupplier.fullName}</span>
                       </div>
                     </div>
@@ -503,13 +503,13 @@ const BookingList = ({
                     )}
                   <div className="booking-detail" style={{ height: bookingDetailHeight }}>
                     <span className="booking-detail-title">{strings.COST}</span>
-                    <div className="booking-detail-value booking-price">{bookcarsHelper.formatPrice(booking.price as number, commonStrings.CURRENCY, language as string)}</div>
+                    <div className="booking-detail-value booking-price">{BookCarsHelper.formatPrice(booking.price as number, commonStrings.CURRENCY, language as string)}</div>
                   </div>
 
                   <div className="bs-buttons">
                     {booking.cancellation
                       && !booking.cancelRequest
-                      && booking.status !== bookcarsTypes.BookingStatus.Cancelled
+                      && booking.status !== BookCarsTypes.BookingStatus.Cancelled
                       && new Date(booking.from) > new Date() && (
                         <Button
                           variant="contained"
@@ -531,7 +531,7 @@ const BookingList = ({
           <DataGrid
             className="data-grid"
             checkboxSelection={checkboxSelection}
-            getRowId={(row: bookcarsTypes.Booking): GridRowId => row._id as GridRowId}
+            getRowId={(row: BookCarsTypes.Booking): GridRowId => row._id as GridRowId}
             columns={columns}
             rows={rows}
             rowCount={rowCount}

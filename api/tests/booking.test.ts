@@ -2,7 +2,7 @@ import 'dotenv/config'
 import request from 'supertest'
 import { v1 as uuid } from 'uuid'
 import mongoose from 'mongoose'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import app from '../src/app'
 import * as databaseHelper from '../src/common/databaseHelper'
 import * as testHelper from './testHelper'
@@ -25,7 +25,7 @@ let BOOKING_ID: string
 let ADDITIONAL_DRIVER_ID: string
 
 const ADDITIONAL_DRIVER_EMAIL: string = testHelper.GetRandomEmail()
-const ADDITIONAL_DRIVER: bookcarsTypes.AdditionalDriver = {
+const ADDITIONAL_DRIVER: BookCarsTypes.AdditionalDriver = {
   email: ADDITIONAL_DRIVER_EMAIL,
   fullName: 'Additional Driver 1',
   birthDate: new Date(1990, 5, 20),
@@ -45,7 +45,7 @@ beforeAll(async () => {
 
   // create a supplier
   const supplierName = testHelper.getSupplierName()
-  SUPPLIER_ID = await testHelper.createSupplier(`${supplierName}@test.bookcars.ma`, supplierName)
+  SUPPLIER_ID = await testHelper.createSupplier(`${supplierName}@test.BookCars.ma`, supplierName)
 
   // get user id
   DRIVER1_ID = testHelper.getUserId()
@@ -54,7 +54,7 @@ beforeAll(async () => {
   LOCATION_ID = await testHelper.createLocation('Location 1 EN', 'Location 1 FR')
 
   // create car
-  const payload: bookcarsTypes.CreateCarPayload = {
+  const payload: BookCarsTypes.CreateCarPayload = {
     name: 'BMW X1',
     supplier: SUPPLIER_ID,
     minimumAge: 21,
@@ -62,12 +62,12 @@ beforeAll(async () => {
     price: 780,
     deposit: 9500,
     available: false,
-    type: bookcarsTypes.CarType.Diesel,
-    gearbox: bookcarsTypes.GearboxType.Automatic,
+    type: BookCarsTypes.CarType.Diesel,
+    gearbox: BookCarsTypes.GearboxType.Automatic,
     aircon: true,
     seats: 5,
     doors: 4,
-    fuelPolicy: bookcarsTypes.FuelPolicy.FreeTank,
+    fuelPolicy: BookCarsTypes.FuelPolicy.FreeTank,
     mileage: -1,
     cancellation: 0,
     amendments: 0,
@@ -119,7 +119,7 @@ describe('POST /api/create-booking', () => {
   it('should create a booking', async () => {
     const token = await testHelper.signinAsAdmin()
 
-    const payload: bookcarsTypes.UpsertBookingPayload = {
+    const payload: BookCarsTypes.UpsertBookingPayload = {
       booking: {
         supplier: SUPPLIER_ID,
         car: CAR1_ID,
@@ -128,7 +128,7 @@ describe('POST /api/create-booking', () => {
         dropOffLocation: LOCATION_ID,
         from: new Date(2024, 2, 1),
         to: new Date(1990, 2, 4),
-        status: bookcarsTypes.BookingStatus.Pending,
+        status: BookCarsTypes.BookingStatus.Pending,
         cancellation: true,
         amendments: true,
         theftProtection: false,
@@ -171,7 +171,7 @@ describe('POST /api/checkout', () => {
     let bookings = await Booking.find({ driver: DRIVER1_ID })
     expect(bookings.length).toBe(2)
 
-    const payload: bookcarsTypes.CheckoutPayload = {
+    const payload: BookCarsTypes.CheckoutPayload = {
       booking: {
         supplier: SUPPLIER_ID,
         car: CAR1_ID,
@@ -180,7 +180,7 @@ describe('POST /api/checkout', () => {
         dropOffLocation: LOCATION_ID,
         from: new Date(2024, 3, 1),
         to: new Date(1990, 3, 4),
-        status: bookcarsTypes.BookingStatus.Pending,
+        status: BookCarsTypes.BookingStatus.Pending,
         cancellation: true,
         amendments: true,
         theftProtection: false,
@@ -201,7 +201,7 @@ describe('POST /api/checkout', () => {
     // Test failed stripe payment
     payload.payLater = false
     const receiptEmail = testHelper.GetRandomEmail()
-    const paymentIntentPayload: bookcarsTypes.CreatePaymentPayload = {
+    const paymentIntentPayload: BookCarsTypes.CreatePaymentPayload = {
       amount: 234,
       currency: 'usd',
       receiptEmail,
@@ -257,7 +257,7 @@ describe('POST /api/checkout', () => {
     const { bookingId } = res.body
     expect(bookingId).toBeTruthy()
     const booking = await Booking.findById(bookingId)
-    expect(booking?.status).toBe(bookcarsTypes.BookingStatus.Void)
+    expect(booking?.status).toBe(BookCarsTypes.BookingStatus.Void)
     expect(booking?.sessionId).toBe(payload.sessionId)
     payload.payLater = true
 
@@ -354,7 +354,7 @@ describe('POST /api/update-booking', () => {
     const token = await testHelper.signinAsAdmin()
 
     ADDITIONAL_DRIVER.fullName = 'Additional Driver 2'
-    const payload: bookcarsTypes.UpsertBookingPayload = {
+    const payload: BookCarsTypes.UpsertBookingPayload = {
       booking: {
         _id: BOOKING_ID,
         supplier: SUPPLIER_ID,
@@ -364,7 +364,7 @@ describe('POST /api/update-booking', () => {
         dropOffLocation: LOCATION_ID,
         from: new Date(2024, 2, 1),
         to: new Date(1990, 2, 4),
-        status: bookcarsTypes.BookingStatus.Paid,
+        status: BookCarsTypes.BookingStatus.Paid,
         cancellation: true,
         amendments: true,
         theftProtection: false,
@@ -382,7 +382,7 @@ describe('POST /api/update-booking', () => {
     expect(res.statusCode).toBe(200)
     expect(res.body.car).toBe(CAR2_ID)
     expect(res.body.price).toBe(3520)
-    expect(res.body.status).toBe(bookcarsTypes.BookingStatus.Paid)
+    expect(res.body.status).toBe(BookCarsTypes.BookingStatus.Paid)
     let additionalDriver = await AdditionalDriver.findOne({ email: ADDITIONAL_DRIVER_EMAIL })
     expect(additionalDriver).not.toBeNull()
     expect(additionalDriver?.fullName).toBe(ADDITIONAL_DRIVER.fullName)
@@ -429,7 +429,7 @@ describe('POST /api/update-booking', () => {
 
     // notifyDriver
     payload.booking._id = BOOKING_ID
-    payload.booking.status = bookcarsTypes.BookingStatus.Cancelled
+    payload.booking.status = BookCarsTypes.BookingStatus.Cancelled
     payload.additionalDriver = undefined
     payload.booking.driver = testHelper.GetRandromObjectIdAsString()
     res = await request(app)
@@ -439,7 +439,7 @@ describe('POST /api/update-booking', () => {
     expect(res.statusCode).toBe(200)
 
     payload.booking.driver = DRIVER1_ID
-    payload.booking.status = bookcarsTypes.BookingStatus.Void
+    payload.booking.status = BookCarsTypes.BookingStatus.Void
     let pushToken = new PushToken({ user: payload.booking.driver, token: 'ExponentPushToken[qQ8j_gFiDjl4MKuFxBYLW3]' })
     await pushToken.save()
     res = await request(app)
@@ -449,7 +449,7 @@ describe('POST /api/update-booking', () => {
     expect(res.statusCode).toBe(200)
     await PushToken.deleteOne({ _id: pushToken._id })
 
-    payload.booking.status = bookcarsTypes.BookingStatus.Deposit
+    payload.booking.status = BookCarsTypes.BookingStatus.Deposit
     pushToken = new PushToken({ user: payload.booking.driver, token: 'ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]' })
     await pushToken.save()
     res = await request(app)
@@ -459,7 +459,7 @@ describe('POST /api/update-booking', () => {
     expect(res.statusCode).toBe(200)
     await PushToken.deleteOne({ _id: pushToken._id })
 
-    payload.booking.status = bookcarsTypes.BookingStatus.Cancelled
+    payload.booking.status = BookCarsTypes.BookingStatus.Cancelled
     pushToken = new PushToken({ user: payload.booking.driver, token: '0' })
     await pushToken.save()
     res = await request(app)
@@ -482,9 +482,9 @@ describe('POST /api/update-booking-status', () => {
   it('should update booking status', async () => {
     const token = await testHelper.signinAsAdmin()
 
-    const payload: bookcarsTypes.UpdateStatusPayload = {
+    const payload: BookCarsTypes.UpdateStatusPayload = {
       ids: [BOOKING_ID],
-      status: bookcarsTypes.BookingStatus.Reserved,
+      status: BookCarsTypes.BookingStatus.Reserved,
     }
     let res = await request(app)
       .post('/api/update-booking-status')
@@ -492,7 +492,7 @@ describe('POST /api/update-booking-status', () => {
       .send(payload)
     expect(res.statusCode).toBe(200)
     let booking = await Booking.findById(BOOKING_ID)
-    expect(booking?.status).toBe(bookcarsTypes.BookingStatus.Reserved)
+    expect(booking?.status).toBe(BookCarsTypes.BookingStatus.Reserved)
 
     res = await request(app)
       .post('/api/update-booking-status')
@@ -500,7 +500,7 @@ describe('POST /api/update-booking-status', () => {
       .send(payload)
     expect(res.statusCode).toBe(200)
     booking = await Booking.findById(BOOKING_ID)
-    expect(booking?.status).toBe(bookcarsTypes.BookingStatus.Reserved)
+    expect(booking?.status).toBe(BookCarsTypes.BookingStatus.Reserved)
 
     res = await request(app)
       .post('/api/update-booking-status')
@@ -539,9 +539,9 @@ describe('POST /api/bookings/:page/:size/:language', () => {
   it('should get bookings', async () => {
     const token = await testHelper.signinAsAdmin()
 
-    const payload: bookcarsTypes.GetBookingsPayload = {
+    const payload: BookCarsTypes.GetBookingsPayload = {
       suppliers: [SUPPLIER_ID],
-      statuses: [bookcarsTypes.BookingStatus.Reserved],
+      statuses: [BookCarsTypes.BookingStatus.Reserved],
       filter: {
         pickupLocation: LOCATION_ID,
         dropOffLocation: LOCATION_ID,
@@ -605,7 +605,7 @@ describe('GET /api/has-bookings/:driver', () => {
       .set(env.X_ACCESS_TOKEN, token)
     expect(res.statusCode).toBe(204)
     const booking = await Booking.findById(BOOKING_ID)
-    expect(booking?.status).toBe(bookcarsTypes.BookingStatus.Reserved)
+    expect(booking?.status).toBe(BookCarsTypes.BookingStatus.Reserved)
 
     res = await request(app)
       .get(`/api/has-bookings/${uuid()}`)
@@ -688,7 +688,7 @@ describe('DELETE /api/delete-temp-booking', () => {
       dropOffLocation: LOCATION_ID,
       from: new Date(2024, 2, 1),
       to: new Date(1990, 2, 4),
-      status: bookcarsTypes.BookingStatus.Void,
+      status: BookCarsTypes.BookingStatus.Void,
       sessionId,
       expireAt,
       cancellation: true,

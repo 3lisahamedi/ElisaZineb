@@ -11,8 +11,8 @@ import {
 } from '@mui/material'
 import validator from 'validator'
 import { intervalToDuration } from 'date-fns'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import Layout from '../components/Layout'
 import { strings as commonStrings } from '../lang/common'
@@ -26,7 +26,7 @@ import * as helper from '../common/helper'
 import '../assets/css/settings.css'
 
 const Settings = () => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [fullName, setFullName] = useState('')
   const [phone, setPhone] = useState('')
   const [location, setLocation] = useState('')
@@ -63,7 +63,7 @@ const Settings = () => {
   }
 
   const validateBirthDate = (date?: Date) => {
-    if (date && bookcarsHelper.isDate(date)) {
+    if (date && BookCarsHelper.isDate(date)) {
       const now = new Date()
       const sub = intervalToDuration({ start: date, end: now }).years ?? 0
       const _birthDateValid = sub >= env.MINIMUM_AGE
@@ -90,7 +90,7 @@ const Settings = () => {
 
         user.enableEmailNotifications = e.target.checked
 
-        const payload: bookcarsTypes.UpdateEmailNotificationsPayload = {
+        const payload: BookCarsTypes.UpdateEmailNotificationsPayload = {
           _id: user._id,
           enableEmailNotifications: user.enableEmailNotifications
         }
@@ -112,7 +112,7 @@ const Settings = () => {
     setLoading(true)
   }
 
-  const onAvatarChange = (_user: bookcarsTypes.User) => {
+  const onAvatarChange = (_user: BookCarsTypes.User) => {
     setUser(_user)
     setLoading(false)
   }
@@ -136,7 +136,7 @@ const Settings = () => {
         return
       }
 
-      const data: bookcarsTypes.UpdateUserPayload = {
+      const data: BookCarsTypes.UpdateUserPayload = {
         _id: user._id,
         fullName,
         birthDate,
@@ -157,7 +157,7 @@ const Settings = () => {
     }
   }
 
-  const onLoad = (_user?: bookcarsTypes.User) => {
+  const onLoad = (_user?: BookCarsTypes.User) => {
     if (_user) {
       setUser(_user)
       setFullName(_user.fullName)

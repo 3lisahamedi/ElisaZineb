@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 import Layout from '../components/Layout'
 import i18n from '../lang/i18n'
@@ -19,11 +19,11 @@ const BookingsScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
   const [language, setLanguage] = useState(env.DEFAULT_LANGUAGE)
   const [reload, setReload] = useState(false)
   const [visible, setVisible] = useState(false)
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [hasBookings, setHasBookings] = useState(false)
   const [suppliers, setSuppliers] = useState<string[]>([])
   const [statuses, setStatuses] = useState<string[]>([])
-  const [filter, setFilter] = useState<bookcarsTypes.Filter>()
+  const [filter, setFilter] = useState<BookCarsTypes.Filter>()
 
   const _init = async () => {
     try {
@@ -91,7 +91,7 @@ const BookingsScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
     setStatuses(_statuses)
   }
 
-  const onSubmitBookingFilter = (_filter: bookcarsTypes.Filter) => {
+  const onSubmitBookingFilter = (_filter: BookCarsTypes.Filter) => {
     setFilter(_filter)
   }
 

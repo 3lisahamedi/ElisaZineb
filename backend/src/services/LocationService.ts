@@ -1,14 +1,14 @@
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import axiosInstance from './axiosInstance'
 import * as UserService from './UserService'
 
 /**
  * Validate a Location name.
  *
- * @param {bookcarsTypes.ValidateLocationPayload} data
+ * @param {BookCarsTypes.ValidateLocationPayload} data
  * @returns {Promise<number>}
  */
-export const validate = (data: bookcarsTypes.ValidateLocationPayload): Promise<number> =>
+export const validate = (data: BookCarsTypes.ValidateLocationPayload): Promise<number> =>
   axiosInstance
     .post(
       '/api/validate-location',
@@ -20,10 +20,10 @@ export const validate = (data: bookcarsTypes.ValidateLocationPayload): Promise<n
 /**
  * Create a Location.
  *
- * @param {bookcarsTypes.LocationName[]} data
+ * @param {BookCarsTypes.LocationName[]} data
  * @returns {Promise<number>}
  */
-export const create = (data: bookcarsTypes.LocationName[]): Promise<number> =>
+export const create = (data: BookCarsTypes.LocationName[]): Promise<number> =>
   axiosInstance
     .post(
       '/api/create-location',
@@ -36,10 +36,10 @@ export const create = (data: bookcarsTypes.LocationName[]): Promise<number> =>
  * Update a Location.
  *
  * @param {string} id
- * @param {bookcarsTypes.LocationName[]} data
+ * @param {BookCarsTypes.LocationName[]} data
  * @returns {Promise<number>}
  */
-export const update = (id: string, data: bookcarsTypes.LocationName[]): Promise<number> =>
+export const update = (id: string, data: BookCarsTypes.LocationName[]): Promise<number> =>
   axiosInstance
     .put(
       `/api/update-location/${id}`,
@@ -66,9 +66,9 @@ export const deleteLocation = (id: string): Promise<number> =>
  * Get a Location by ID.
  *
  * @param {string} id
- * @returns {Promise<bookcarsTypes.Location>}
+ * @returns {Promise<BookCarsTypes.Location>}
  */
-export const getLocation = (id: string): Promise<bookcarsTypes.Location> =>
+export const getLocation = (id: string): Promise<BookCarsTypes.Location> =>
   axiosInstance
     .get(
       `/api/location/${encodeURIComponent(id)}/${UserService.getLanguage()}`,
@@ -82,9 +82,9 @@ export const getLocation = (id: string): Promise<bookcarsTypes.Location> =>
  * @param {string} keyword
  * @param {number} page
  * @param {number} size
- * @returns {Promise<bookcarsTypes.Result<bookcarsTypes.Location>>}
+ * @returns {Promise<BookCarsTypes.Result<BookCarsTypes.Location>>}
  */
-export const getLocations = (keyword: string, page: number, size: number): Promise<bookcarsTypes.Result<bookcarsTypes.Location>> =>
+export const getLocations = (keyword: string, page: number, size: number): Promise<BookCarsTypes.Result<BookCarsTypes.Location>> =>
   axiosInstance
     .get(
       `/api/locations/${page}/${size}/${UserService.getLanguage()}/?s=${encodeURIComponent(keyword)}`,

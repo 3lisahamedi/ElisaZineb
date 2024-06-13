@@ -6,7 +6,7 @@ import {
   SelectChangeEvent,
   TextFieldVariants
 } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import { strings } from '../lang/cars'
 
 interface GearboxListProps {
@@ -43,8 +43,8 @@ const GearboxList = ({
     <div>
       <InputLabel className={required ? 'required' : ''}>{label}</InputLabel>
       <Select label={label} value={value} onChange={handleChange} variant={variant || 'standard'} required={required} fullWidth>
-        <MenuItem value={bookcarsTypes.GearboxType.Automatic}>{strings.GEARBOX_AUTOMATIC}</MenuItem>
-        <MenuItem value={bookcarsTypes.GearboxType.Manual}>{strings.GEARBOX_MANUAL}</MenuItem>
+        <MenuItem value={BookCarsTypes.GearboxType.Automatic}>{strings.GEARBOX_AUTOMATIC}</MenuItem>
+        <MenuItem value={BookCarsTypes.GearboxType.Manual}>{strings.GEARBOX_MANUAL}</MenuItem>
       </Select>
     </div>
   )

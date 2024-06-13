@@ -2,8 +2,8 @@ import React, { memo } from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { StyleSheet, Text, View, Image } from 'react-native'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 
 import Button from './Button'
 import * as helper from '../common/helper'
@@ -13,7 +13,7 @@ import i18n from '../lang/i18n'
 interface CarProps {
   navigation: NativeStackNavigationProp<StackParams, keyof StackParams>
   language: string
-  car: bookcarsTypes.Car
+  car: BookCarsTypes.Car
   from?: Date
   to?: Date
   pickupLocation?: string
@@ -38,7 +38,7 @@ const Car = ({
   navigation,
   hidePrice
 }: CarProps) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   const styles = StyleSheet.create({
     carContainer: {
@@ -164,11 +164,11 @@ const Car = ({
         <Text style={styles.name}>{car.name}</Text>
 
         <View style={styles.imgView}>
-          <Image style={styles.img} source={{ uri: bookcarsHelper.joinURL(env.CDN_CARS, car.image) }} />
+          <Image style={styles.img} source={{ uri: BookCarsHelper.joinURL(env.CDN_CARS, car.image) }} />
         </View>
 
         <View style={styles.infos}>
-          {car.type !== bookcarsTypes.CarType.Unknown && (
+          {car.type !== BookCarsTypes.CarType.Unknown && (
             <View style={styles.info}>
               <MaterialIcons name="local-gas-station" size={iconSize} color={iconColor} style={styles.infoIcon} />
               <Text style={styles.text}>{helper.getCarTypeShort(car.type)}</Text>
@@ -253,7 +253,7 @@ const Car = ({
             <Image
               style={styles.supplierImg}
               source={{
-                uri: bookcarsHelper.joinURL(env.CDN_USERS, car.supplier.avatar),
+                uri: BookCarsHelper.joinURL(env.CDN_USERS, car.supplier.avatar),
               }}
             />
             <Text style={styles.supplierText} numberOfLines={2} ellipsizeMode="tail">{car.supplier.fullName}</Text>
@@ -261,9 +261,9 @@ const Car = ({
 
           {!hidePrice && from && to && (
             <View style={styles.price}>
-              <Text style={styles.priceSecondary}>{helper.getDays(bookcarsHelper.days(from, to))}</Text>
-              <Text style={styles.pricePrimary}>{`${bookcarsHelper.formatPrice(helper.price(car, from, to), i18n.t('CURRENCY'), language)}`}</Text>
-              <Text style={styles.priceSecondary}>{`${i18n.t('PRICE_PER_DAY')} ${bookcarsHelper.formatPrice(car.price, i18n.t('CURRENCY'), language)}`}</Text>
+              <Text style={styles.priceSecondary}>{helper.getDays(BookCarsHelper.days(from, to))}</Text>
+              <Text style={styles.pricePrimary}>{`${BookCarsHelper.formatPrice(helper.price(car, from, to), i18n.t('CURRENCY'), language)}`}</Text>
+              <Text style={styles.priceSecondary}>{`${i18n.t('PRICE_PER_DAY')} ${BookCarsHelper.formatPrice(car.price, i18n.t('CURRENCY'), language)}`}</Text>
             </View>
           )}
         </View>

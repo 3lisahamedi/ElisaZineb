@@ -1,12 +1,12 @@
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import axiosInstance from './axiosInstance'
 
 /**
  * Get all suppliers.
  *
- * @returns {Promise<bookcarsTypes.User[]>}
+ * @returns {Promise<BookCarsTypes.User[]>}
  */
-export const getAllSuppliers = (): Promise<bookcarsTypes.User[]> =>
+export const getAllSuppliers = (): Promise<BookCarsTypes.User[]> =>
   axiosInstance
     .get(
       '/api/all-suppliers',
@@ -20,9 +20,9 @@ export const getAllSuppliers = (): Promise<bookcarsTypes.User[]> =>
  * @param {string} keyword
  * @param {number} page
  * @param {number} size
- * @returns {Promise<bookcarsTypes.Result<bookcarsTypes.User>>}
+ * @returns {Promise<BookCarsTypes.Result<BookCarsTypes.User>>}
  */
-export const getSuppliers = (keyword: string, page: number, size: number): Promise<bookcarsTypes.Result<bookcarsTypes.User>> =>
+export const getSuppliers = (keyword: string, page: number, size: number): Promise<BookCarsTypes.Result<BookCarsTypes.User>> =>
   axiosInstance
     .get(
       `/api/suppliers/${page}/${size}/?s=${encodeURIComponent(keyword)}`,

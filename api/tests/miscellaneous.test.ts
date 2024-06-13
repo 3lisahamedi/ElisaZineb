@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import * as env from '../src/config/env.config'
 import * as databaseHelper from '../src/common/databaseHelper'
 import * as mailHelper from '../src/common/mailHelper'
@@ -27,7 +27,7 @@ afterAll(async () => {
   }
 })
 
-const ADDITIONAL_DRIVER: bookcarsTypes.AdditionalDriver = {
+const ADDITIONAL_DRIVER: BookCarsTypes.AdditionalDriver = {
   email: testHelper.GetRandomEmail(),
   fullName: 'Additional Driver 1',
   birthDate: new Date(1990, 5, 20),
@@ -50,7 +50,7 @@ describe('Test AdditionalDriver phone validation', () => {
 describe('Test User phone validation', () => {
   it('should test User phone validation', async () => {
     let res = true
-    const USER: bookcarsTypes.User = {
+    const USER: BookCarsTypes.User = {
       email: testHelper.GetRandomEmail(),
       fullName: 'Additional Driver 1',
       birthDate: new Date(1990, 5, 20),

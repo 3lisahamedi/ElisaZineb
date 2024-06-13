@@ -1,4 +1,4 @@
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import Const from './const'
 
 //
@@ -19,7 +19,7 @@ const LANGUAGES = [
 const env = {
   isMobile: () => window.innerWidth <= 960,
 
-  APP_TYPE: bookcarsTypes.AppType.Frontend,
+  APP_TYPE: BookCarsTypes.AppType.Frontend,
   API_HOST: String(import.meta.env.VITE_BC_API_HOST),
   LANGUAGES: LANGUAGES.map((l) => l.code),
   _LANGUAGES: LANGUAGES,

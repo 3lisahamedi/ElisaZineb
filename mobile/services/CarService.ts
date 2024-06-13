@@ -1,17 +1,17 @@
 import axiosInstance from './axiosInstance'
 import * as UserService from './UserService'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 /**
  * Get cars.
  *
  * @async
- * @param {bookcarsTypes.GetCarsPayload} data
+ * @param {BookCarsTypes.GetCarsPayload} data
  * @param {number} page
  * @param {number} size
- * @returns {Promise<bookcarsTypes.Result<bookcarsTypes.Car>>}
+ * @returns {Promise<BookCarsTypes.Result<BookCarsTypes.Car>>}
  */
-export const getCars = async (data: bookcarsTypes.GetCarsPayload, page: number, size: number): Promise<bookcarsTypes.Result<bookcarsTypes.Car>> =>
+export const getCars = async (data: BookCarsTypes.GetCarsPayload, page: number, size: number): Promise<BookCarsTypes.Result<BookCarsTypes.Car>> =>
   axiosInstance
     .post(
       `/api/frontend-cars/${page}/${size}}`,
@@ -24,9 +24,9 @@ export const getCars = async (data: bookcarsTypes.GetCarsPayload, page: number, 
  *
  * @async
  * @param {string} id
- * @returns {Promise<bookcarsTypes.Car>}
+ * @returns {Promise<BookCarsTypes.Car>}
  */
-export const getCar = async (id: string): Promise<bookcarsTypes.Car> => {
+export const getCar = async (id: string): Promise<BookCarsTypes.Car> => {
   const language = await UserService.getLanguage()
   return axiosInstance
     .get(

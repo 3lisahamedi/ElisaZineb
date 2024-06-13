@@ -4,7 +4,7 @@ import ReactDateTimePicker from '@react-native-community/datetimepicker'
 import { format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
 import { MaterialIcons } from '@expo/vector-icons'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsHelper from ':BookCars-helper'
 
 interface DateTimePickerProps {
   value?: Date
@@ -52,12 +52,12 @@ const DateTimePicker = ({
   useEffect(() => {
     const _locale = dateTimeLocale === 'fr' ? fr : enUS
     setLoacle(_locale)
-    setLabel((value && bookcarsHelper.capitalize(format(value, _format, { locale: _locale }))) || dateTimeLabel)
+    setLabel((value && BookCarsHelper.capitalize(format(value, _format, { locale: _locale }))) || dateTimeLabel)
   }, [dateTimeLocale]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setValue(dateTimeValue)
-    setLabel((dateTimeValue && bookcarsHelper.capitalize(format(dateTimeValue, _format, { locale }))) || dateTimeLabel)
+    setLabel((dateTimeValue && BookCarsHelper.capitalize(format(dateTimeValue, _format, { locale }))) || dateTimeLabel)
   }, [dateTimeValue]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const styles = StyleSheet.create({

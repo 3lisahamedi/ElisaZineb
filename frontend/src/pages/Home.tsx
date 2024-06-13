@@ -3,7 +3,7 @@ import { FormControl, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { DateTimeValidationError } from '@mui/x-date-pickers'
 import env from '../config/env.config'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/home'
 import * as UserService from '../services/UserService'
@@ -63,7 +63,7 @@ const Home = () => {
     }
   }, [from])
 
-  const handlePickupLocationChange = (values: bookcarsTypes.Option[]) => {
+  const handlePickupLocationChange = (values: BookCarsTypes.Option[]) => {
     const _pickupLocation = (values.length > 0 && values[0]._id) || ''
     setPickupLocation(_pickupLocation)
 
@@ -82,7 +82,7 @@ const Home = () => {
     }
   }
 
-  const handleDropOffLocationChange = (values: bookcarsTypes.Option[]) => {
+  const handleDropOffLocationChange = (values: BookCarsTypes.Option[]) => {
     setDropOffLocation((values.length > 0 && values[0]._id) || '')
   }
 

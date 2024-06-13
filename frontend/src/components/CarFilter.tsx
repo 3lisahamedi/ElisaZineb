@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { FormControl, Button } from '@mui/material'
 import { DateTimeValidationError } from '@mui/x-date-pickers'
 import env from '../config/env.config'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/home'
 import * as UserService from '../services/UserService'
@@ -14,10 +14,10 @@ import '../assets/css/car-filter.css'
 interface CarFilterProps {
   from: Date
   to: Date
-  pickupLocation: bookcarsTypes.Location
-  dropOffLocation: bookcarsTypes.Location
+  pickupLocation: BookCarsTypes.Location
+  dropOffLocation: BookCarsTypes.Location
   className?: string
-  onSubmit: bookcarsTypes.CarFilterSubmitEvent
+  onSubmit: BookCarsTypes.CarFilterSubmitEvent
 }
 
 const CarFilter = ({
@@ -35,8 +35,8 @@ const CarFilter = ({
   const [to, setTo] = useState<Date | undefined>(filterTo)
   const [minDate, setMinDate] = useState<Date>()
   const [maxDate, setMaxDate] = useState<Date>()
-  const [pickupLocation, setPickupLocation] = useState<bookcarsTypes.Location | null | undefined>(filterPickupLocation)
-  const [dropOffLocation, setDropOffLocation] = useState<bookcarsTypes.Location | null | undefined>(filterDropOffLocation)
+  const [pickupLocation, setPickupLocation] = useState<BookCarsTypes.Location | null | undefined>(filterPickupLocation)
+  const [dropOffLocation, setDropOffLocation] = useState<BookCarsTypes.Location | null | undefined>(filterDropOffLocation)
   const [sameLocation, setSameLocation] = useState(filterPickupLocation === filterDropOffLocation)
   const [fromError, setFromError] = useState(false)
   const [toError, setToError] = useState(false)
@@ -57,7 +57,7 @@ const CarFilter = ({
     }
   }, [filterTo])
 
-  const handlePickupLocationChange = (values: bookcarsTypes.Option[]) => {
+  const handlePickupLocationChange = (values: BookCarsTypes.Option[]) => {
     const _pickupLocation = (values.length > 0 && values[0]) || null
 
     setPickupLocation(_pickupLocation)
@@ -75,7 +75,7 @@ const CarFilter = ({
     }
   }
 
-  const handleDropOffLocationChange = (values: bookcarsTypes.Option[]) => {
+  const handleDropOffLocationChange = (values: BookCarsTypes.Option[]) => {
     setDropOffLocation((values.length > 0 && values[0]) || null)
   }
 
@@ -87,7 +87,7 @@ const CarFilter = ({
     }
 
     if (onSubmit) {
-      const filter: bookcarsTypes.CarFilter = {
+      const filter: BookCarsTypes.CarFilter = {
         pickupLocation, dropOffLocation, from, to
       }
       onSubmit(filter)
@@ -105,7 +105,7 @@ const CarFilter = ({
             init={!env.isMobile()}
             required
             variant="standard"
-            value={pickupLocation as bookcarsTypes.Location}
+            value={pickupLocation as BookCarsTypes.Location}
             onChange={handlePickupLocationChange}
           />
         </FormControl>
@@ -113,7 +113,7 @@ const CarFilter = ({
           <FormControl fullWidth className="drop-off-location">
             <LocationSelectList
               label={commonStrings.DROP_OFF_LOCATION}
-              value={dropOffLocation as bookcarsTypes.Location}
+              value={dropOffLocation as BookCarsTypes.Location}
               hidePopupIcon
               customOpen={env.isMobile()}
               init={!env.isMobile()}

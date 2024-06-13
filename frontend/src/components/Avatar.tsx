@@ -14,22 +14,22 @@ import {
   PhotoCamera as PhotoCameraIcon,
   BrokenImageTwoTone as DeleteIcon
 } from '@mui/icons-material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import * as helper from '../common/helper'
 import { strings as commonStrings } from '../lang/common'
 import * as UserService from '../services/UserService'
 
 interface AvatarProps {
-  loggedUser?: bookcarsTypes.User
-  user?: bookcarsTypes.User
+  loggedUser?: BookCarsTypes.User
+  user?: BookCarsTypes.User
   size: 'small' | 'medium' | 'large',
   readonly?: boolean,
   color?: 'disabled' | 'action' | 'inherit' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning',
   className?: string,
   onBeforeUpload?: () => void,
-  onChange?: (user: bookcarsTypes.User) => void,
+  onChange?: (user: BookCarsTypes.User) => void,
 }
 
 const Avatar = ({
@@ -44,7 +44,7 @@ const Avatar = ({
 }: AvatarProps) => {
   const [error, setError] = useState(false)
   const [open, setOpen] = useState(false)
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || !user) {
@@ -196,7 +196,7 @@ const Avatar = ({
                   </Box>
                 )}
               >
-                <MaterialAvatar src={bookcarsHelper.joinURL(env.CDN_USERS, user.avatar)} className="avatar" />
+                <MaterialAvatar src={BookCarsHelper.joinURL(env.CDN_USERS, user.avatar)} className="avatar" />
               </Badge>
             </Badge>
           ) : (
@@ -221,7 +221,7 @@ const Avatar = ({
           )}
         </div>
       ) : user.avatar ? (
-        <MaterialAvatar src={bookcarsHelper.joinURL(env.CDN_USERS, user.avatar)} className={size ? `avatar-${size}` : 'avatar'} />
+        <MaterialAvatar src={BookCarsHelper.joinURL(env.CDN_USERS, user.avatar)} className={size ? `avatar-${size}` : 'avatar'} />
       ) : (
         <AccountCircle className={size ? `avatar-${size}` : 'avatar'} color={color || 'inherit'} />
       )}

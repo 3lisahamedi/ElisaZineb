@@ -5,7 +5,7 @@ import path from 'path'
 import fs from 'node:fs/promises'
 import { v1 as uuid } from 'uuid'
 import mongoose from 'mongoose'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import app from '../src/app'
 import * as databaseHelper from '../src/common/databaseHelper'
 import * as testHelper from './testHelper'
@@ -30,10 +30,10 @@ let USER1_ID: string
 let USER2_ID: string
 let ADMIN_ID: string
 
-const USER1_EMAIL = `${testHelper.getName('user1')}@test.bookcars.ma`
+const USER1_EMAIL = `${testHelper.getName('user1')}@test.BookCars.ma`
 const USER1_PASSWORD = testHelper.PASSWORD
-const USER2_EMAIL = `${testHelper.getName('user2')}@test.bookcars.ma`
-const ADMIN_EMAIL = `${testHelper.getName('admin')}@test.bookcars.ma`
+const USER2_EMAIL = `${testHelper.getName('user2')}@test.BookCars.ma`
+const ADMIN_EMAIL = `${testHelper.getName('admin')}@test.BookCars.ma`
 
 //
 // Connecting and initializing the database before running the test suite
@@ -70,7 +70,7 @@ describe('POST /api/sign-up', () => {
       fs.copyFile(AVATAR1_PATH, tempAvatar)
     }
 
-    const payload: bookcarsTypes.SignUpPayload = {
+    const payload: BookCarsTypes.SignUpPayload = {
       email: USER1_EMAIL,
       password: USER1_PASSWORD,
       fullName: 'user1',
@@ -86,7 +86,7 @@ describe('POST /api/sign-up', () => {
     let user = await User.findOne({ email: USER1_EMAIL })
     expect(user).not.toBeNull()
     USER1_ID = user?.id
-    expect(user?.type).toBe(bookcarsTypes.UserType.User)
+    expect(user?.type).toBe(BookCarsTypes.UserType.User)
     expect(user?.email).toBe(payload.email)
     expect(user?.fullName).toBe(payload.fullName)
     expect(user?.language).toBe(payload.language)
@@ -119,7 +119,7 @@ describe('POST /api/sign-up', () => {
 
 describe('POST /api/admin-sign-up', () => {
   it('should create an admin user', async () => {
-    const payload: bookcarsTypes.SignUpPayload = {
+    const payload: BookCarsTypes.SignUpPayload = {
       email: ADMIN_EMAIL,
       password: testHelper.PASSWORD,
       fullName: 'admin',
@@ -137,7 +137,7 @@ describe('POST /api/admin-sign-up', () => {
     const user = await User.findOne({ email: ADMIN_EMAIL })
     expect(user).not.toBeNull()
     ADMIN_ID = user?.id
-    expect(user?.type).toBe(bookcarsTypes.UserType.Admin)
+    expect(user?.type).toBe(BookCarsTypes.UserType.Admin)
     expect(user?.email).toBe(payload.email)
     expect(user?.fullName).toBe(payload.fullName)
     expect(user?.language).toBe(payload.language)
@@ -157,7 +157,7 @@ describe('POST /api/create-user', () => {
     if (!await helper.exists(tempAvatar)) {
       fs.copyFile(AVATAR1_PATH, tempAvatar)
     }
-    let payload: bookcarsTypes.CreateUserPayload = {
+    let payload: BookCarsTypes.CreateUserPayload = {
       email: USER2_EMAIL,
       fullName: 'user2',
       language: testHelper.LANGUAGE,
@@ -175,7 +175,7 @@ describe('POST /api/create-user', () => {
     let user = await User.findOne({ email: USER2_EMAIL })
     expect(user).not.toBeNull()
     USER2_ID = user?.id
-    expect(user?.type).toBe(bookcarsTypes.UserType.User)
+    expect(user?.type).toBe(BookCarsTypes.UserType.User)
     expect(user?.email).toBe(payload.email)
     expect(user?.fullName).toBe(payload.fullName)
     expect(user?.language).toBe(payload.language)
@@ -197,7 +197,7 @@ describe('POST /api/create-user', () => {
       location: 'location',
       bio: 'bio',
       avatar: AVATAR1,
-      type: bookcarsTypes.UserType.Admin,
+      type: BookCarsTypes.UserType.Admin,
     }
     res = await request(app)
       .post('/api/create-user')
@@ -277,27 +277,27 @@ describe('GET /api/check-token/:type/:userId/:email/:token', () => {
     expect(token?.length).toBeGreaterThan(1)
 
     let res = await request(app)
-      .get(`/api/check-token/${bookcarsTypes.AppType.Frontend}/${USER1_ID}/${USER1_EMAIL}/${token}`)
+      .get(`/api/check-token/${BookCarsTypes.AppType.Frontend}/${USER1_ID}/${USER1_EMAIL}/${token}`)
     expect(res.statusCode).toBe(200)
 
     res = await request(app)
-      .get(`/api/check-token/${bookcarsTypes.AppType.Backend}/${USER1_ID}/${USER1_EMAIL}/${token}`)
+      .get(`/api/check-token/${BookCarsTypes.AppType.Backend}/${USER1_ID}/${USER1_EMAIL}/${token}`)
     expect(res.statusCode).toBe(204)
 
     res = await request(app)
-      .get(`/api/check-token/${bookcarsTypes.AppType.Frontend}/${USER2_ID}/${USER1_EMAIL}/${token}`)
+      .get(`/api/check-token/${BookCarsTypes.AppType.Frontend}/${USER2_ID}/${USER1_EMAIL}/${token}`)
     expect(res.statusCode).toBe(204)
 
     res = await request(app)
-      .get(`/api/check-token/${bookcarsTypes.AppType.Frontend}/${testHelper.GetRandromObjectIdAsString()}/${USER1_EMAIL}/${token}`)
+      .get(`/api/check-token/${BookCarsTypes.AppType.Frontend}/${testHelper.GetRandromObjectIdAsString()}/${USER1_EMAIL}/${token}`)
     expect(res.statusCode).toBe(204)
 
     res = await request(app)
-      .get(`/api/check-token/${bookcarsTypes.AppType.Frontend}/${USER1_ID}/${USER1_EMAIL}/${uuid()}`)
+      .get(`/api/check-token/${BookCarsTypes.AppType.Frontend}/${USER1_ID}/${USER1_EMAIL}/${uuid()}`)
     expect(res.statusCode).toBe(204)
 
     res = await request(app)
-      .get(`/api/check-token/${bookcarsTypes.AppType.Frontend}/0/${USER1_EMAIL}/${token}`)
+      .get(`/api/check-token/${BookCarsTypes.AppType.Frontend}/0/${USER1_EMAIL}/${token}`)
     expect(res.statusCode).toBe(400)
   })
 })
@@ -309,7 +309,7 @@ describe('POST /api/activate', () => {
     const token = userToken?.token
     expect(token?.length).toBeGreaterThan(1)
 
-    const payload: bookcarsTypes.ActivatePayload = {
+    const payload: BookCarsTypes.ActivatePayload = {
       userId: USER1_ID,
       password: testHelper.PASSWORD,
       token: token!,
@@ -384,7 +384,7 @@ describe('POST /api/resend/:type/:email/:reset', () => {
     await user!.save()
     let reset = true
     let res = await request(app)
-      .post(`/api/resend/${bookcarsTypes.AppType.Frontend}/${USER1_EMAIL}/${reset}`)
+      .post(`/api/resend/${BookCarsTypes.AppType.Frontend}/${USER1_EMAIL}/${reset}`)
     expect(res.statusCode).toBe(200)
     user = await User.findById(USER1_ID)
     expect(user).not.toBeNull()
@@ -392,22 +392,22 @@ describe('POST /api/resend/:type/:email/:reset', () => {
 
     reset = false
     res = await request(app)
-      .post(`/api/resend/${bookcarsTypes.AppType.Backend}/${ADMIN_EMAIL}/${reset}`)
+      .post(`/api/resend/${BookCarsTypes.AppType.Backend}/${ADMIN_EMAIL}/${reset}`)
     expect(res.statusCode).toBe(200)
     user = await User.findById(ADMIN_ID)
     expect(user).not.toBeNull()
     expect(user?.active).toBeFalsy()
 
     res = await request(app)
-      .post(`/api/resend/${bookcarsTypes.AppType.Backend}/${USER1_EMAIL}/${reset}`)
+      .post(`/api/resend/${BookCarsTypes.AppType.Backend}/${USER1_EMAIL}/${reset}`)
     expect(res.statusCode).toBe(403)
 
     res = await request(app)
-      .post(`/api/resend/${bookcarsTypes.AppType.Frontend}/${testHelper.GetRandomEmail()}/${reset}`)
+      .post(`/api/resend/${BookCarsTypes.AppType.Frontend}/${testHelper.GetRandomEmail()}/${reset}`)
     expect(res.statusCode).toBe(204)
 
     res = await request(app)
-      .post(`/api/resend/${bookcarsTypes.AppType.Frontend}/unknown/${reset}`)
+      .post(`/api/resend/${BookCarsTypes.AppType.Frontend}/unknown/${reset}`)
     expect(res.statusCode).toBe(400)
   })
 })
@@ -416,7 +416,7 @@ describe('POST /api/resend-link', () => {
   it('should resend activation link', async () => {
     const token = await testHelper.signinAsAdmin()
 
-    const payload: bookcarsTypes.ResendLinkPayload = {
+    const payload: BookCarsTypes.ResendLinkPayload = {
       email: USER1_EMAIL,
     }
 
@@ -485,13 +485,13 @@ describe('DELETE /api/delete-tokens/:userId', () => {
 
 describe('POST /api/sign-in/:type', () => {
   it('should sign in', async () => {
-    const payload: bookcarsTypes.SignInPayload = {
+    const payload: BookCarsTypes.SignInPayload = {
       email: USER1_EMAIL,
       password: USER1_PASSWORD,
     }
 
     let res = await request(app)
-      .post(`/api/sign-in/${bookcarsTypes.AppType.Frontend}`)
+      .post(`/api/sign-in/${BookCarsTypes.AppType.Frontend}`)
       .send(payload)
     expect(res.statusCode).toBe(200)
     const cookies = res.headers['set-cookie'] as unknown as string[]
@@ -501,32 +501,32 @@ describe('POST /api/sign-in/:type', () => {
 
     payload.password = 'wrong-password'
     res = await request(app)
-      .post(`/api/sign-in/${bookcarsTypes.AppType.Frontend}`)
+      .post(`/api/sign-in/${BookCarsTypes.AppType.Frontend}`)
       .send(payload)
     expect(res.statusCode).toBe(204)
 
     payload.password = USER1_PASSWORD
     res = await request(app)
-      .post(`/api/sign-in/${bookcarsTypes.AppType.Backend}`)
+      .post(`/api/sign-in/${BookCarsTypes.AppType.Backend}`)
       .send(payload)
     expect(res.statusCode).toBe(204)
 
     payload.stayConnected = true
     res = await request(app)
-      .post(`/api/sign-in/${bookcarsTypes.AppType.Frontend}`)
+      .post(`/api/sign-in/${BookCarsTypes.AppType.Frontend}`)
       .send(payload)
     expect(res.statusCode).toBe(200)
 
     payload.stayConnected = false
     payload.mobile = true
     res = await request(app)
-      .post(`/api/sign-in/${bookcarsTypes.AppType.Frontend}`)
+      .post(`/api/sign-in/${BookCarsTypes.AppType.Frontend}`)
       .send(payload)
     expect(res.statusCode).toBe(200)
 
     payload.email = 'unknown'
     res = await request(app)
-      .post(`/api/sign-in/${bookcarsTypes.AppType.Frontend}`)
+      .post(`/api/sign-in/${BookCarsTypes.AppType.Frontend}`)
       .send(payload)
     expect(res.statusCode).toBe(400)
   })
@@ -622,7 +622,7 @@ describe('POST /api/delete-push-token/:userId', () => {
 
 describe('POST /api/validate-email', () => {
   it('should validate email', async () => {
-    const payload: bookcarsTypes.ValidateEmailPayload = {
+    const payload: BookCarsTypes.ValidateEmailPayload = {
       email: USER1_EMAIL,
     }
     let res = await request(app)
@@ -673,14 +673,14 @@ describe('POST /api/update-user', () => {
   it('should update user', async () => {
     const token = await testHelper.signinAsAdmin()
 
-    const payload: bookcarsTypes.UpdateUserPayload = {
+    const payload: BookCarsTypes.UpdateUserPayload = {
       _id: USER1_ID,
       fullName: 'user1-1',
       birthDate: new Date(1993, 5, 25),
       phone: '09090908',
       location: 'location1-1',
       bio: 'bio1-1',
-      type: bookcarsTypes.UserType.Supplier,
+      type: BookCarsTypes.UserType.Supplier,
       payLater: false,
     }
     let res = await request(app)
@@ -690,7 +690,7 @@ describe('POST /api/update-user', () => {
     expect(res.statusCode).toBe(200)
     let user = await User.findById(USER1_ID)
     expect(user).not.toBeNull()
-    expect(user?.type).toBe(bookcarsTypes.UserType.Supplier)
+    expect(user?.type).toBe(BookCarsTypes.UserType.Supplier)
     expect(user?.fullName).toBe(payload.fullName)
     expect(user?.birthDate).toStrictEqual(payload.birthDate)
     expect(user?.phone).toBe(payload.phone)
@@ -710,7 +710,7 @@ describe('POST /api/update-user', () => {
     expect(res.statusCode).toBe(200)
     user = await User.findById(USER1_ID)
     expect(user).not.toBeNull()
-    expect(user?.type).toBe(bookcarsTypes.UserType.Supplier)
+    expect(user?.type).toBe(BookCarsTypes.UserType.Supplier)
     expect(user?.fullName).toBe(fullName)
     expect(user?.birthDate).toBeUndefined()
     expect(user?.phone).toBe(payload.phone)
@@ -754,7 +754,7 @@ describe('POST /api/update-email-notifications', () => {
     let user = await User.findById(USER1_ID)
     expect(user).not.toBeNull()
     expect(user?.enableEmailNotifications).toBeFalsy()
-    const payload: bookcarsTypes.UpdateEmailNotificationsPayload = {
+    const payload: BookCarsTypes.UpdateEmailNotificationsPayload = {
       _id: USER1_ID,
       enableEmailNotifications: true,
     }
@@ -792,7 +792,7 @@ describe('POST /api/update-language', () => {
     let user = await User.findById(USER1_ID)
     expect(user).not.toBeNull()
     expect(user?.language).toBe(testHelper.LANGUAGE)
-    const payload: bookcarsTypes.UpdateLanguagePayload = {
+    const payload: BookCarsTypes.UpdateLanguagePayload = {
       id: USER1_ID,
       language: 'fr',
     }
@@ -1008,7 +1008,7 @@ describe('POST /api/change-password', () => {
 
     const newPassword = `#${testHelper.PASSWORD}#`
 
-    const payload: bookcarsTypes.ChangePasswordPayload = {
+    const payload: BookCarsTypes.ChangePasswordPayload = {
       _id: USER1_ID,
       password: USER1_PASSWORD,
       newPassword,
@@ -1118,9 +1118,9 @@ describe('POST /api/users/:page/:size', () => {
   it('should get users', async () => {
     const token = await testHelper.signinAsAdmin()
 
-    const payload: bookcarsTypes.GetUsersBody = {
+    const payload: BookCarsTypes.GetUsersBody = {
       user: testHelper.getAdminUserId(),
-      types: [bookcarsTypes.UserType.Admin, bookcarsTypes.UserType.Supplier, bookcarsTypes.UserType.User],
+      types: [BookCarsTypes.UserType.Admin, BookCarsTypes.UserType.Supplier, BookCarsTypes.UserType.User],
     }
     let res = await request(app)
       .post(`/api/users/${testHelper.PAGE}/${testHelper.SIZE}`)
@@ -1173,7 +1173,7 @@ describe('POST /api/delete-users', () => {
     expect(res.statusCode).toBe(200)
 
     const supplierName = testHelper.getSupplierName()
-    const supplierId = await testHelper.createSupplier(`${supplierName}@test.bookcars.ma`, supplierName)
+    const supplierId = await testHelper.createSupplier(`${supplierName}@test.BookCars.ma`, supplierName)
     const locationId = await testHelper.createLocation('Location 1 EN', 'Location 1 FR')
     const imageName = 'bmw-x1.jpg'
     const imagePath = path.resolve(__dirname, `./img/${imageName}`)
@@ -1189,13 +1189,13 @@ describe('POST /api/delete-users', () => {
       price: 780,
       deposit: 9500,
       available: false,
-      type: bookcarsTypes.CarType.Diesel,
-      gearbox: bookcarsTypes.GearboxType.Automatic,
+      type: BookCarsTypes.CarType.Diesel,
+      gearbox: BookCarsTypes.GearboxType.Automatic,
       aircon: true,
       image: imageName,
       seats: 5,
       doors: 4,
-      fuelPolicy: bookcarsTypes.FuelPolicy.FreeTank,
+      fuelPolicy: BookCarsTypes.FuelPolicy.FreeTank,
       mileage: -1,
       cancellation: 0,
       amendments: 0,
@@ -1213,13 +1213,13 @@ describe('POST /api/delete-users', () => {
       price: 780,
       deposit: 9500,
       available: false,
-      type: bookcarsTypes.CarType.Diesel,
-      gearbox: bookcarsTypes.GearboxType.Automatic,
+      type: BookCarsTypes.CarType.Diesel,
+      gearbox: BookCarsTypes.GearboxType.Automatic,
       aircon: true,
       image: undefined,
       seats: 5,
       doors: 4,
-      fuelPolicy: bookcarsTypes.FuelPolicy.FreeTank,
+      fuelPolicy: BookCarsTypes.FuelPolicy.FreeTank,
       mileage: -1,
       cancellation: 0,
       amendments: 0,
@@ -1237,13 +1237,13 @@ describe('POST /api/delete-users', () => {
       price: 780,
       deposit: 9500,
       available: false,
-      type: bookcarsTypes.CarType.Diesel,
-      gearbox: bookcarsTypes.GearboxType.Automatic,
+      type: BookCarsTypes.CarType.Diesel,
+      gearbox: BookCarsTypes.GearboxType.Automatic,
       aircon: true,
       image: `${uuid()}.jpg`,
       seats: 5,
       doors: 4,
-      fuelPolicy: bookcarsTypes.FuelPolicy.FreeTank,
+      fuelPolicy: BookCarsTypes.FuelPolicy.FreeTank,
       mileage: -1,
       cancellation: 0,
       amendments: 0,
@@ -1268,7 +1268,7 @@ describe('POST /api/delete-users', () => {
       dropOffLocation: locationId,
       from: new Date(2024, 2, 1),
       to: new Date(1990, 2, 4),
-      status: bookcarsTypes.BookingStatus.Pending,
+      status: BookCarsTypes.BookingStatus.Pending,
       cancellation: true,
       amendments: true,
       theftProtection: false,

@@ -11,8 +11,8 @@ import {
 } from '@mui/material'
 import { Info as InfoIcon } from '@mui/icons-material'
 import validator from 'validator'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import Layout from '../components/Layout'
 import env from '../config/env.config'
 import { strings as commonStrings } from '../lang/common'
@@ -28,8 +28,8 @@ import Avatar from '../components/Avatar'
 import '../assets/css/update-supplier.css'
 
 const UpdateSupplier = () => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
-  const [supplier, setSupplier] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
+  const [supplier, setSupplier] = useState<BookCarsTypes.User>()
   const [fullName, setFullName] = useState('')
   const [phone, setPhone] = useState('')
   const [location, setLocation] = useState('')
@@ -127,11 +127,11 @@ const UpdateSupplier = () => {
 
   const onAvatarChange = (_avatar: string) => {
     if (supplier && user) {
-      const _supplier = bookcarsHelper.clone(supplier)
+      const _supplier = BookCarsHelper.clone(supplier)
       _supplier.avatar = _avatar
 
       if (user._id === supplier._id) {
-        const _user = bookcarsHelper.clone(user)
+        const _user = BookCarsHelper.clone(user)
         _user.avatar = _avatar
         setUser(_user)
       }
@@ -163,7 +163,7 @@ const UpdateSupplier = () => {
     }
   }
 
-  const onLoad = async (_user?: bookcarsTypes.User) => {
+  const onLoad = async (_user?: BookCarsTypes.User) => {
     if (_user && _user.verified) {
       setLoading(true)
       setUser(_user)
@@ -232,7 +232,7 @@ const UpdateSupplier = () => {
         return
       }
 
-      const data: bookcarsTypes.UpdateSupplierPayload = {
+      const data: BookCarsTypes.UpdateSupplierPayload = {
         _id: supplier._id as string,
         fullName,
         phone,
@@ -245,7 +245,7 @@ const UpdateSupplier = () => {
 
       if (status === 200) {
         supplier.fullName = fullName
-        setSupplier(bookcarsHelper.clone(supplier))
+        setSupplier(BookCarsHelper.clone(supplier))
         helper.info(commonStrings.UPDATED)
       } else {
         helper.error()
@@ -264,7 +264,7 @@ const UpdateSupplier = () => {
           <Paper className="supplier-form-update" elevation={10}>
             <form onSubmit={handleSubmit}>
               <Avatar
-                type={bookcarsTypes.RecordType.Supplier}
+                type={BookCarsTypes.RecordType.Supplier}
                 mode="update"
                 record={supplier}
                 size="large"

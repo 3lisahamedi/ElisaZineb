@@ -7,7 +7,7 @@ import {
   Button,
   TextFieldVariants
 } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import env from '../config/env.config'
 import { strings as commonStrings } from '../lang/common'
 import { strings as bfStrings } from '../lang/booking-filter'
@@ -22,11 +22,11 @@ interface CarSelectListProps {
   required?: boolean
   multiple?: boolean
   variant?: TextFieldVariants
-  value?: bookcarsTypes.Car
+  value?: BookCarsTypes.Car
   supplier: string
   pickupLocation: string
   readOnly?: boolean
-  onChange?: (values: bookcarsTypes.Car[]) => void
+  onChange?: (values: BookCarsTypes.Car[]) => void
 }
 
 const CarSelectList = ({
@@ -47,11 +47,11 @@ const CarSelectList = ({
   const [currentPickupLocation, setCurrentPickupLocation] = useState('-1')
   const [keyword, setKeyword] = useState('')
   const [page, setPage] = useState(1)
-  const [cars, setCars] = useState<bookcarsTypes.Car[]>([])
+  const [cars, setCars] = useState<BookCarsTypes.Car[]>([])
   const [openDialog, setOpenDialog] = useState(false)
   const [closeDialog, setCloseDialog] = useState(false)
   const [reload, setReload] = useState(false)
-  const [selectedOptions, setSelectedOptions] = useState<bookcarsTypes.Car[]>([])
+  const [selectedOptions, setSelectedOptions] = useState<BookCarsTypes.Car[]>([])
 
   useEffect(() => {
     if (value) {
@@ -101,7 +101,7 @@ const CarSelectList = ({
     }
   }, [currentPickupLocation, pickupLocation])
 
-  const handleChange = (values: bookcarsTypes.Car[]) => {
+  const handleChange = (values: BookCarsTypes.Car[]) => {
     if (onChange) {
       onChange(values)
     }
@@ -109,7 +109,7 @@ const CarSelectList = ({
 
   const fetchData = async (_page: number, _keyword: string, _supplier: string, _pickupLocation: string) => {
     try {
-      const payload: bookcarsTypes.GetBookingCarsPayload = { supplier: _supplier, pickupLocation: _pickupLocation }
+      const payload: BookCarsTypes.GetBookingCarsPayload = { supplier: _supplier, pickupLocation: _pickupLocation }
 
       if (closeDialog) {
         setCloseDialog(false)
@@ -152,7 +152,7 @@ const CarSelectList = ({
         loading={loading}
         required={required}
         multiple={multiple}
-        type={bookcarsTypes.RecordType.Car}
+        type={BookCarsTypes.RecordType.Car}
         variant={variant || 'standard'}
         readOnly={readOnly}
         ListboxProps={{

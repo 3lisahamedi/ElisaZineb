@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import Layout from '../components/Layout'
 import { strings } from '../lang/locations'
 import Search from '../components/Search'
@@ -17,7 +17,7 @@ const Locations = () => {
     setKeyword(newKeyword)
   }
 
-  const handleLocationListLoad: bookcarsTypes.DataEvent<bookcarsTypes.Location> = (data) => {
+  const handleLocationListLoad: BookCarsTypes.DataEvent<BookCarsTypes.Location> = (data) => {
     if (data) {
       setRowCount(data.rowCount)
     }

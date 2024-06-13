@@ -1,0 +1,75 @@
+# +-------------------+
+# |       User        |
+# +-------------------+
+# | - userId: String  |
+# | - name: String    |
+# | - email: String   |
+# | - phone: String   |
+# | - password: String|
+# | - role: String    |
+# +-------------------+
+# | + login()         |
+# | + logout()        |
+# | + register()      |
+# | + updateProfile() |
+# +-------------------+
+#         ^
+#         |
+# +--------------------+   +--------------------+
+# |     Supplier       |   |     Customer       |
+# +--------------------+   +--------------------+
+# | - supplierId: String|  | - customerId: String|
+# | - companyName: String| | - address: String   |
+# | - address: String    | | - paymentInfo: String|
+# +--------------------+   +--------------------+
+# | + manageFleet()    |   | + searchCar()       |
+# | + viewBookings()   |   | + makeBooking()     |
+# +--------------------+   | + viewBookings()    |
+#                          | + cancelBooking()   |
+#                          +--------------------+
+#                                |
+#                                |
+# +-------------------+          |
+# |       Car         |          |
+# +-------------------+          |
+# | - carId: String   |          |
+# | - name: String    |          |
+# | - supplierId: String|        |
+# | - type: String    |          |
+# | - price: Double   |          |
+# | - availability: Boolean|     |
+# | - locationId: String|        |
+# +-------------------+          |
+# | + updateDetails() |          |
+# | + changeAvailability()|      |
+# +-------------------+          |
+#        ^                       |
+#        |                       |
+# +-------------------+          |
+# |     Booking       |<---------+
+# +-------------------+
+# | - bookingId: String|
+# | - customerId: String|
+# | - carId: String    |
+# | - pickupLocationId: String|
+# | - dropOffLocationId: String|
+# | - startDate: Date  |
+# | - endDate: Date    |
+# | - status: String   |
+# +-------------------+
+# | + createBooking() |
+# | + updateBooking() |
+# | + cancelBooking() |
+# +-------------------+
+
+# +-------------------+
+# |     Location      |
+# +-------------------+
+# | - locationId: String|
+# | - name: String    |
+# | - address: String |
+# +-------------------+
+# | + addLocation()   |
+# | + updateLocation()|
+# | + deleteLocation()|
+# +-------------------+

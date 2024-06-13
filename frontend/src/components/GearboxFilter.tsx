@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/cars'
 import Accordion from './Accordion'
@@ -9,7 +9,7 @@ import '../assets/css/gearbox-filter.css'
 
 interface GearboxFilterProps {
   className?: string
-  onChange?: (value: bookcarsTypes.GearboxType[]) => void
+  onChange?: (value: BookCarsTypes.GearboxType[]) => void
 }
 
 const GearboxFilter = ({
@@ -17,7 +17,7 @@ const GearboxFilter = ({
   onChange
 }: GearboxFilterProps) => {
   const [allChecked, setAllChecked] = useState(true)
-  const [values, setValues] = useState([bookcarsTypes.GearboxType.Automatic, bookcarsTypes.GearboxType.Manual])
+  const [values, setValues] = useState([BookCarsTypes.GearboxType.Automatic, BookCarsTypes.GearboxType.Manual])
 
   const automaticRef = useRef<HTMLInputElement>(null)
   const manualRef = useRef<HTMLInputElement>(null)
@@ -31,14 +31,14 @@ const GearboxFilter = ({
 
   const handleCheckAutomaticChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
     if ('checked' in e.currentTarget && e.currentTarget.checked) {
-      values.push(bookcarsTypes.GearboxType.Automatic)
+      values.push(BookCarsTypes.GearboxType.Automatic)
 
       if (values.length === 2) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.GearboxType.Automatic),
+        values.findIndex((v) => v === BookCarsTypes.GearboxType.Automatic),
         1,
       )
 
@@ -50,7 +50,7 @@ const GearboxFilter = ({
     setValues(values)
 
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
@@ -64,14 +64,14 @@ const GearboxFilter = ({
 
   const handleCheckManualChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
     if ('checked' in e.currentTarget && e.currentTarget.checked) {
-      values.push(bookcarsTypes.GearboxType.Manual)
+      values.push(BookCarsTypes.GearboxType.Manual)
 
       if (values.length === 2) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.GearboxType.Manual),
+        values.findIndex((v) => v === BookCarsTypes.GearboxType.Manual),
         1,
       )
 
@@ -83,7 +83,7 @@ const GearboxFilter = ({
     setValues(values)
 
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
@@ -116,13 +116,13 @@ const GearboxFilter = ({
         manualRef.current.checked = true
       }
 
-      const _values = [bookcarsTypes.GearboxType.Automatic, bookcarsTypes.GearboxType.Manual]
+      const _values = [BookCarsTypes.GearboxType.Automatic, BookCarsTypes.GearboxType.Manual]
 
       setAllChecked(true)
       setValues(_values)
 
       if (onChange) {
-        onChange(bookcarsHelper.clone(_values))
+        onChange(BookCarsHelper.clone(_values))
       }
     }
   }

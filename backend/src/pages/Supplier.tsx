@@ -12,8 +12,8 @@ import {
 } from '@mui/material'
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import { strings as commonStrings } from '../lang/common'
 import { strings as clStrings } from '../lang/supplier-list'
@@ -31,8 +31,8 @@ import '../assets/css/supplier.css'
 
 const Supplier = () => {
   const navigate = useNavigate()
-  const [user, setUser] = useState<bookcarsTypes.User>()
-  const [supplier, setSupplier] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
+  const [supplier, setSupplier] = useState<BookCarsTypes.User>()
   const [suppliers, setSuppliers] = useState<string[]>([])
   const [error, setError] = useState(false)
   const [visible, setVisible] = useState(false)
@@ -48,7 +48,7 @@ const Supplier = () => {
 
   const onAvatarChange = (avatar: string) => {
     if (user && supplier && user._id === supplier._id) {
-      const _user = bookcarsHelper.clone(user)
+      const _user = BookCarsHelper.clone(user)
       _user.avatar = avatar
 
       setUser(_user)
@@ -85,7 +85,7 @@ const Supplier = () => {
     setOpenDeleteDialog(false)
   }
 
-  const handleCarListLoad: bookcarsTypes.DataEvent<bookcarsTypes.Car> = (data) => {
+  const handleCarListLoad: BookCarsTypes.DataEvent<BookCarsTypes.Car> = (data) => {
     if (data) {
       setRowCount(data.rowCount)
     }
@@ -95,7 +95,7 @@ const Supplier = () => {
     setRowCount(_rowCount)
   }
 
-  const onLoad = async (_user?: bookcarsTypes.User) => {
+  const onLoad = async (_user?: BookCarsTypes.User) => {
     setUser(_user)
     setLanguage(_user?.language as string)
 
@@ -132,7 +132,7 @@ const Supplier = () => {
     }
   }
 
-  const edit = user && supplier && (user.type === bookcarsTypes.RecordType.Admin || user._id === supplier._id)
+  const edit = user && supplier && (user.type === BookCarsTypes.RecordType.Admin || user._id === supplier._id)
 
   return (
     <Layout onLoad={onLoad} user={user} strict>
@@ -143,7 +143,7 @@ const Supplier = () => {
               {edit ? (
                 <Avatar
                   record={supplier}
-                  type={bookcarsTypes.RecordType.Supplier}
+                  type={BookCarsTypes.RecordType.Supplier}
                   mode="update"
                   size="large"
                   hideDelete
@@ -156,7 +156,7 @@ const Supplier = () => {
               ) : (
                 <div className="car-supplier">
                   <span className="car-supplier-logo">
-                    <img src={bookcarsHelper.joinURL(env.CDN_USERS, supplier.avatar)} alt={supplier.fullName} style={{ width: env.SUPPLIER_IMAGE_WIDTH }} />
+                    <img src={BookCarsHelper.joinURL(env.CDN_USERS, supplier.avatar)} alt={supplier.fullName} style={{ width: env.SUPPLIER_IMAGE_WIDTH }} />
                   </span>
                   <span className="car-supplier-info">{supplier.fullName}</span>
                 </div>

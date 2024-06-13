@@ -8,7 +8,7 @@ import {
   Paper
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import * as UserService from '../services/UserService'
 import Layout from '../components/Layout'
 import { strings as commonStrings } from '../lang/common'
@@ -95,7 +95,7 @@ const ResetPassword = () => {
     }
   }
 
-  const onLoad = async (user?: bookcarsTypes.User) => {
+  const onLoad = async (user?: BookCarsTypes.User) => {
     if (user) {
       setNoMatch(true)
     } else {

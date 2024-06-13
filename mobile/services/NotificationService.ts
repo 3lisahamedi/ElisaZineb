@@ -1,16 +1,16 @@
 import axiosInstance from './axiosInstance'
 import * as env from '../config/env.config'
 import * as UserService from './UserService'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 /**
  * Get a NotificationCounter by UserID.
  *
  * @async
  * @param {string} userId
- * @returns {Promise<bookcarsTypes.NotificationCounter>}
+ * @returns {Promise<BookCarsTypes.NotificationCounter>}
  */
-export const getNotificationCounter = async (userId: string): Promise<bookcarsTypes.NotificationCounter> => {
+export const getNotificationCounter = async (userId: string): Promise<BookCarsTypes.NotificationCounter> => {
   const headers = await UserService.authHeader()
   return axiosInstance
     .get(
@@ -83,9 +83,9 @@ export const deleteNotifications = async (userId: string, ids: string[]): Promis
  * @async
  * @param {string} userId
  * @param {number} page
- * @returns {Promise<bookcarsTypes.Result<bookcarsTypes.Notification>>}
+ * @returns {Promise<BookCarsTypes.Result<BookCarsTypes.Notification>>}
  */
-export const getNotifications = async (userId: string, page: number): Promise<bookcarsTypes.Result<bookcarsTypes.Notification>> => {
+export const getNotifications = async (userId: string, page: number): Promise<BookCarsTypes.Result<BookCarsTypes.Notification>> => {
   const headers = await UserService.authHeader()
   return axiosInstance
     .get(

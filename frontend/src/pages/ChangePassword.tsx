@@ -7,7 +7,7 @@ import {
   FormHelperText,
   Button
 } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import Layout from '../components/Layout'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/change-password'
@@ -18,7 +18,7 @@ import * as helper from '../common/helper'
 import '../assets/css/change-password.css'
 
 const ChangePassword = () => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [newPasswordError, setNewPasswordError] = useState(false)
@@ -72,7 +72,7 @@ const ChangePassword = () => {
         setConfirmPasswordError(false)
         setNewPasswordError(false)
 
-        const data: bookcarsTypes.ChangePasswordPayload = {
+        const data: BookCarsTypes.ChangePasswordPayload = {
           _id: user._id as string,
           password: currentPassword,
           newPassword,
@@ -120,7 +120,7 @@ const ChangePassword = () => {
     }
   }
 
-  const onLoad = (_user?: bookcarsTypes.User) => {
+  const onLoad = (_user?: BookCarsTypes.User) => {
     setUser(_user)
     setLoading(false)
     setVisible(true)

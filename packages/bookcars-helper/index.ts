@@ -1,4 +1,4 @@
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 /**
  * Format a number.
@@ -166,11 +166,11 @@ export const cloneArray = <T>(arr: T[]): T[] | undefined | null => {
 /**
  * Check if two filters are equal.
  *
- * @param {?(bookcarsTypes.Filter | null)} [a]
- * @param {?(bookcarsTypes.Filter | null)} [b]
+ * @param {?(BookCarsTypes.Filter | null)} [a]
+ * @param {?(BookCarsTypes.Filter | null)} [b]
  * @returns {boolean}
  */
-export const filterEqual = (a?: bookcarsTypes.Filter | null, b?: bookcarsTypes.Filter | null) => {
+export const filterEqual = (a?: BookCarsTypes.Filter | null, b?: BookCarsTypes.Filter | null) => {
   if (a === b) {
     return true
   }
@@ -200,10 +200,10 @@ export const filterEqual = (a?: bookcarsTypes.Filter | null, b?: bookcarsTypes.F
 /**
  * Flatten Supplier array.
  *
- * @param {bookcarsTypes.User[]} suppliers
+ * @param {BookCarsTypes.User[]} suppliers
  * @returns {string[]}
  */
-export const flattenSuppliers = (suppliers: bookcarsTypes.User[]): string[] =>
+export const flattenSuppliers = (suppliers: BookCarsTypes.User[]): string[] =>
   suppliers.map((supplier) => supplier._id ?? '')
 
 /**
@@ -245,13 +245,13 @@ export const isFrench = (language?: string) => language === 'fr'
 /**
  * Return all car types.
  *
- * @returns {bookcarsTypes.CarType[]}
+ * @returns {BookCarsTypes.CarType[]}
  */
 export const getAllCarTypes = () => [
-  bookcarsTypes.CarType.Diesel,
-  bookcarsTypes.CarType.Gasoline,
-  bookcarsTypes.CarType.Electric,
-  bookcarsTypes.CarType.Hybrid,
-  bookcarsTypes.CarType.PlugInHybrid,
-  bookcarsTypes.CarType.Unknown
+  BookCarsTypes.CarType.Diesel,
+  BookCarsTypes.CarType.Gasoline,
+  BookCarsTypes.CarType.Electric,
+  BookCarsTypes.CarType.Hybrid,
+  BookCarsTypes.CarType.PlugInHybrid,
+  BookCarsTypes.CarType.Unknown
 ]

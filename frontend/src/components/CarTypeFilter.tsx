@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/cars'
 import Accordion from './Accordion'
@@ -9,10 +9,10 @@ import '../assets/css/car-type-filter.css'
 
 interface CarTypeProps {
   className?: string
-  onChange?: (values: bookcarsTypes.CarType[]) => void
+  onChange?: (values: BookCarsTypes.CarType[]) => void
 }
 
-const allTypes = bookcarsHelper.getAllCarTypes()
+const allTypes = BookCarsHelper.getAllCarTypes()
 
 const CarType = ({
   className,
@@ -47,14 +47,14 @@ const CarType = ({
 
   const handleCheckDieselChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
     if ('checked' in e.currentTarget && e.currentTarget.checked) {
-      values.push(bookcarsTypes.CarType.Diesel)
+      values.push(BookCarsTypes.CarType.Diesel)
 
       if (values.length === allTypes.length) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.CarType.Diesel),
+        values.findIndex((v) => v === BookCarsTypes.CarType.Diesel),
         1,
       )
 
@@ -66,7 +66,7 @@ const CarType = ({
     setValues(values)
 
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
@@ -80,14 +80,14 @@ const CarType = ({
 
   const handleCheckGasolineChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
     if ('checked' in e.currentTarget && e.currentTarget.checked) {
-      values.push(bookcarsTypes.CarType.Gasoline)
+      values.push(BookCarsTypes.CarType.Gasoline)
 
       if (values.length === allTypes.length) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.CarType.Gasoline),
+        values.findIndex((v) => v === BookCarsTypes.CarType.Gasoline),
         1,
       )
 
@@ -99,7 +99,7 @@ const CarType = ({
     setValues(values)
 
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
@@ -113,14 +113,14 @@ const CarType = ({
 
   const handleCheckElectricChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
     if ('checked' in e.currentTarget && e.currentTarget.checked) {
-      values.push(bookcarsTypes.CarType.Electric)
+      values.push(BookCarsTypes.CarType.Electric)
 
       if (values.length === allTypes.length) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.CarType.Electric),
+        values.findIndex((v) => v === BookCarsTypes.CarType.Electric),
         1,
       )
 
@@ -132,7 +132,7 @@ const CarType = ({
     setValues(values)
 
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
@@ -146,14 +146,14 @@ const CarType = ({
 
   const handleCheckHybridChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
     if ('checked' in e.currentTarget && e.currentTarget.checked) {
-      values.push(bookcarsTypes.CarType.Hybrid)
+      values.push(BookCarsTypes.CarType.Hybrid)
 
       if (values.length === allTypes.length) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.CarType.Hybrid),
+        values.findIndex((v) => v === BookCarsTypes.CarType.Hybrid),
         1,
       )
 
@@ -165,7 +165,7 @@ const CarType = ({
     setValues(values)
 
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
@@ -179,14 +179,14 @@ const CarType = ({
 
   const handleCheckPlugInHybridChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
     if ('checked' in e.currentTarget && e.currentTarget.checked) {
-      values.push(bookcarsTypes.CarType.PlugInHybrid)
+      values.push(BookCarsTypes.CarType.PlugInHybrid)
 
       if (values.length === allTypes.length) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.CarType.PlugInHybrid),
+        values.findIndex((v) => v === BookCarsTypes.CarType.PlugInHybrid),
         1,
       )
 
@@ -198,7 +198,7 @@ const CarType = ({
     setValues(values)
 
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
@@ -212,14 +212,14 @@ const CarType = ({
 
   const handleCheckUnknownChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
     if ('checked' in e.currentTarget && e.currentTarget.checked) {
-      values.push(bookcarsTypes.CarType.Unknown)
+      values.push(BookCarsTypes.CarType.Unknown)
 
       if (values.length === allTypes.length) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.CarType.Unknown),
+        values.findIndex((v) => v === BookCarsTypes.CarType.Unknown),
         1,
       )
 
@@ -231,7 +231,7 @@ const CarType = ({
     setValues(values)
 
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
@@ -282,7 +282,7 @@ const CarType = ({
       setValues(_values)
 
       if (onChange) {
-        onChange(bookcarsHelper.clone(_values))
+        onChange(BookCarsHelper.clone(_values))
       }
     }
   }

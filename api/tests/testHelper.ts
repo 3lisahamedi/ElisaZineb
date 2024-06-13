@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser'
 import bcrypt from 'bcrypt'
 import { v1 as uuid } from 'uuid'
 import mongoose from 'mongoose'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import app from '../src/app'
 import * as env from '../src/config/env.config'
 import User from '../src/models/User'
@@ -20,8 +20,8 @@ export const getName = (prefix: string) => {
 
 export const getSupplierName = () => getName('supplier')
 
-export const ADMIN_EMAIL = `${getName('admin')}@test.bookcars.ma`
-export const USER_EMAIL = `${getName('user')}@test.bookcars.ma`
+export const ADMIN_EMAIL = `${getName('admin')}@test.BookCars.ma`
+export const USER_EMAIL = `${getName('user')}@test.BookCars.ma`
 export const USER_FULL_NAME = 'user'
 export const PASSWORD = 'Un1tTest5'
 export const LANGUAGE = 'en'
@@ -43,7 +43,7 @@ export const initialize = async () => {
     email: ADMIN_EMAIL,
     language: LANGUAGE,
     password: passwordHash,
-    type: bookcarsTypes.UserType.Admin,
+    type: BookCarsTypes.UserType.Admin,
   }
   // admin
   let user = new User(body)
@@ -52,7 +52,7 @@ export const initialize = async () => {
   ADMIN_USER_ID = user.id
 
   // user
-  user = new User({ ...body, fullName: USER_FULL_NAME, email: USER_EMAIL, type: bookcarsTypes.UserType.User })
+  user = new User({ ...body, fullName: USER_FULL_NAME, email: USER_EMAIL, type: BookCarsTypes.UserType.User })
   await user.save()
   expect(user.id).toBeDefined()
   USER_ID = user.id
@@ -75,8 +75,8 @@ export const getToken = (cookie: string) => {
   return token
 }
 
-const signin = async (appType: bookcarsTypes.AppType, email: string) => {
-  const payload: bookcarsTypes.SignInPayload = {
+const signin = async (appType: BookCarsTypes.AppType, email: string) => {
+  const payload: BookCarsTypes.SignInPayload = {
     email,
     password: PASSWORD,
   }
@@ -93,9 +93,9 @@ const signin = async (appType: bookcarsTypes.AppType, email: string) => {
   return token
 }
 
-export const signinAsAdmin = () => signin(bookcarsTypes.AppType.Backend, ADMIN_EMAIL)
+export const signinAsAdmin = () => signin(BookCarsTypes.AppType.Backend, ADMIN_EMAIL)
 
-export const signinAsUser = () => signin(bookcarsTypes.AppType.Frontend, USER_EMAIL)
+export const signinAsUser = () => signin(BookCarsTypes.AppType.Frontend, USER_EMAIL)
 
 export const signout = async (token: string) => {
   const res = await request(app)
@@ -116,7 +116,7 @@ export const createSupplier = async (email: string, fullName: string) => {
     fullName,
     language: LANGUAGE,
     password: passwordHash,
-    type: bookcarsTypes.UserType.Supplier,
+    type: BookCarsTypes.UserType.Supplier,
   }
   const supplier = new User(body)
   await supplier.save()
@@ -165,7 +165,7 @@ export const createLocation = async (nameEN: string, nameFR: string) => {
   return location.id as string
 }
 
-export const GetRandomEmail = () => `random.${uuid()}.${Date.now()}@test.bookcars.ma`
+export const GetRandomEmail = () => `random.${uuid()}.${Date.now()}@test.BookCars.ma`
 
 export const GetRandromObjectId = () => new mongoose.Types.ObjectId()
 

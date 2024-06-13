@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation, DrawerActions } from '@react-navigation/native'
 import { Avatar, Badge } from 'react-native-paper'
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsHelper from ':BookCars-helper'
 
 import * as UserService from '../services/UserService'
 import * as env from '../config/env.config'
@@ -37,7 +37,7 @@ const Header = ({ title,
         const user = await UserService.getUser(currentUser._id)
 
         if (user.avatar) {
-          setAvatar(bookcarsHelper.joinURL(env.CDN_USERS, user.avatar))
+          setAvatar(BookCarsHelper.joinURL(env.CDN_USERS, user.avatar))
         } else {
           setAvatar('')
         }

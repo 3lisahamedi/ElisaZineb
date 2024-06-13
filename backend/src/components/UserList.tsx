@@ -22,8 +22,8 @@ import {
   Delete as DeleteIcon,
   AccountCircle, Check as VerifiedIcon
 } from '@mui/icons-material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/user-list'
@@ -33,12 +33,12 @@ import * as UserService from '../services/UserService'
 import '../assets/css/user-list.css'
 
 interface UserListProps {
-  types?: bookcarsTypes.UserType[]
+  types?: BookCarsTypes.UserType[]
   keyword?: string
-  user?: bookcarsTypes.User
+  user?: BookCarsTypes.User
   hideDesktopColumns?: boolean
   checkboxSelection?: boolean
-  onLoad?: bookcarsTypes.DataEvent<bookcarsTypes.User>
+  onLoad?: BookCarsTypes.DataEvent<BookCarsTypes.User>
 }
 
 const UserList = ({
@@ -49,17 +49,17 @@ const UserList = ({
   checkboxSelection,
   onLoad
 }: UserListProps) => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(env.PAGE_SIZE)
-  const [columns, setColumns] = useState<GridColDef<bookcarsTypes.User>[]>([])
-  const [rows, setRows] = useState<bookcarsTypes.User[]>([])
+  const [columns, setColumns] = useState<GridColDef<BookCarsTypes.User>[]>([])
+  const [rows, setRows] = useState<BookCarsTypes.User[]>([])
   const [rowCount, setRowCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [selectedId, setSelectedId] = useState('')
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
-  const [types, setTypes] = useState<bookcarsTypes.UserType[]>()
+  const [types, setTypes] = useState<BookCarsTypes.UserType[]>()
   const [keyword, setKeyword] = useState(userListKeyword)
   const [reloadColumns, setReloadColumns] = useState(false)
   const [paginationModel, setPaginationModel] = useState({
@@ -72,12 +72,12 @@ const UserList = ({
     setPageSize(paginationModel.pageSize)
   }, [paginationModel])
 
-  const fetchData = async (_page: number, _user?: bookcarsTypes.User) => {
+  const fetchData = async (_page: number, _user?: BookCarsTypes.User) => {
     try {
       if (_user && types) {
         setLoading(true)
 
-        const payload: bookcarsTypes.GetUsersBody = {
+        const payload: BookCarsTypes.GetUsersBody = {
           user: (_user && _user._id) || '',
           types
         }
@@ -124,28 +124,28 @@ const UserList = ({
       if (page === 0) {
         fetchData(0, user)
       } else {
-        const _paginationModel = bookcarsHelper.clone(paginationModel)
+        const _paginationModel = BookCarsHelper.clone(paginationModel)
         _paginationModel.page = 0
         setPaginationModel(_paginationModel)
       }
     }
   }, [pageSize]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const getColumns = (_user: bookcarsTypes.User): GridColDef<bookcarsTypes.User>[] => {
-    const _columns: GridColDef<bookcarsTypes.User>[] = [
+  const getColumns = (_user: BookCarsTypes.User): GridColDef<BookCarsTypes.User>[] => {
+    const _columns: GridColDef<BookCarsTypes.User>[] = [
       {
         field: 'fullName',
         headerName: commonStrings.USER,
         flex: 1,
-        renderCell: ({ row, value }: GridRenderCellParams<bookcarsTypes.User, string>) => {
+        renderCell: ({ row, value }: GridRenderCellParams<BookCarsTypes.User, string>) => {
           const __user = row
           let userAvatar
 
           if (__user.avatar) {
-            if (__user.type === bookcarsTypes.RecordType.Supplier) {
-              userAvatar = <img src={bookcarsHelper.joinURL(env.CDN_USERS, row.avatar)} alt={row.fullName} />
+            if (__user.type === BookCarsTypes.RecordType.Supplier) {
+              userAvatar = <img src={BookCarsHelper.joinURL(env.CDN_USERS, row.avatar)} alt={row.fullName} />
             } else {
-              const avatar = <Avatar src={bookcarsHelper.joinURL(env.CDN_USERS, row.avatar)} className="avatar-small" />
+              const avatar = <Avatar src={BookCarsHelper.joinURL(env.CDN_USERS, row.avatar)} className="avatar-small" />
               if (__user.verified) {
                 userAvatar = (
                   <Badge
@@ -221,7 +221,7 @@ const UserList = ({
         field: 'type',
         headerName: commonStrings.TYPE,
         flex: 1,
-        renderCell: ({ value }: GridRenderCellParams<bookcarsTypes.User, bookcarsTypes.UserType>) => <span className={`bs us-${value?.toLowerCase()}`}>{helper.getUserType(value)}</span>,
+        renderCell: ({ value }: GridRenderCellParams<BookCarsTypes.User, BookCarsTypes.UserType>) => <span className={`bs us-${value?.toLowerCase()}`}>{helper.getUserType(value)}</span>,
         valueGetter: (value: string) => value,
       },
       {
@@ -229,7 +229,7 @@ const UserList = ({
         headerName: '',
         sortable: false,
         disableColumnMenu: true,
-        renderCell: ({ row }: GridRenderCellParams<bookcarsTypes.User>) => {
+        renderCell: ({ row }: GridRenderCellParams<BookCarsTypes.User>) => {
           const handleDelete = (e: React.MouseEvent<HTMLElement>) => {
             e.stopPropagation() // don't select this row after clicking
             setSelectedId(row._id || '')
@@ -237,7 +237,7 @@ const UserList = ({
           }
 
           const __user = row
-          return _user.type === bookcarsTypes.RecordType.Admin || __user.supplier === _user._id ? (
+          return _user.type === BookCarsTypes.RecordType.Admin || __user.supplier === _user._id ? (
             <div>
               <Tooltip title={commonStrings.UPDATE}>
                 <IconButton href={`update-user?u=${row._id}`}>
@@ -289,7 +289,7 @@ const UserList = ({
       if (page === 0) {
         fetchData(0, userListUser)
       } else {
-        const _paginationModel = bookcarsHelper.clone(paginationModel)
+        const _paginationModel = BookCarsHelper.clone(paginationModel)
         _paginationModel.page = 0
         setPaginationModel(_paginationModel)
       }

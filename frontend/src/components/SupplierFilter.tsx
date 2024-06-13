@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import { strings as commonStrings } from '../lang/common'
 import Accordion from './Accordion'
@@ -8,7 +8,7 @@ import Accordion from './Accordion'
 import '../assets/css/supplier-filter.css'
 
 interface SupplierFilterProps {
-  suppliers: bookcarsTypes.User[]
+  suppliers: BookCarsTypes.User[]
   collapse?: boolean
   className?: string
   onChange?: (value: string[]) => void
@@ -20,14 +20,14 @@ const SupplierFilter = ({
   className,
   onChange
 }: SupplierFilterProps) => {
-  const [suppliers, setSuppliers] = useState<bookcarsTypes.User[]>([])
+  const [suppliers, setSuppliers] = useState<BookCarsTypes.User[]>([])
   const [checkedSuppliers, setCheckedSuppliers] = useState<string[]>([])
   const [allChecked, setAllChecked] = useState(true)
   const refs = useRef<(HTMLInputElement | null)[]>([])
 
   useEffect(() => {
     setSuppliers(suupliesFromProps)
-    setCheckedSuppliers(bookcarsHelper.flattenSuppliers(suupliesFromProps))
+    setCheckedSuppliers(BookCarsHelper.flattenSuppliers(suupliesFromProps))
   }, [suupliesFromProps])
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const SupplierFilter = ({
     setCheckedSuppliers(checkedSuppliers)
 
     if (onChange) {
-      onChange(bookcarsHelper.clone(checkedSuppliers))
+      onChange(BookCarsHelper.clone(checkedSuppliers))
     }
   }
 
@@ -84,12 +84,12 @@ const SupplierFilter = ({
         }
       })
 
-      const supplierIds = bookcarsHelper.flattenSuppliers(suppliers)
+      const supplierIds = BookCarsHelper.flattenSuppliers(suppliers)
       setAllChecked(true)
       setCheckedSuppliers(supplierIds)
 
       if (onChange) {
-        onChange(bookcarsHelper.clone(supplierIds))
+        onChange(BookCarsHelper.clone(supplierIds))
       }
     }
   }
@@ -129,7 +129,7 @@ const SupplierFilter = ({
                   onClick={handleSupplierClick}
                 >
                   <img
-                    src={bookcarsHelper.joinURL(env.CDN_USERS, supplier.avatar)}
+                    src={BookCarsHelper.joinURL(env.CDN_USERS, supplier.avatar)}
                     alt={supplier.fullName}
                     title={supplier.fullName}
                   />

@@ -3,18 +3,18 @@
 start_time=$(date +%s)
 echo "Deploying BookCars frontend..."
 
-cd /opt/bookcars
+cd /opt/BookCars
 git pull
-sudo chmod +x -R /opt/bookcars/__scripts
+sudo chmod +x -R /opt/BookCars/__scripts
 
-cd /opt/bookcars/frontend
+cd /opt/BookCars/frontend
 
 npm install
 npm run build
 
-sudo rm -rf /var/www/bookcars/frontend
-sudo mkdir -p /var/www/bookcars/frontend
-sudo cp -rf build/* /var/www/bookcars/frontend
+sudo rm -rf /var/www/BookCars/frontend
+sudo mkdir -p /var/www/BookCars/frontend
+sudo cp -rf build/* /var/www/BookCars/frontend
 
 sudo rm -rf /var/cache/nginx
 sudo systemctl restart nginx

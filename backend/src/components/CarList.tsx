@@ -24,8 +24,8 @@ import {
   Delete as DeleteIcon,
   Info as InfoIcon,
 } from '@mui/icons-material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import Const from '../config/const'
 import { strings as commonStrings } from '../lang/common'
@@ -48,15 +48,15 @@ interface CarListProps {
   deposit?: number
   availability?: string[]
   reload?: boolean
-  cars?: bookcarsTypes.Car[]
-  user?: bookcarsTypes.User
-  booking?: bookcarsTypes.Booking
+  cars?: BookCarsTypes.Car[]
+  user?: BookCarsTypes.User
+  booking?: BookCarsTypes.Booking
   className?: string
   loading?: boolean
   hideSupplier?: boolean
   hidePrice?: boolean
   language?: string
-  onLoad?: bookcarsTypes.DataEvent<bookcarsTypes.Car>
+  onLoad?: BookCarsTypes.DataEvent<BookCarsTypes.Car>
   onDelete?: (rowCount: number) => void
 }
 
@@ -80,11 +80,11 @@ const CarList = ({
   onLoad,
   onDelete
 }: CarListProps) => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [init, setInit] = useState(true)
   const [loading, setLoading] = useState(false)
   const [fetch, setFetch] = useState(false)
-  const [rows, setRows] = useState<bookcarsTypes.Car[]>([])
+  const [rows, setRows] = useState<BookCarsTypes.Car[]>([])
   const [page, setPage] = useState(1)
   const [rowCount, setRowCount] = useState(0)
   const [totalRecords, setTotalRecords] = useState(0)
@@ -124,7 +124,7 @@ const CarList = ({
     try {
       setLoading(true)
 
-      const payload: bookcarsTypes.GetCarsPayload = {
+      const payload: BookCarsTypes.GetCarsPayload = {
         suppliers: suppliers ?? [],
         carType: __carType,
         gearbox,
@@ -141,7 +141,7 @@ const CarList = ({
       }
       const _totalRecords = Array.isArray(_data.pageInfo) && _data.pageInfo.length > 0 ? _data.pageInfo[0].totalRecords : 0
 
-      let _rows: bookcarsTypes.Car[] = []
+      let _rows: BookCarsTypes.Car[] = []
       if (env.PAGINATION_MODE === Const.PAGINATION_MODE.INFINITE_SCROLL || env.isMobile()) {
         _rows = _page === 1 ? _data.resultData : [...rows, ..._data.resultData]
       } else {
@@ -352,7 +352,7 @@ const CarList = ({
   }
 
   const admin = helper.admin(user)
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   return (
     (user && (
@@ -377,11 +377,11 @@ const CarList = ({
                     <h2>{car.name}</h2>
                   </div>
                   <div className="car">
-                    <img src={bookcarsHelper.joinURL(env.CDN_CARS, car.image)} alt={car.name} className="car-img" />
+                    <img src={BookCarsHelper.joinURL(env.CDN_CARS, car.image)} alt={car.name} className="car-img" />
                     {!hideSupplier && (
                       <div className="car-supplier">
                         <span className="car-supplier-logo">
-                          <img src={bookcarsHelper.joinURL(env.CDN_USERS, car.supplier.avatar)} alt={car.supplier.fullName} />
+                          <img src={BookCarsHelper.joinURL(env.CDN_USERS, car.supplier.avatar)} alt={car.supplier.fullName} />
                         </span>
                         <a href={`/supplier?c=${car.supplier._id}`} className="car-supplier-info">
                           {car.supplier.fullName}
@@ -391,7 +391,7 @@ const CarList = ({
                   </div>
                   <div className="car-info">
                     <ul className="car-info-list">
-                      {car.type !== bookcarsTypes.CarType.Unknown && (
+                      {car.type !== BookCarsTypes.CarType.Unknown && (
                         <li className="car-type">
                           <Tooltip title={helper.getCarTypeTooltip(car.type)} placement="top">
                             <div className="car-info-list-item">
@@ -538,7 +538,7 @@ const CarList = ({
                       )}
                     </ul>
                   </div>
-                  {!hidePrice && <div className="price">{`${bookcarsHelper.formatPrice(car.price, commonStrings.CURRENCY, language as string)}${commonStrings.DAILY}`}</div>}
+                  {!hidePrice && <div className="price">{`${BookCarsHelper.formatPrice(car.price, commonStrings.CURRENCY, language as string)}${commonStrings.DAILY}`}</div>}
                   <div className="action">
                     {edit && (
                       <>

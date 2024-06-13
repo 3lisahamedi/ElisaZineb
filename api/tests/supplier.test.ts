@@ -5,7 +5,7 @@ import path from 'path'
 import fs from 'node:fs/promises'
 import { v1 as uuid } from 'uuid'
 import mongoose from 'mongoose'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import * as databaseHelper from '../src/common/databaseHelper'
 import * as testHelper from './testHelper'
 import app from '../src/app'
@@ -36,8 +36,8 @@ beforeAll(async () => {
   // create two suppliers
   SUPPLIER1_NAME = testHelper.getSupplierName()
   const supplierName2 = testHelper.getSupplierName()
-  SUPPLIER1_ID = await testHelper.createSupplier(`${SUPPLIER1_NAME}@test.bookcars.ma`, SUPPLIER1_NAME)
-  SUPPLIER2_ID = await testHelper.createSupplier(`${supplierName2}@test.bookcars.ma`, supplierName2)
+  SUPPLIER1_ID = await testHelper.createSupplier(`${SUPPLIER1_NAME}@test.BookCars.ma`, SUPPLIER1_NAME)
+  SUPPLIER2_ID = await testHelper.createSupplier(`${supplierName2}@test.BookCars.ma`, supplierName2)
 })
 
 //
@@ -63,7 +63,7 @@ describe('POST /api/validate-supplier', () => {
   it('should validate a supplier', async () => {
     const token = await testHelper.signinAsAdmin()
 
-    let payload: bookcarsTypes.ValidateSupplierPayload = { fullName: SUPPLIER1_NAME }
+    let payload: BookCarsTypes.ValidateSupplierPayload = { fullName: SUPPLIER1_NAME }
     let res = await request(app)
       .post('/api/validate-supplier')
       .set(env.X_ACCESS_TOKEN, token)
@@ -95,7 +95,7 @@ describe('PUT /api/update-supplier', () => {
     const location = 'location1'
     const phone = '01010101'
     const payLater = false
-    const payload: bookcarsTypes.UpdateSupplierPayload = {
+    const payload: BookCarsTypes.UpdateSupplierPayload = {
       _id: SUPPLIER1_ID,
       fullName: SUPPLIER1_NAME,
       bio,
@@ -199,7 +199,7 @@ describe('DELETE /api/delete-supplier/:id', () => {
     const token = await testHelper.signinAsAdmin()
 
     let supplierName = testHelper.getSupplierName()
-    let supplierId = await testHelper.createSupplier(`${supplierName}@test.bookcars.ma`, supplierName)
+    let supplierId = await testHelper.createSupplier(`${supplierName}@test.BookCars.ma`, supplierName)
     let supplier = await User.findById(supplierId)
     expect(supplier).not.toBeNull()
     let avatarName = 'avatar1.jpg'
@@ -221,13 +221,13 @@ describe('DELETE /api/delete-supplier/:id', () => {
       price: 780,
       deposit: 9500,
       available: false,
-      type: bookcarsTypes.CarType.Diesel,
-      gearbox: bookcarsTypes.GearboxType.Automatic,
+      type: BookCarsTypes.CarType.Diesel,
+      gearbox: BookCarsTypes.GearboxType.Automatic,
       aircon: true,
       image: carImageName,
       seats: 5,
       doors: 4,
-      fuelPolicy: bookcarsTypes.FuelPolicy.FreeTank,
+      fuelPolicy: BookCarsTypes.FuelPolicy.FreeTank,
       mileage: -1,
       cancellation: 0,
       amendments: 0,
@@ -256,7 +256,7 @@ describe('DELETE /api/delete-supplier/:id', () => {
       dropOffLocation: locationId,
       from: new Date(2024, 2, 1),
       to: new Date(1990, 2, 4),
-      status: bookcarsTypes.BookingStatus.Pending,
+      status: BookCarsTypes.BookingStatus.Pending,
       cancellation: true,
       amendments: true,
       theftProtection: false,
@@ -286,7 +286,7 @@ describe('DELETE /api/delete-supplier/:id', () => {
     expect(res.statusCode).toBe(400)
 
     supplierName = testHelper.getSupplierName()
-    supplierId = await testHelper.createSupplier(`${supplierName}@test.bookcars.ma`, supplierName)
+    supplierId = await testHelper.createSupplier(`${supplierName}@test.BookCars.ma`, supplierName)
     supplier = await User.findById(supplierId)
     expect(supplier).not.toBeNull()
     await supplier?.save()
@@ -298,7 +298,7 @@ describe('DELETE /api/delete-supplier/:id', () => {
     expect(supplier).toBeNull()
 
     supplierName = testHelper.getSupplierName()
-    supplierId = await testHelper.createSupplier(`${supplierName}@test.bookcars.ma`, supplierName)
+    supplierId = await testHelper.createSupplier(`${supplierName}@test.BookCars.ma`, supplierName)
     supplier = await User.findById(supplierId)
     expect(supplier).not.toBeNull()
     supplier!.avatar = `${uuid()}.jpg`
@@ -312,13 +312,13 @@ describe('DELETE /api/delete-supplier/:id', () => {
       price: 780,
       deposit: 9500,
       available: false,
-      type: bookcarsTypes.CarType.Diesel,
-      gearbox: bookcarsTypes.GearboxType.Automatic,
+      type: BookCarsTypes.CarType.Diesel,
+      gearbox: BookCarsTypes.GearboxType.Automatic,
       aircon: true,
       image: '',
       seats: 5,
       doors: 4,
-      fuelPolicy: bookcarsTypes.FuelPolicy.FreeTank,
+      fuelPolicy: BookCarsTypes.FuelPolicy.FreeTank,
       mileage: -1,
       cancellation: 0,
       amendments: 0,
@@ -337,7 +337,7 @@ describe('DELETE /api/delete-supplier/:id', () => {
     await testHelper.deleteLocation(locationId)
 
     supplierName = testHelper.getSupplierName()
-    supplierId = await testHelper.createSupplier(`${supplierName}@test.bookcars.ma`, supplierName)
+    supplierId = await testHelper.createSupplier(`${supplierName}@test.BookCars.ma`, supplierName)
     supplier = await User.findById(supplierId)
     expect(supplier).not.toBeNull()
     avatarName = 'avatar1.jpg'
@@ -357,13 +357,13 @@ describe('DELETE /api/delete-supplier/:id', () => {
       price: 780,
       deposit: 9500,
       available: false,
-      type: bookcarsTypes.CarType.Diesel,
-      gearbox: bookcarsTypes.GearboxType.Automatic,
+      type: BookCarsTypes.CarType.Diesel,
+      gearbox: BookCarsTypes.GearboxType.Automatic,
       aircon: true,
       image: `${uuid()}.jpg`,
       seats: 5,
       doors: 4,
-      fuelPolicy: bookcarsTypes.FuelPolicy.FreeTank,
+      fuelPolicy: BookCarsTypes.FuelPolicy.FreeTank,
       mileage: -1,
       cancellation: 0,
       amendments: 0,

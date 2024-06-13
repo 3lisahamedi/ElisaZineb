@@ -1,13 +1,13 @@
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import axiosInstance from './axiosInstance'
 
 /**
  * Create Checkout Session.
  *
- * @param {bookcarsTypes.CreatePaymentPayload} payload
- * @returns {Promise<bookcarsTypes.PaymentResult>}
+ * @param {BookCarsTypes.CreatePaymentPayload} payload
+ * @returns {Promise<BookCarsTypes.PaymentResult>}
  */
-export const createCheckoutSession = (payload: bookcarsTypes.CreatePaymentPayload): Promise<bookcarsTypes.PaymentResult> =>
+export const createCheckoutSession = (payload: BookCarsTypes.CreatePaymentPayload): Promise<BookCarsTypes.PaymentResult> =>
   axiosInstance
     .post(
       '/api/create-checkout-session',
@@ -32,10 +32,10 @@ export const checkCheckoutSession = (sessionId: string): Promise<number> =>
 /**
  * Create Payment Intent.
  *
- * @param {bookcarsTypes.CreatePaymentPayload} payload
- * @returns {Promise<bookcarsTypes.CreatePaymentIntentResult>}
+ * @param {BookCarsTypes.CreatePaymentPayload} payload
+ * @returns {Promise<BookCarsTypes.CreatePaymentIntentResult>}
  */
-export const createPaymentIntent = (payload: bookcarsTypes.CreatePaymentPayload): Promise<bookcarsTypes.PaymentResult> =>
+export const createPaymentIntent = (payload: BookCarsTypes.CreatePaymentPayload): Promise<BookCarsTypes.PaymentResult> =>
   axiosInstance
     .post(
       '/api/create-payment-intent',

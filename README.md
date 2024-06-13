@@ -2,7 +2,7 @@
 
 ZINEB&ELISA is a car rental platform, supplier-oriented, with a backend for managing car fleets and bookings, as well as a frontend and a mobile app for renting cars.
 
-ZINEB&ELISA is designed to work with multiple suppliers. Each supplier can manage his car fleet and bookings from the backend. ZINEB&ELISA can also work with only one supplier and can be used as a car rental aggregator.
+ZINEB&ELISA is designed to work with multiple suppliers. Each supplier can manage his car fleet and bookings from the backend. BookCars can also work with only one supplier and can be used as a car rental aggregator.
 
 From the backend, admins can create and manage suppliers, cars, locations, customers and bookings.
 
@@ -34,17 +34,17 @@ A key design decision was made to use TypeScript instead of JavaScript due to it
 ## Live Demo
 
 ### Frontend
-* URL: https://bookcars.v6.rocks:3002/
-* Login: jdoe@bookcars.ma
+* URL: https://BookCars.v6.rocks:3002/
+* Login: jdoe@BookCars.ma
 * Password: B00kC4r5
 
 ### Backend
-* URL: https://bookcars.v6.rocks:3001/
-* Login: admin@bookcars.ma
+* URL: https://BookCars.v6.rocks:3001/
+* Login: admin@BookCars.ma
 * Password: B00kC4r5
 
 ### Mobile App
 
-* [Download APK](https://github.com/aelassas/bookcars/releases/download/v4.1/bookcars-4.1.apk)
-* Login: jdoe@bookcars.ma
+* [Download APK](https://github.com/aelassas/BookCars/releases/download/v4.1/BookCars-4.1.apk)
+* Login: jdoe@BookCars.ma
 * Password: B00kC4r5

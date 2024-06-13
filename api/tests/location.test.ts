@@ -2,7 +2,7 @@ import 'dotenv/config'
 import request from 'supertest'
 import { v1 as uuid } from 'uuid'
 import mongoose from 'mongoose'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import app from '../src/app'
 import * as databaseHelper from '../src/common/databaseHelper'
 import * as testHelper from './testHelper'
@@ -13,7 +13,7 @@ import Car from '../src/models/Car'
 
 let LOCATION_ID: string
 
-let LOCATION_NAMES: bookcarsTypes.LocationName[] = [
+let LOCATION_NAMES: BookCarsTypes.LocationName[] = [
   {
     language: 'en',
     name: uuid(),
@@ -57,7 +57,7 @@ describe('POST /api/validate-location', () => {
     const name = uuid()
     const locationValue = new LocationValue({ language, value: name })
     await locationValue.save()
-    const payload: bookcarsTypes.ValidateLocationPayload = {
+    const payload: BookCarsTypes.ValidateLocationPayload = {
       language,
       name,
     }
@@ -88,7 +88,7 @@ describe('POST /api/create-location', () => {
   it('should create a location', async () => {
     const token = await testHelper.signinAsAdmin()
 
-    const payload: bookcarsTypes.LocationName[] = LOCATION_NAMES
+    const payload: BookCarsTypes.LocationName[] = LOCATION_NAMES
     let res = await request(app)
       .post('/api/create-location')
       .set(env.X_ACCESS_TOKEN, token)
@@ -185,7 +185,7 @@ describe('GET /api/check-location/:id', () => {
     const token = await testHelper.signinAsAdmin()
 
     const supplierName = testHelper.getSupplierName()
-    const supplierId = await testHelper.createSupplier(`${supplierName}@test.bookcars.ma`, supplierName)
+    const supplierId = await testHelper.createSupplier(`${supplierName}@test.BookCars.ma`, supplierName)
     const car = new Car({
       name: 'BMW X1',
       supplier: supplierId,
@@ -194,12 +194,12 @@ describe('GET /api/check-location/:id', () => {
       price: 780,
       deposit: 9500,
       available: false,
-      type: bookcarsTypes.CarType.Diesel,
-      gearbox: bookcarsTypes.GearboxType.Automatic,
+      type: BookCarsTypes.CarType.Diesel,
+      gearbox: BookCarsTypes.GearboxType.Automatic,
       aircon: true,
       seats: 5,
       doors: 4,
-      fuelPolicy: bookcarsTypes.FuelPolicy.FreeTank,
+      fuelPolicy: BookCarsTypes.FuelPolicy.FreeTank,
       mileage: -1,
       cancellation: 0,
       amendments: 0,

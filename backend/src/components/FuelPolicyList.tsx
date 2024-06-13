@@ -6,7 +6,7 @@ import {
   SelectChangeEvent,
   TextFieldVariants
 } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import { strings } from '../lang/cars'
 
 interface FuelPolicyListProps {
@@ -43,8 +43,8 @@ const FuelPolicyList = ({
     <div>
       <InputLabel className={required ? 'required' : ''}>{label}</InputLabel>
       <Select label={label} value={value} onChange={handleChange} variant={variant || 'standard'} required={required} fullWidth>
-        <MenuItem value={bookcarsTypes.FuelPolicy.LikeForlike}>{strings.FUEL_POLICY_LIKE_FOR_LIKE}</MenuItem>
-        <MenuItem value={bookcarsTypes.FuelPolicy.FreeTank}>{strings.FUEL_POLICY_FREE_TANK}</MenuItem>
+        <MenuItem value={BookCarsTypes.FuelPolicy.LikeForlike}>{strings.FUEL_POLICY_LIKE_FOR_LIKE}</MenuItem>
+        <MenuItem value={BookCarsTypes.FuelPolicy.FreeTank}>{strings.FUEL_POLICY_FREE_TANK}</MenuItem>
       </Select>
     </div>
   )

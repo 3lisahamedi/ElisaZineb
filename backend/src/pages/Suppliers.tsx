@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import Layout from '../components/Layout'
 import { strings } from '../lang/suppliers'
 import Search from '../components/Search'
@@ -11,7 +11,7 @@ import * as helper from '../common/helper'
 import '../assets/css/suppliers.css'
 
 const Suppliers = () => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [keyword, setKeyword] = useState('')
   const [rowCount, setRowCount] = useState(-1)
 
@@ -19,7 +19,7 @@ const Suppliers = () => {
     setKeyword(newKeyword)
   }
 
-  const handleSupplierListLoad: bookcarsTypes.DataEvent<bookcarsTypes.User> = (data) => {
+  const handleSupplierListLoad: BookCarsTypes.DataEvent<BookCarsTypes.User> = (data) => {
     if (data) {
       setRowCount(data.rowCount)
     }
@@ -29,7 +29,7 @@ const Suppliers = () => {
     setRowCount(_rowCount)
   }
 
-  const onLoad = (_user?: bookcarsTypes.User) => {
+  const onLoad = (_user?: BookCarsTypes.User) => {
     setUser(_user)
   }
 

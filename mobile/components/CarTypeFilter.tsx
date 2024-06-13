@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 
 import i18n from '../lang/i18n'
 import Accordion from './Accordion'
@@ -11,10 +11,10 @@ import Switch from './Switch'
 interface CarTypeFilterProps {
   visible?: boolean
   style?: object
-  onChange?: (values: bookcarsTypes.CarType[]) => void
+  onChange?: (values: BookCarsTypes.CarType[]) => void
 }
 
-const allTypes = bookcarsHelper.getAllCarTypes()
+const allTypes = BookCarsHelper.getAllCarTypes()
 
 const CarTypeFilter = ({
   visible,
@@ -31,14 +31,14 @@ const CarTypeFilter = ({
 
   const onValueChangeDiesel = (checked: boolean) => {
     if (checked) {
-      values.push(bookcarsTypes.CarType.Diesel)
+      values.push(BookCarsTypes.CarType.Diesel)
 
       if (values.length === allTypes.length) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.CarType.Diesel),
+        values.findIndex((v) => v === BookCarsTypes.CarType.Diesel),
         1,
       )
 
@@ -50,20 +50,20 @@ const CarTypeFilter = ({
     setDiesel(checked)
     setValues(values)
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
   const onValueChangeGasoline = (checked: boolean) => {
     if (checked) {
-      values.push(bookcarsTypes.CarType.Gasoline)
+      values.push(BookCarsTypes.CarType.Gasoline)
 
       if (values.length === allTypes.length) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.CarType.Gasoline),
+        values.findIndex((v) => v === BookCarsTypes.CarType.Gasoline),
         1,
       )
 
@@ -75,20 +75,20 @@ const CarTypeFilter = ({
     setGasoline(checked)
     setValues(values)
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
   const onValueChangeElectric = (checked: boolean) => {
     if (checked) {
-      values.push(bookcarsTypes.CarType.Electric)
+      values.push(BookCarsTypes.CarType.Electric)
 
       if (values.length === allTypes.length) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.CarType.Electric),
+        values.findIndex((v) => v === BookCarsTypes.CarType.Electric),
         1,
       )
 
@@ -100,20 +100,20 @@ const CarTypeFilter = ({
     setElectric(checked)
     setValues(values)
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
   const onValueChangeHybrid = (checked: boolean) => {
     if (checked) {
-      values.push(bookcarsTypes.CarType.Hybrid)
+      values.push(BookCarsTypes.CarType.Hybrid)
 
       if (values.length === allTypes.length) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.CarType.Hybrid),
+        values.findIndex((v) => v === BookCarsTypes.CarType.Hybrid),
         1,
       )
 
@@ -125,20 +125,20 @@ const CarTypeFilter = ({
     setHybrid(checked)
     setValues(values)
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
   const onValueChangePlugInHybrid = (checked: boolean) => {
     if (checked) {
-      values.push(bookcarsTypes.CarType.PlugInHybrid)
+      values.push(BookCarsTypes.CarType.PlugInHybrid)
 
       if (values.length === allTypes.length) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.CarType.PlugInHybrid),
+        values.findIndex((v) => v === BookCarsTypes.CarType.PlugInHybrid),
         1,
       )
 
@@ -150,7 +150,7 @@ const CarTypeFilter = ({
     setPlugInHybrid(checked)
     setValues(values)
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
@@ -179,7 +179,7 @@ const CarTypeFilter = ({
                 setAllChecked(false)
                 setValues([])
               } else {
-                const _values = [bookcarsTypes.CarType.Diesel, bookcarsTypes.CarType.Gasoline]
+                const _values = [BookCarsTypes.CarType.Diesel, BookCarsTypes.CarType.Gasoline]
                 setDiesel(true)
                 setGasoline(true)
                 setElectric(true)
@@ -188,7 +188,7 @@ const CarTypeFilter = ({
                 setAllChecked(true)
                 setValues(_values)
                 if (onChange) {
-                  onChange(bookcarsHelper.clone(_values))
+                  onChange(BookCarsHelper.clone(_values))
                 }
               }
             }}

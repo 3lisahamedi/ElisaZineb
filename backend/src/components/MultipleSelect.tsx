@@ -11,8 +11,8 @@ import {
   Chip
 } from '@mui/material'
 import { LocationOn as LocationIcon, AccountCircle } from '@mui/icons-material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 
 import '../assets/css/multiple-select.css'
@@ -138,7 +138,7 @@ const MultipleSelect = ({
           const { inputProps } = params
           inputProps.autoComplete = 'off'
 
-          if (type === bookcarsTypes.RecordType.User && !multiple && values.length === 1 && values[0]) {
+          if (type === BookCarsTypes.RecordType.User && !multiple && values.length === 1 && values[0]) {
             const option = values[0]
 
             return (
@@ -153,7 +153,7 @@ const MultipleSelect = ({
                     <>
                       <InputAdornment position="start">
                         {option.image ? (
-                          <Avatar src={bookcarsHelper.joinURL(env.CDN_USERS, option.image)} className="avatar-small suo" />
+                          <Avatar src={BookCarsHelper.joinURL(env.CDN_USERS, option.image)} className="avatar-small suo" />
                         ) : (
                           <AccountCircle className="avatar-small suo" color="disabled" />
                         )}
@@ -166,7 +166,7 @@ const MultipleSelect = ({
             )
           }
 
-          if (type === bookcarsTypes.RecordType.Supplier && !multiple && values.length === 1 && values[0]) {
+          if (type === BookCarsTypes.RecordType.Supplier && !multiple && values.length === 1 && values[0]) {
             const option = values[0]
 
             return (
@@ -181,7 +181,7 @@ const MultipleSelect = ({
                     <>
                       <InputAdornment position="start">
                         <div className="supplier-ia">
-                          <img src={bookcarsHelper.joinURL(env.CDN_USERS, option.image)} alt={option.name} />
+                          <img src={BookCarsHelper.joinURL(env.CDN_USERS, option.image)} alt={option.name} />
                         </div>
                       </InputAdornment>
                       {params.InputProps.startAdornment}
@@ -192,7 +192,7 @@ const MultipleSelect = ({
             )
           }
 
-          if (type === bookcarsTypes.RecordType.Location && !multiple && values.length === 1 && values[0]) {
+          if (type === BookCarsTypes.RecordType.Location && !multiple && values.length === 1 && values[0]) {
             return (
               <TextField
                 {...params}
@@ -214,7 +214,7 @@ const MultipleSelect = ({
             )
           }
 
-          if (type === bookcarsTypes.RecordType.Car && !multiple && values.length === 1 && values[0]) {
+          if (type === BookCarsTypes.RecordType.Car && !multiple && values.length === 1 && values[0]) {
             const option = values[0]
 
             return (
@@ -229,7 +229,7 @@ const MultipleSelect = ({
                     <>
                       <InputAdornment position="start">
                         <img
-                          src={bookcarsHelper.joinURL(env.CDN_CARS, option.image)}
+                          src={BookCarsHelper.joinURL(env.CDN_CARS, option.image)}
                           alt={option.name}
                           style={{
                             height: env.SELECTED_CAR_OPTION_IMAGE_HEIGHT,
@@ -266,25 +266,25 @@ const MultipleSelect = ({
         renderOption={(props, option) => {
           if ('key' in props) delete props.key
 
-          if (type === bookcarsTypes.RecordType.User) {
+          if (type === BookCarsTypes.RecordType.User) {
             return (
               <li {...props} key={option._id} className={`${props.className} ms-option`}>
                 <span className="option-image">
-                  {option.image ? <Avatar src={bookcarsHelper.joinURL(env.CDN_USERS, option.image)} className="avatar-medium" /> : <AccountCircle className="avatar-medium" color="disabled" />}
+                  {option.image ? <Avatar src={BookCarsHelper.joinURL(env.CDN_USERS, option.image)} className="avatar-medium" /> : <AccountCircle className="avatar-medium" color="disabled" />}
                 </span>
                 <span className="option-name">{option.name}</span>
               </li>
             )
-          } if (type === bookcarsTypes.RecordType.Supplier) {
+          } if (type === BookCarsTypes.RecordType.Supplier) {
             return (
               <li {...props} key={option._id} className={`${props.className} ms-option`}>
                 <span className="option-image supplier-ia">
-                  <img src={bookcarsHelper.joinURL(env.CDN_USERS, option.image)} alt={option.name} />
+                  <img src={BookCarsHelper.joinURL(env.CDN_USERS, option.image)} alt={option.name} />
                 </span>
                 <span className="option-name">{option.name}</span>
               </li>
             )
-          } if (type === bookcarsTypes.RecordType.Location) {
+          } if (type === BookCarsTypes.RecordType.Location) {
             return (
               <li {...props} key={option._id} className={`${props.className} ms-option`}>
                 <span className="option-image">
@@ -293,12 +293,12 @@ const MultipleSelect = ({
                 <span className="option-name">{option.name}</span>
               </li>
             )
-          } if (type === bookcarsTypes.RecordType.Car) {
+          } if (type === BookCarsTypes.RecordType.Car) {
             return (
               <li {...props} key={option._id} className={`${props.className} ms-option`}>
                 <span className="option-image car-ia">
                   <img
-                    src={bookcarsHelper.joinURL(env.CDN_CARS, option.image)}
+                    src={BookCarsHelper.joinURL(env.CDN_CARS, option.image)}
                     alt={option.name}
                     style={{
                       height: env.CAR_OPTION_IMAGE_HEIGHT,

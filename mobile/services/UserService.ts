@@ -5,7 +5,7 @@ import axiosInstance from './axiosInstance'
 import * as env from '../config/env.config'
 import * as AsyncStorage from '../common/AsyncStorage'
 import * as toastHelper from '../common/toastHelper'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 /**
  * Get authentication header.
@@ -25,10 +25,10 @@ export const authHeader = async () => {
 /**
  * Sign up.
  *
- * @param {bookcarsTypes.SignUpPayload} data
+ * @param {BookCarsTypes.SignUpPayload} data
  * @returns {Promise<number>}
  */
-export const signup = (data: bookcarsTypes.SignUpPayload): Promise<number> =>
+export const signup = (data: BookCarsTypes.SignUpPayload): Promise<number> =>
   axiosInstance
     .post(
       '/api/sign-up',
@@ -80,10 +80,10 @@ export const resend = (email: string, reset = false): Promise<number> =>
  * Activate an account.
  *
  * @async
- * @param {bookcarsTypes.ActivatePayload} data
+ * @param {BookCarsTypes.ActivatePayload} data
  * @returns {Promise<number>}
  */
-export const activate = async (data: bookcarsTypes.ActivatePayload): Promise<number> => {
+export const activate = async (data: BookCarsTypes.ActivatePayload): Promise<number> => {
   const headers = await authHeader()
   return axiosInstance
     .post(
@@ -97,10 +97,10 @@ export const activate = async (data: bookcarsTypes.ActivatePayload): Promise<num
 /**
  * Validate an email.
  *
- * @param {bookcarsTypes.ValidateEmailPayload} data
+ * @param {BookCarsTypes.ValidateEmailPayload} data
  * @returns {Promise<number>}
  */
-export const validateEmail = (data: bookcarsTypes.ValidateEmailPayload): Promise<number> =>
+export const validateEmail = (data: BookCarsTypes.ValidateEmailPayload): Promise<number> =>
   axiosInstance
     .post(
       '/api/validate-email',
@@ -112,10 +112,10 @@ export const validateEmail = (data: bookcarsTypes.ValidateEmailPayload): Promise
  * Sign in.
  *
  * @async
- * @param {bookcarsTypes.SignInPayload} data
- * @returns {Promise<{ status: number, data: bookcarsTypes.User }>}
+ * @param {BookCarsTypes.SignInPayload} data
+ * @returns {Promise<{ status: number, data: BookCarsTypes.User }>}
  */
-export const signin = async (data: bookcarsTypes.SignInPayload): Promise<{ status: number, data: bookcarsTypes.User }> =>
+export const signin = async (data: BookCarsTypes.SignInPayload): Promise<{ status: number, data: BookCarsTypes.User }> =>
   axiosInstance
     .post(
       '/api/sign-in/frontend',
@@ -244,10 +244,10 @@ export const confirmEmail = (email: string, token: string): Promise<number> =>
  * Resend validation email.
  *
  * @async
- * @param {bookcarsTypes.ResendLinkPayload} data
+ * @param {BookCarsTypes.ResendLinkPayload} data
  * @returns {Promise<number>}
  */
-export const resendLink = async (data: bookcarsTypes.ResendLinkPayload): Promise<number> => {
+export const resendLink = async (data: BookCarsTypes.ResendLinkPayload): Promise<number> => {
   const headers = await authHeader()
   return axiosInstance
     .post(
@@ -265,7 +265,7 @@ export const resendLink = async (data: bookcarsTypes.ResendLinkPayload): Promise
  * @returns {unknown}
  */
 export const getLanguage = async () => {
-  const user = await AsyncStorage.getObject<bookcarsTypes.User>('bc-user')
+  const user = await AsyncStorage.getObject<BookCarsTypes.User>('bc-user')
 
   if (user && user.language) {
     return user.language
@@ -284,15 +284,15 @@ export const getLanguage = async () => {
  * Update user's langauge.
  *
  * @async
- * @param {bookcarsTypes.UpdateLanguagePayload} data
+ * @param {BookCarsTypes.UpdateLanguagePayload} data
  * @returns {unknown}
  */
-export const updateLanguage = async (data: bookcarsTypes.UpdateLanguagePayload) => {
+export const updateLanguage = async (data: BookCarsTypes.UpdateLanguagePayload) => {
   const headers = await authHeader()
   return axiosInstance
     .post('/api/update-language', data, { headers }).then(async (res) => {
       if (res.status === 200) {
-        const user = await AsyncStorage.getObject<bookcarsTypes.User>('bc-user')
+        const user = await AsyncStorage.getObject<BookCarsTypes.User>('bc-user')
         if (user) {
           user.language = data.language
           await AsyncStorage.storeObject('bc-user', user)
@@ -319,10 +319,10 @@ export const setLanguage = async (lang: string) => {
  * Get current User.
  *
  * @async
- * @returns {bookcarsTypes.User|null}
+ * @returns {BookCarsTypes.User|null}
  */
 export const getCurrentUser = async () => {
-  const user = await AsyncStorage.getObject<bookcarsTypes.User>('bc-user')
+  const user = await AsyncStorage.getObject<BookCarsTypes.User>('bc-user')
   if (user && user.accessToken) {
     return user
   }
@@ -334,9 +334,9 @@ export const getCurrentUser = async () => {
  *
  * @async
  * @param {string} id
- * @returns {Promise<bookcarsTypes.User>}
+ * @returns {Promise<BookCarsTypes.User>}
  */
-export const getUser = async (id: string): Promise<bookcarsTypes.User> => {
+export const getUser = async (id: string): Promise<BookCarsTypes.User> => {
   const headers = await authHeader()
   return axiosInstance
     .get(`/api/user/${encodeURIComponent(id)}`, {
@@ -349,10 +349,10 @@ export const getUser = async (id: string): Promise<bookcarsTypes.User> => {
  * Update a User.
  *
  * @async
- * @param {bookcarsTypes.UpdateUserPayload} data
+ * @param {BookCarsTypes.UpdateUserPayload} data
  * @returns {Promise<number>}
  */
-export const updateUser = async (data: bookcarsTypes.UpdateUserPayload): Promise<number> => {
+export const updateUser = async (data: BookCarsTypes.UpdateUserPayload): Promise<number> => {
   const headers = await authHeader()
   return axiosInstance
     .post(
@@ -367,10 +367,10 @@ export const updateUser = async (data: bookcarsTypes.UpdateUserPayload): Promise
  * Update email notifications flag.
  *
  * @async
- * @param {bookcarsTypes.UpdateEmailNotificationsPayload} data
+ * @param {BookCarsTypes.UpdateEmailNotificationsPayload} data
  * @returns {Promise<number>}
  */
-export const updateEmailNotifications = async (data: bookcarsTypes.UpdateEmailNotificationsPayload): Promise<number> => {
+export const updateEmailNotifications = async (data: BookCarsTypes.UpdateEmailNotificationsPayload): Promise<number> => {
   const headers = await authHeader()
   return axiosInstance
     .post(
@@ -412,10 +412,10 @@ export const checkPassword = async (id: string, pass: string): Promise<number> =
  * Change password.
  *
  * @async
- * @param {bookcarsTypes.ChangePasswordPayload} data
+ * @param {BookCarsTypes.ChangePasswordPayload} data
  * @returns {Promise<number>}
  */
-export const changePassword = async (data: bookcarsTypes.ChangePasswordPayload): Promise<number> => {
+export const changePassword = async (data: BookCarsTypes.ChangePasswordPayload): Promise<number> => {
   const headers = await authHeader()
   return axiosInstance
     .post(
@@ -435,7 +435,7 @@ export const changePassword = async (data: bookcarsTypes.ChangePasswordPayload):
  * @returns {Promise<number | undefined>}
  */
 export const updateAvatar = async (userId: string, file: BlobInfo): Promise<number> => {
-  const user = await AsyncStorage.getObject<bookcarsTypes.User>('bc-user')
+  const user = await AsyncStorage.getObject<BookCarsTypes.User>('bc-user')
   const uri = Platform.OS === 'android' ? file.uri : file.uri.replace('file://', '')
   const formData = new FormData()
   formData.append('image', {

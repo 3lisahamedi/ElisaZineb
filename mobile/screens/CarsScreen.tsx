@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 
 import Layout from '../components/Layout'
 import i18n from '../lang/i18n'
@@ -21,9 +21,9 @@ const CarsScreen = ({ navigation, route }: NativeStackScreenProps<StackParams, '
   const [loaded, setLoaded] = useState(false)
   const [visible, setVisible] = useState(false)
   const [suppliers, setSuppliers] = useState<string[]>([])
-  const [carType, setCarType] = useState(bookcarsHelper.getAllCarTypes())
-  const [gearbox, setGearbox] = useState([bookcarsTypes.GearboxType.Automatic, bookcarsTypes.GearboxType.Manual])
-  const [mileage, setMileage] = useState([bookcarsTypes.Mileage.Limited, bookcarsTypes.Mileage.Unlimited])
+  const [carType, setCarType] = useState(BookCarsHelper.getAllCarTypes())
+  const [gearbox, setGearbox] = useState([BookCarsTypes.GearboxType.Automatic, BookCarsTypes.GearboxType.Manual])
+  const [mileage, setMileage] = useState([BookCarsTypes.Mileage.Limited, BookCarsTypes.Mileage.Unlimited])
   const [deposit, setDeposit] = useState(-1)
 
   const _init = async () => {
@@ -54,15 +54,15 @@ const CarsScreen = ({ navigation, route }: NativeStackScreenProps<StackParams, '
     setSuppliers(_suppliers)
   }
 
-  const onChangeFuel = (_carType: bookcarsTypes.CarType[]) => {
+  const onChangeFuel = (_carType: BookCarsTypes.CarType[]) => {
     setCarType(_carType)
   }
 
-  const onChangeGearbox = (_gearbox: bookcarsTypes.GearboxType[]) => {
+  const onChangeGearbox = (_gearbox: BookCarsTypes.GearboxType[]) => {
     setGearbox(_gearbox)
   }
 
-  const onChangeMileage = (_mileage: bookcarsTypes.Mileage[]) => {
+  const onChangeMileage = (_mileage: BookCarsTypes.Mileage[]) => {
     setMileage(_mileage)
   }
 

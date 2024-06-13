@@ -9,7 +9,7 @@ import {
   Link
 } from '@mui/material'
 import validator from 'validator'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import * as UserService from '../services/UserService'
 import Layout from '../components/Layout'
 import { strings as commonStrings } from '../lang/common'
@@ -104,7 +104,7 @@ const ForgotPassword = () => {
     }
   }
 
-  const onLoad = (user?: bookcarsTypes.User) => {
+  const onLoad = (user?: BookCarsTypes.User) => {
     if (user) {
       setNoMatch(true)
     } else {

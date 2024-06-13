@@ -1,16 +1,16 @@
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import axiosInstance from './axiosInstance'
 import * as UserService from './UserService'
 
 /**
  * Get cars.
  *
- * @param {bookcarsTypes.GetCarsPayload} data
+ * @param {BookCarsTypes.GetCarsPayload} data
  * @param {number} page
  * @param {number} size
- * @returns {Promise<bookcarsTypes.Result<bookcarsTypes.Car>>}
+ * @returns {Promise<BookCarsTypes.Result<BookCarsTypes.Car>>}
  */
-export const getCars = (data: bookcarsTypes.GetCarsPayload, page: number, size: number): Promise<bookcarsTypes.Result<bookcarsTypes.Car>> =>
+export const getCars = (data: BookCarsTypes.GetCarsPayload, page: number, size: number): Promise<BookCarsTypes.Result<BookCarsTypes.Car>> =>
   axiosInstance
     .post(
       `/api/frontend-cars/${page}/${size}}`,
@@ -21,9 +21,9 @@ export const getCars = (data: bookcarsTypes.GetCarsPayload, page: number, size: 
  * Get a Car by ID.
  *
  * @param {string} id
- * @returns {Promise<bookcarsTypes.Car>}
+ * @returns {Promise<BookCarsTypes.Car>}
  */
-export const getCar = (id: string): Promise<bookcarsTypes.Car> =>
+export const getCar = (id: string): Promise<BookCarsTypes.Car> =>
   axiosInstance
     .get(
       `/api/car/${encodeURIComponent(id)}/${UserService.getLanguage()}`
@@ -34,12 +34,12 @@ export const getCar = (id: string): Promise<bookcarsTypes.Car> =>
  * Get cars by agency and location.
  *
  * @param {string} keyword
- * @param {bookcarsTypes.GetBookingCarsPayload} data
+ * @param {BookCarsTypes.GetBookingCarsPayload} data
  * @param {number} page
  * @param {number} size
- * @returns {Promise<bookcarsTypes.Car[]>}
+ * @returns {Promise<BookCarsTypes.Car[]>}
  */
-export const getBookingCars = (keyword: string, data: bookcarsTypes.GetBookingCarsPayload, page: number, size: number): Promise<bookcarsTypes.Car[]> =>
+export const getBookingCars = (keyword: string, data: BookCarsTypes.GetBookingCarsPayload, page: number, size: number): Promise<BookCarsTypes.Car[]> =>
   axiosInstance
     .post(
       `/api/booking-cars/${page}/${size}/?s=${encodeURIComponent(keyword)}`,

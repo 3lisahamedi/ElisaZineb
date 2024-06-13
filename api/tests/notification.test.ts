@@ -25,7 +25,7 @@ beforeAll(async () => {
   await testHelper.initialize()
   ADMIN_USER_ID = testHelper.getAdminUserId()
   const supplierName = testHelper.getSupplierName()
-  SUPPLIER_ID = await testHelper.createSupplier(`${supplierName}@test.bookcars.ma`, supplierName)
+  SUPPLIER_ID = await testHelper.createSupplier(`${supplierName}@test.BookCars.ma`, supplierName)
 
   // create admin user notifications and notification counter
   let notification = new Notification({ user: ADMIN_USER_ID, message: 'Message 1' })

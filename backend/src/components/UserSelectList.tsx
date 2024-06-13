@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { TextFieldVariants } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import * as UserService from '../services/UserService'
 import * as helper from '../common/helper'
@@ -9,11 +9,11 @@ import MultipleSelect from './MultipleSelect'
 
 interface UserSelectListProps {
   multiple?: boolean
-  value?: bookcarsTypes.Option | bookcarsTypes.Option[]
+  value?: BookCarsTypes.Option | BookCarsTypes.Option[]
   label?: string
   required?: boolean
   variant?: TextFieldVariants
-  onChange?: (values: bookcarsTypes.Option[]) => void
+  onChange?: (values: BookCarsTypes.Option[]) => void
 }
 
 const UserSelectList = ({
@@ -26,26 +26,26 @@ const UserSelectList = ({
 }: UserSelectListProps) => {
   const [init, setInit] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [drivers, setDrivers] = useState<bookcarsTypes.Option[]>([])
+  const [drivers, setDrivers] = useState<BookCarsTypes.Option[]>([])
   const [fetch, setFetch] = useState(false)
   const [page, setPage] = useState(1)
   const [keyword, setKeyword] = useState('')
-  const [selectedOptions, setSelectedOptions] = useState<bookcarsTypes.Option[]>([])
+  const [selectedOptions, setSelectedOptions] = useState<BookCarsTypes.Option[]>([])
 
   useEffect(() => {
-    const _value = multiple ? value as bookcarsTypes.Option[] : [value as bookcarsTypes.Option]
-    if (value && !bookcarsHelper.arrayEqual(selectedOptions, _value)) {
+    const _value = multiple ? value as BookCarsTypes.Option[] : [value as BookCarsTypes.Option]
+    if (value && !BookCarsHelper.arrayEqual(selectedOptions, _value)) {
       setSelectedOptions(_value)
     }
   }, [multiple, value, selectedOptions])
 
-  const getDrivers = (users: bookcarsTypes.User[]): bookcarsTypes.Option[] =>
+  const getDrivers = (users: BookCarsTypes.User[]): BookCarsTypes.Option[] =>
     users.map((user) => {
       const { _id, fullName, avatar } = user
       return { _id: _id as string, name: fullName, image: avatar }
     })
 
-  const fetchData = async (_page: number, _keyword: string, onFetch?: bookcarsTypes.DataEvent<bookcarsTypes.User>) => {
+  const fetchData = async (_page: number, _keyword: string, onFetch?: BookCarsTypes.DataEvent<BookCarsTypes.User>) => {
     try {
       setLoading(true)
 
@@ -73,7 +73,7 @@ const UserSelectList = ({
     }
   }
 
-  const handleChange = (values: bookcarsTypes.Option[]) => {
+  const handleChange = (values: BookCarsTypes.Option[]) => {
     if (onChange) {
       onChange(values)
     }
@@ -88,7 +88,7 @@ const UserSelectList = ({
       selectedOptions={selectedOptions}
       required={required || false}
       multiple={multiple}
-      type={bookcarsTypes.RecordType.User}
+      type={BookCarsTypes.RecordType.User}
       variant={variant || 'standard'}
       ListboxProps={{
         onScroll: (event) => {

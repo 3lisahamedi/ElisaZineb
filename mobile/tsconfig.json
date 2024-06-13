@@ -8,12 +8,12 @@
     "rootDir": "./",
     "baseUrl": "./",
     "paths": {
-      ":bookcars-types": ["../packages/bookcars-types"],
-      ":bookcars-helper": ["../packages/bookcars-helper"]
+      ":BookCars-types": ["../packages/BookCars-types"],
+      ":BookCars-helper": ["../packages/BookCars-helper"]
     }
   },
   "references": [
-    { "path": "../packages/bookcars-types" },
-    { "path": "../packages/bookcars-helper" }
+    { "path": "../packages/BookCars-types" },
+    { "path": "../packages/BookCars-helper" }
   ]  
 }

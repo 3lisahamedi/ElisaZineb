@@ -11,7 +11,7 @@ import {
   FormHelperText
 } from '@mui/material'
 import { Info as InfoIcon } from '@mui/icons-material'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import Layout from '../components/Layout'
 import env from '../config/env.config'
 import { strings as commonStrings } from '../lang/common'
@@ -35,8 +35,8 @@ import FuelPolicyList from '../components/FuelPolicyList'
 import '../assets/css/create-car.css'
 
 const UpdateCar = () => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
-  const [car, setCar] = useState<bookcarsTypes.Car>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
+  const [car, setCar] = useState<BookCarsTypes.Car>()
   const [noMatch, setNoMatch] = useState(false)
   const [loading, setLoading] = useState(false)
   const [visible, setVisible] = useState(false)
@@ -45,8 +45,8 @@ const UpdateCar = () => {
   const [imageSizeError, setImageSizeError] = useState(false)
   const [image, setImage] = useState('')
   const [name, setName] = useState('')
-  const [supplier, setSupplier] = useState<bookcarsTypes.Option>()
-  const [locations, setLocations] = useState<bookcarsTypes.Option[]>([])
+  const [supplier, setSupplier] = useState<BookCarsTypes.Option>()
+  const [locations, setLocations] = useState<BookCarsTypes.Option[]>([])
   const [available, setAvailable] = useState(false)
   const [type, setType] = useState('')
   const [gearbox, setGearbox] = useState('')
@@ -96,7 +96,7 @@ const UpdateCar = () => {
     setName(e.target.value)
   }
 
-  const handleSupplierChange = (values: bookcarsTypes.Option[]) => {
+  const handleSupplierChange = (values: BookCarsTypes.Option[]) => {
     setSupplier(values.length > 0 ? values[0] : undefined)
   }
 
@@ -127,7 +127,7 @@ const UpdateCar = () => {
     }
   }
 
-  const handleLocationsChange = (_locations: bookcarsTypes.Option[]) => {
+  const handleLocationsChange = (_locations: BookCarsTypes.Option[]) => {
     setLocations(_locations)
   }
 
@@ -251,7 +251,7 @@ const UpdateCar = () => {
     }
   }
 
-  const onLoad = async (_user?: bookcarsTypes.User) => {
+  const onLoad = async (_user?: BookCarsTypes.User) => {
     if (_user && _user.verified) {
       setLoading(true)
       setUser(_user)
@@ -263,7 +263,7 @@ const UpdateCar = () => {
             const _car = await CarService.getCar(id)
 
             if (_car) {
-              if (_user.type === bookcarsTypes.RecordType.Supplier && _user._id !== _car.supplier._id) {
+              if (_user.type === BookCarsTypes.RecordType.Supplier && _user._id !== _car.supplier._id) {
                 setLoading(false)
                 setNoMatch(true)
                 return
@@ -280,10 +280,10 @@ const UpdateCar = () => {
               setName(_car.name)
               setSupplier(_supplier)
               setMinimumAge(_car.minimumAge.toString())
-              const lcs: bookcarsTypes.Option[] = []
+              const lcs: BookCarsTypes.Option[] = []
               for (const loc of _car.locations) {
                 const { _id, name: _name } = loc
-                const lc: bookcarsTypes.Option = { _id, name: _name ?? '' }
+                const lc: BookCarsTypes.Option = { _id, name: _name ?? '' }
                 lcs.push(lc)
               }
               setLocations(lcs)
@@ -326,7 +326,7 @@ const UpdateCar = () => {
     }
   }
 
-  const admin = user && user.type === bookcarsTypes.RecordType.Admin
+  const admin = user && user.type === BookCarsTypes.RecordType.Admin
 
   return (
     <Layout onLoad={onLoad} strict>
@@ -335,7 +335,7 @@ const UpdateCar = () => {
           <Paper className="car-form car-form-wrapper" elevation={10} style={visible ? {} : { display: 'none' }}>
             <form onSubmit={handleSubmit}>
               <Avatar
-                type={bookcarsTypes.RecordType.Car}
+                type={BookCarsTypes.RecordType.Car}
                 mode="update"
                 record={car}
                 hideDelete

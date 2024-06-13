@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { ActivityIndicator, FlatList, StyleSheet, View, Text } from 'react-native'
 import { Paragraph, Dialog, Portal, Button as NativeButton } from 'react-native-paper'
 import { enUS, fr } from 'date-fns/locale'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import * as env from '../config/env.config'
 import i18n from '../lang/i18n'
 import * as helper from '../common/helper'
@@ -12,7 +12,7 @@ import Booking from './Booking'
 interface BookingListProps {
   suppliers?: string[]
   statuses?: string[]
-  filter?: bookcarsTypes.Filter
+  filter?: BookCarsTypes.Filter
   user: string
   booking?: string
   language?: string
@@ -33,7 +33,7 @@ const BookingList = ({
   const [loading, setLoading] = useState(true)
   const [fetch, setFetch] = useState(false)
   const [page, setPage] = useState(0)
-  const [rows, setRows] = useState<bookcarsTypes.Booking[]>([])
+  const [rows, setRows] = useState<BookCarsTypes.Booking[]>([])
   const [selectedId, setSelectedId] = useState('')
   const [openCancelDialog, setOpenCancelDialog] = useState(false)
   const [cancelRequestProcessing, setCancelRequestProcessing] = useState(false)
@@ -49,7 +49,7 @@ const BookingList = ({
           _page = 0
           setPage(0)
         }
-        const payload: bookcarsTypes.GetBookingsPayload = {
+        const payload: BookCarsTypes.GetBookingsPayload = {
           suppliers,
           statuses,
           filter,

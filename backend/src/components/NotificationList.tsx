@@ -23,8 +23,8 @@ import {
 import { format } from 'date-fns'
 import { fr, enUS } from 'date-fns/locale'
 import { useNavigate } from 'react-router-dom'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/notifications'
 import * as NotificationService from '../services/NotificationService'
@@ -36,7 +36,7 @@ import { useGlobalContext, GlobalContextType } from '../context/GlobalContext'
 import '../assets/css/notification-list.css'
 
 interface NotificationListProps {
-  user?: bookcarsTypes.User
+  user?: BookCarsTypes.User
 }
 
 const NotificationList = ({ user }: NotificationListProps) => {
@@ -45,11 +45,11 @@ const NotificationList = ({ user }: NotificationListProps) => {
 
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
-  const [rows, setRows] = useState<bookcarsTypes.Notification[]>([])
+  const [rows, setRows] = useState<BookCarsTypes.Notification[]>([])
   const [rowCount, setRowCount] = useState(-1)
   const [totalRecords, setTotalRecords] = useState(-1)
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
-  const [selectedRows, setSelectedRows] = useState<bookcarsTypes.Notification[]>([])
+  const [selectedRows, setSelectedRows] = useState<BookCarsTypes.Notification[]>([])
   const notificationsListRef = useRef<HTMLDivElement>(null)
 
   const _fr = user && user.language === 'fr'
@@ -121,7 +121,7 @@ const NotificationList = ({ user }: NotificationListProps) => {
                           row.checked = event.target.checked
                         })
                       }
-                      setRows(bookcarsHelper.clone(rows))
+                      setRows(BookCarsHelper.clone(rows))
                     }}
                   />
                 </div>
@@ -144,7 +144,7 @@ const NotificationList = ({ user }: NotificationListProps) => {
                                 _rows.forEach((row) => {
                                   row.isRead = true
                                 })
-                                setRows(bookcarsHelper.clone(rows))
+                                setRows(BookCarsHelper.clone(rows))
                                 setNotificationCount((prev) => prev - _rows.length)
                               } else {
                                 helper.error()
@@ -175,7 +175,7 @@ const NotificationList = ({ user }: NotificationListProps) => {
                                 _rows.forEach((row) => {
                                   row.isRead = false
                                 })
-                                setRows(bookcarsHelper.clone(rows))
+                                setRows(BookCarsHelper.clone(rows))
                                 setNotificationCount((prev) => prev + _rows.length)
                               } else {
                                 helper.error()
@@ -211,13 +211,13 @@ const NotificationList = ({ user }: NotificationListProps) => {
                       checked={row.checked}
                       onChange={(event) => {
                         row.checked = event.target.checked
-                        setRows(bookcarsHelper.clone(rows))
+                        setRows(BookCarsHelper.clone(rows))
                       }}
                     />
                   </div>
                   <div className={`notification${!row.isRead ? ' unread' : ''}`}>
                     <div className="date">
-                      {row.createdAt && bookcarsHelper.capitalize(
+                      {row.createdAt && BookCarsHelper.capitalize(
                         format(new Date(row.createdAt), _format, {
                           locale: _locale,
                         }),
@@ -245,7 +245,7 @@ const NotificationList = ({ user }: NotificationListProps) => {
 
                                     if (status === 200) {
                                       row.isRead = true
-                                      setRows(bookcarsHelper.clone(rows))
+                                      setRows(BookCarsHelper.clone(rows))
                                       setNotificationCount((prev) => prev - 1)
                                       __navigate__()
                                     } else {
@@ -277,7 +277,7 @@ const NotificationList = ({ user }: NotificationListProps) => {
 
                                   if (status === 200) {
                                     row.isRead = true
-                                    setRows(bookcarsHelper.clone(rows))
+                                    setRows(BookCarsHelper.clone(rows))
                                     setNotificationCount((prev) => prev - 1)
                                   } else {
                                     helper.error()
@@ -304,7 +304,7 @@ const NotificationList = ({ user }: NotificationListProps) => {
 
                                   if (status === 200) {
                                     row.isRead = false
-                                    setRows(bookcarsHelper.clone(rows))
+                                    setRows(BookCarsHelper.clone(rows))
                                     setNotificationCount((prev) => prev + 1)
                                   } else {
                                     helper.error()
@@ -403,7 +403,7 @@ const NotificationList = ({ user }: NotificationListProps) => {
                               1,
                             )
                           })
-                          setRows(bookcarsHelper.clone(rows))
+                          setRows(BookCarsHelper.clone(rows))
                           setRowCount(rowCount - selectedRows.length)
                           setTotalRecords(totalRecords - selectedRows.length)
                         }

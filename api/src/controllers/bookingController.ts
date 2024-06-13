@@ -3,7 +3,7 @@ import escapeStringRegexp from 'escape-string-regexp'
 import { Expo, ExpoPushMessage, ExpoPushTicket } from 'expo-server-sdk'
 import { Request, Response } from 'express'
 import nodemailer from 'nodemailer'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import i18n from '../lang/i18n'
 import Booking from '../models/Booking'
 import User from '../models/User'
@@ -31,7 +31,7 @@ import stripeAPI from '../stripe'
  */
 export const create = async (req: Request, res: Response) => {
   try {
-    const { body }: { body: bookcarsTypes.UpsertBookingPayload } = req
+    const { body }: { body: BookCarsTypes.UpsertBookingPayload } = req
     if (body.booking.additionalDriver) {
       const additionalDriver = new AdditionalDriver(body.additionalDriver)
       await additionalDriver.save()
@@ -174,7 +174,7 @@ export const confirm = async (user: env.User, booking: env.Booking, payLater: bo
 export const checkout = async (req: Request, res: Response) => {
   try {
     let user: env.User | null
-    const { body }: { body: bookcarsTypes.CheckoutPayload } = req
+    const { body }: { body: BookCarsTypes.CheckoutPayload } = req
     const { driver } = body
 
     if (!body.booking) {
@@ -201,7 +201,7 @@ export const checkout = async (req: Request, res: Response) => {
         }
 
         body.booking.paymentIntentId = paymentIntentId
-        body.booking.status = bookcarsTypes.BookingStatus.Paid
+        body.booking.status = BookCarsTypes.BookingStatus.Paid
       } else {
         //
         // Bookings created from checkout with Stripe are temporary
@@ -211,7 +211,7 @@ export const checkout = async (req: Request, res: Response) => {
         expireAt.setSeconds(expireAt.getSeconds() + env.BOOKING_EXPIRE_AT)
 
         body.booking.sessionId = body.sessionId
-        body.booking.status = bookcarsTypes.BookingStatus.Void
+        body.booking.status = BookCarsTypes.BookingStatus.Void
         body.booking.expireAt = expireAt
       }
     }
@@ -219,7 +219,7 @@ export const checkout = async (req: Request, res: Response) => {
     if (driver) {
       driver.verified = false
       driver.blacklisted = false
-      driver.type = bookcarsTypes.UserType.User
+      driver.type = BookCarsTypes.UserType.User
 
       user = new User(driver)
       await user.save()
@@ -289,7 +289,7 @@ export const checkout = async (req: Request, res: Response) => {
       await notify(user, booking._id.toString(), supplier, message)
 
       // Notify admin
-      const admin = !!env.ADMIN_EMAIL && await User.findOne({ email: env.ADMIN_EMAIL, type: bookcarsTypes.UserType.Admin })
+      const admin = !!env.ADMIN_EMAIL && await User.findOne({ email: env.ADMIN_EMAIL, type: BookCarsTypes.UserType.Admin })
       if (admin) {
         i18n.locale = admin.language
         message = body.payLater ? i18n.t('BOOKING_PAY_LATER_NOTIFICATION') : i18n.t('BOOKING_PAID_NOTIFICATION')
@@ -425,7 +425,7 @@ const notifyDriver = async (booking: env.Booking) => {
  */
 export const update = async (req: Request, res: Response) => {
   try {
-    const { body }: { body: bookcarsTypes.UpsertBookingPayload } = req
+    const { body }: { body: BookCarsTypes.UpsertBookingPayload } = req
     const booking = await Booking.findById(body.booking._id)
 
     if (booking) {
@@ -535,7 +535,7 @@ export const update = async (req: Request, res: Response) => {
  */
 export const updateStatus = async (req: Request, res: Response) => {
   try {
-    const { body }: { body: bookcarsTypes.UpdateStatusPayload } = req
+    const { body }: { body: BookCarsTypes.UpdateStatusPayload } = req
     const { ids: _ids, status } = body
     const ids = _ids.map((id) => new mongoose.Types.ObjectId(id))
     const bulk = Booking.collection.initializeOrderedBulkOp()
@@ -598,7 +598,7 @@ export const deleteTempBooking = async (req: Request, res: Response) => {
   const { bookingId, sessionId } = req.params
 
   try {
-    await Booking.deleteOne({ _id: bookingId, sessionId, status: bookcarsTypes.BookingStatus.Void, expireAt: { $ne: null } })
+    await Booking.deleteOne({ _id: bookingId, sessionId, status: BookCarsTypes.BookingStatus.Void, expireAt: { $ne: null } })
     return res.sendStatus(200)
   } catch (err) {
     logger.error(`[booking.deleteTempBooking] ${i18n.t('DB_ERROR')} ${JSON.stringify({ bookingId, sessionId })}`, err)
@@ -688,7 +688,7 @@ export const getBooking = async (req: Request, res: Response) => {
  */
 export const getBookings = async (req: Request, res: Response) => {
   try {
-    const { body }: { body: bookcarsTypes.GetBookingsPayload } = req
+    const { body }: { body: BookCarsTypes.GetBookingsPayload } = req
     const page = Number.parseInt(req.params.page, 10)
     const size = Number.parseInt(req.params.size, 10)
     const suppliers = body.suppliers.map((id) => new mongoose.Types.ObjectId(id))

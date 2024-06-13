@@ -4,7 +4,7 @@ import { v1 as uuid } from 'uuid'
 import escapeStringRegexp from 'escape-string-regexp'
 import mongoose from 'mongoose'
 import { Request, Response } from 'express'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import Booking from '../models/Booking'
 import Car from '../models/Car'
 import i18n from '../lang/i18n'
@@ -22,7 +22,7 @@ import * as logger from '../common/logger'
  * @returns {unknown}
  */
 export const create = async (req: Request, res: Response) => {
-  const { body }: { body: bookcarsTypes.CreateCarPayload } = req
+  const { body }: { body: BookCarsTypes.CreateCarPayload } = req
 
   try {
     if (!body.image) {
@@ -65,7 +65,7 @@ export const create = async (req: Request, res: Response) => {
  * @returns {unknown}
  */
 export const update = async (req: Request, res: Response) => {
-  const { body }: { body: bookcarsTypes.UpdateCarPayload } = req
+  const { body }: { body: BookCarsTypes.UpdateCarPayload } = req
   const { _id } = body
 
   try {
@@ -103,14 +103,14 @@ export const update = async (req: Request, res: Response) => {
       car.locations = locations.map((l) => new mongoose.Types.ObjectId(l))
       car.name = name
       car.available = available
-      car.type = type as bookcarsTypes.CarType
+      car.type = type as BookCarsTypes.CarType
       car.price = price
       car.deposit = deposit
       car.seats = seats
       car.doors = doors
       car.aircon = aircon
-      car.gearbox = gearbox as bookcarsTypes.GearboxType
-      car.fuelPolicy = fuelPolicy as bookcarsTypes.FuelPolicy
+      car.gearbox = gearbox as BookCarsTypes.GearboxType
+      car.fuelPolicy = fuelPolicy as BookCarsTypes.FuelPolicy
       car.mileage = mileage
       car.cancellation = cancellation
       car.amendments = amendments
@@ -394,7 +394,7 @@ export const getCar = async (req: Request, res: Response) => {
  */
 export const getCars = async (req: Request, res: Response) => {
   try {
-    const { body }: { body: bookcarsTypes.GetCarsPayload } = req
+    const { body }: { body: BookCarsTypes.GetCarsPayload } = req
     const page = Number.parseInt(req.params.page, 10)
     const size = Number.parseInt(req.params.size, 10)
     const suppliers = body.suppliers.map((id) => new mongoose.Types.ObjectId(id))
@@ -421,9 +421,9 @@ export const getCars = async (req: Request, res: Response) => {
     }
 
     if (mileage) {
-      if (mileage.length === 1 && mileage[0] === bookcarsTypes.Mileage.Limited) {
+      if (mileage.length === 1 && mileage[0] === BookCarsTypes.Mileage.Limited) {
         $match.$and!.push({ mileage: { $gt: -1 } })
-      } else if (mileage.length === 1 && mileage[0] === bookcarsTypes.Mileage.Unlimited) {
+      } else if (mileage.length === 1 && mileage[0] === BookCarsTypes.Mileage.Unlimited) {
         $match.$and!.push({ mileage: -1 })
       } else if (mileage.length === 0) {
         return res.json([{ resultData: [], pageInfo: [] }])
@@ -435,10 +435,10 @@ export const getCars = async (req: Request, res: Response) => {
     }
 
     if (Array.isArray(availability)) {
-      if (availability.length === 1 && availability[0] === bookcarsTypes.Availablity.Available) {
+      if (availability.length === 1 && availability[0] === BookCarsTypes.Availablity.Available) {
         $match.$and!.push({ available: true })
       } else if (availability.length === 1
-        && availability[0] === bookcarsTypes.Availablity.Unavailable) {
+        && availability[0] === BookCarsTypes.Availablity.Unavailable) {
         $match.$and!.push({ available: false })
       } else if (availability.length === 0) {
         return res.json([{ resultData: [], pageInfo: [] }])
@@ -514,7 +514,7 @@ export const getCars = async (req: Request, res: Response) => {
  */
 export const getBookingCars = async (req: Request, res: Response) => {
   try {
-    const { body }: { body: bookcarsTypes.GetBookingCarsPayload } = req
+    const { body }: { body: BookCarsTypes.GetBookingCarsPayload } = req
     const supplier = new mongoose.Types.ObjectId(body.supplier)
     const pickupLocation = new mongoose.Types.ObjectId(body.pickupLocation)
     const keyword = escapeStringRegexp(String(req.query.s || ''))
@@ -558,7 +558,7 @@ export const getBookingCars = async (req: Request, res: Response) => {
  */
 export const getFrontendCars = async (req: Request, res: Response) => {
   try {
-    const { body }: { body: bookcarsTypes.GetCarsPayload } = req
+    const { body }: { body: BookCarsTypes.GetCarsPayload } = req
     const page = Number.parseInt(req.params.page, 10)
     const size = Number.parseInt(req.params.size, 10)
     const suppliers = body.suppliers.map((id) => new mongoose.Types.ObjectId(id))
@@ -580,9 +580,9 @@ export const getFrontendCars = async (req: Request, res: Response) => {
     }
 
     if (mileage) {
-      if (mileage.length === 1 && mileage[0] === bookcarsTypes.Mileage.Limited) {
+      if (mileage.length === 1 && mileage[0] === BookCarsTypes.Mileage.Limited) {
         $match.$and!.push({ mileage: { $gt: -1 } })
-      } else if (mileage.length === 1 && mileage[0] === bookcarsTypes.Mileage.Unlimited) {
+      } else if (mileage.length === 1 && mileage[0] === BookCarsTypes.Mileage.Unlimited) {
         $match.$and!.push({ mileage: -1 })
       } else if (mileage.length === 0) {
         return res.json([{ resultData: [], pageInfo: [] }])

@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import * as env from '../config/env.config'
 
 export const BOOKING_EXPIRE_AT_INDEX_NAME = 'expireAt'
@@ -44,12 +44,12 @@ const bookingSchema = new Schema<env.Booking>(
     status: {
       type: String,
       enum: [
-        bookcarsTypes.BookingStatus.Void,
-        bookcarsTypes.BookingStatus.Pending,
-        bookcarsTypes.BookingStatus.Deposit,
-        bookcarsTypes.BookingStatus.Paid,
-        bookcarsTypes.BookingStatus.Reserved,
-        bookcarsTypes.BookingStatus.Cancelled,
+        BookCarsTypes.BookingStatus.Void,
+        BookCarsTypes.BookingStatus.Pending,
+        BookCarsTypes.BookingStatus.Deposit,
+        BookCarsTypes.BookingStatus.Paid,
+        BookCarsTypes.BookingStatus.Reserved,
+        BookCarsTypes.BookingStatus.Cancelled,
       ],
       required: [true, "can't be blank"],
     },

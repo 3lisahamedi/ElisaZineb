@@ -1,6 +1,6 @@
 import validator from 'validator'
 import { Schema, model } from 'mongoose'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import * as env from '../config/env.config'
 
 const userSchema = new Schema<env.User>(
@@ -84,11 +84,11 @@ const userSchema = new Schema<env.User>(
     type: {
       type: String,
       enum: [
-        bookcarsTypes.UserType.Admin,
-        bookcarsTypes.UserType.Supplier,
-        bookcarsTypes.UserType.User,
+        BookCarsTypes.UserType.Admin,
+        BookCarsTypes.UserType.Supplier,
+        BookCarsTypes.UserType.User,
       ],
-      default: bookcarsTypes.UserType.User,
+      default: BookCarsTypes.UserType.User,
     },
     blacklisted: {
       type: Boolean,

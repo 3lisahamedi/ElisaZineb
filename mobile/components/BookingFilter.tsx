@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { StyleSheet, View, TextInput as ReactTextInput } from 'react-native'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 import i18n from '../lang/i18n'
 import Accordion from './Accordion'
@@ -13,7 +13,7 @@ interface BookingFilterProps {
   visible?: boolean
   style?: object
   language?: string
-  onSubmit: (filter: bookcarsTypes.Filter) => void
+  onSubmit: (filter: BookCarsTypes.Filter) => void
 }
 
 const BookingFilter = ({
@@ -65,7 +65,7 @@ const BookingFilter = ({
   }
 
   const onPressSearch = () => {
-    const filter: bookcarsTypes.Filter = {
+    const filter: BookCarsTypes.Filter = {
       from,
       to,
       pickupLocation,

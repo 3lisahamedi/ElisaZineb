@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import Layout from '../components/Layout'
 import env from '../config/env.config'
 import { strings } from '../lang/users'
@@ -12,12 +12,12 @@ import UserList from '../components/UserList'
 import '../assets/css/users.css'
 
 const Users = () => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [admin, setAdmin] = useState(false)
-  const [types, setTypes] = useState<bookcarsTypes.UserType[]>()
+  const [types, setTypes] = useState<BookCarsTypes.UserType[]>()
   const [keyword, setKeyword] = useState('')
 
-  const handleUserTypeFilterChange = (newTypes: bookcarsTypes.UserType[]) => {
+  const handleUserTypeFilterChange = (newTypes: BookCarsTypes.UserType[]) => {
     setTypes(newTypes)
   }
 
@@ -25,11 +25,11 @@ const Users = () => {
     setKeyword(newKeyword)
   }
 
-  const onLoad = (_user?: bookcarsTypes.User) => {
+  const onLoad = (_user?: BookCarsTypes.User) => {
     const _admin = helper.admin(_user)
     const _types = _admin
       ? helper.getUserTypes().map((userType) => userType.value)
-      : [bookcarsTypes.UserType.Supplier, bookcarsTypes.UserType.User]
+      : [BookCarsTypes.UserType.Supplier, BookCarsTypes.UserType.User]
 
     setUser(_user)
     setAdmin(_admin)

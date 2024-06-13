@@ -1,13 +1,13 @@
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import axiosInstance from './axiosInstance'
 
 /**
  * Create Payment Intent
  *
- * @param {bookcarsTypes.CreatePaymentIntentPayload} payload
- * @returns {Promise<bookcarsTypes.CreatePaymentIntentResult>}
+ * @param {BookCarsTypes.CreatePaymentIntentPayload} payload
+ * @returns {Promise<BookCarsTypes.CreatePaymentIntentResult>}
  */
-export const createPaymentIntent = (payload: bookcarsTypes.CreatePaymentPayload): Promise<bookcarsTypes.PaymentResult> =>
+export const createPaymentIntent = (payload: BookCarsTypes.CreatePaymentPayload): Promise<BookCarsTypes.PaymentResult> =>
   axiosInstance
     .post(
       '/api/create-payment-intent',

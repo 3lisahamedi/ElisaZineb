@@ -8,7 +8,7 @@ import {
   Link
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/sign-in'
 import * as UserService from '../services/UserService'
@@ -39,7 +39,7 @@ const SignIn = () => {
     try {
       e.preventDefault()
 
-      const data: bookcarsTypes.SignInPayload = {
+      const data: BookCarsTypes.SignInPayload = {
         email,
         password,
         stayConnected,

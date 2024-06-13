@@ -5,7 +5,7 @@ import path from 'path'
 import fs from 'node:fs/promises'
 import { v1 as uuid } from 'uuid'
 import mongoose from 'mongoose'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import * as databaseHelper from '../src/common/databaseHelper'
 import app from '../src/app'
 import * as env from '../src/config/env.config'
@@ -41,9 +41,9 @@ beforeAll(async () => {
 
   // create two suppliers
   const supplierName1 = testHelper.getSupplierName()
-  SUPPLIER1_ID = await testHelper.createSupplier(`${supplierName1}@test.bookcars.ma`, supplierName1)
+  SUPPLIER1_ID = await testHelper.createSupplier(`${supplierName1}@test.BookCars.ma`, supplierName1)
   const supplierName2 = testHelper.getSupplierName()
-  SUPPLIER2_ID = await testHelper.createSupplier(`${supplierName2}@test.bookcars.ma`, supplierName2)
+  SUPPLIER2_ID = await testHelper.createSupplier(`${supplierName2}@test.BookCars.ma`, supplierName2)
 
   // create two locations
   LOCATION1_ID = await testHelper.createLocation('Location 1 EN', 'Location 1 FR')
@@ -81,7 +81,7 @@ describe('POST /api/create-car', () => {
     if (!await helper.exists(tempImage)) {
       fs.copyFile(IMAGE1_PATH, tempImage)
     }
-    const payload: bookcarsTypes.CreateCarPayload = {
+    const payload: BookCarsTypes.CreateCarPayload = {
       name: 'BMW X1',
       supplier: SUPPLIER1_ID,
       minimumAge: 21,
@@ -89,13 +89,13 @@ describe('POST /api/create-car', () => {
       price: 780,
       deposit: 9500,
       available: false,
-      type: bookcarsTypes.CarType.Diesel,
-      gearbox: bookcarsTypes.GearboxType.Automatic,
+      type: BookCarsTypes.CarType.Diesel,
+      gearbox: BookCarsTypes.GearboxType.Automatic,
       aircon: true,
       image: IMAGE1,
       seats: 5,
       doors: 4,
-      fuelPolicy: bookcarsTypes.FuelPolicy.FreeTank,
+      fuelPolicy: BookCarsTypes.FuelPolicy.FreeTank,
       mileage: -1,
       cancellation: 0,
       amendments: 0,
@@ -139,7 +139,7 @@ describe('PUT /api/update-car', () => {
   it('should update a car', async () => {
     const token = await testHelper.signinAsAdmin()
 
-    const payload: bookcarsTypes.UpdateCarPayload = {
+    const payload: BookCarsTypes.UpdateCarPayload = {
       _id: CAR_ID,
       name: 'BMW X5',
       supplier: SUPPLIER2_ID,
@@ -148,12 +148,12 @@ describe('PUT /api/update-car', () => {
       price: 980,
       deposit: 10500,
       available: true,
-      type: bookcarsTypes.CarType.Gasoline,
-      gearbox: bookcarsTypes.GearboxType.Manual,
+      type: BookCarsTypes.CarType.Gasoline,
+      gearbox: BookCarsTypes.GearboxType.Manual,
       aircon: false,
       seats: 4,
       doors: 5,
-      fuelPolicy: bookcarsTypes.FuelPolicy.LikeForlike,
+      fuelPolicy: BookCarsTypes.FuelPolicy.LikeForlike,
       mileage: 30000,
       cancellation: 70,
       amendments: 30,
@@ -175,12 +175,12 @@ describe('PUT /api/update-car', () => {
     expect(car.price).toBe(980)
     expect(car.deposit).toBe(10500)
     expect(car.available).toBeTruthy()
-    expect(car.type).toBe(bookcarsTypes.CarType.Gasoline)
-    expect(car.gearbox).toBe(bookcarsTypes.GearboxType.Manual)
+    expect(car.type).toBe(BookCarsTypes.CarType.Gasoline)
+    expect(car.gearbox).toBe(BookCarsTypes.GearboxType.Manual)
     expect(car.aircon).toBe(false)
     expect(car.seats).toBe(4)
     expect(car.doors).toBe(5)
-    expect(car.fuelPolicy).toBe(bookcarsTypes.FuelPolicy.LikeForlike)
+    expect(car.fuelPolicy).toBe(BookCarsTypes.FuelPolicy.LikeForlike)
     expect(car.mileage).toBe(30000)
     expect(car.cancellation).toBe(70)
     expect(car.amendments).toBe(30)
@@ -370,12 +370,12 @@ describe('POST /api/cars/:page/:size', () => {
   it('should return cars', async () => {
     const token = await testHelper.signinAsAdmin()
 
-    const payload: bookcarsTypes.GetCarsPayload = {
+    const payload: BookCarsTypes.GetCarsPayload = {
       suppliers: [SUPPLIER2_ID],
-      carType: [bookcarsTypes.CarType.Diesel, bookcarsTypes.CarType.Gasoline],
-      gearbox: [bookcarsTypes.GearboxType.Manual, bookcarsTypes.GearboxType.Automatic],
-      mileage: [bookcarsTypes.Mileage.Limited, bookcarsTypes.Mileage.Unlimited],
-      availability: [bookcarsTypes.Availablity.Available, bookcarsTypes.Availablity.Unavailable],
+      carType: [BookCarsTypes.CarType.Diesel, BookCarsTypes.CarType.Gasoline],
+      gearbox: [BookCarsTypes.GearboxType.Manual, BookCarsTypes.GearboxType.Automatic],
+      mileage: [BookCarsTypes.Mileage.Limited, BookCarsTypes.Mileage.Unlimited],
+      availability: [BookCarsTypes.Availablity.Available, BookCarsTypes.Availablity.Unavailable],
       deposit: -1,
     }
 
@@ -402,7 +402,7 @@ describe('POST /api/cars/:page/:size', () => {
       .set(env.X_ACCESS_TOKEN, token)
     expect(res.statusCode).toBe(400)
 
-    payload.mileage = [bookcarsTypes.Mileage.Unlimited]
+    payload.mileage = [BookCarsTypes.Mileage.Unlimited]
     res = await request(app)
       .post(`/api/cars/${testHelper.PAGE}/${testHelper.SIZE}`)
       .set(env.X_ACCESS_TOKEN, token)
@@ -410,7 +410,7 @@ describe('POST /api/cars/:page/:size', () => {
     expect(res.statusCode).toBe(200)
     expect(res.body[0].resultData.length).toBe(0)
 
-    payload.mileage = [bookcarsTypes.Mileage.Limited]
+    payload.mileage = [BookCarsTypes.Mileage.Limited]
     res = await request(app)
       .post(`/api/cars/${testHelper.PAGE}/${testHelper.SIZE}`)
       .set(env.X_ACCESS_TOKEN, token)
@@ -426,7 +426,7 @@ describe('POST /api/cars/:page/:size', () => {
     expect(res.statusCode).toBe(200)
     expect(res.body[0].resultData.length).toBe(0)
 
-    payload.mileage = [bookcarsTypes.Mileage.Limited]
+    payload.mileage = [BookCarsTypes.Mileage.Limited]
     payload.deposit = 12000
     res = await request(app)
       .post(`/api/cars/${testHelper.PAGE}/${testHelper.SIZE}`)
@@ -435,7 +435,7 @@ describe('POST /api/cars/:page/:size', () => {
     expect(res.statusCode).toBe(200)
     expect(res.body[0].resultData.length).toBeGreaterThan(0)
 
-    payload.availability = [bookcarsTypes.Availablity.Available]
+    payload.availability = [BookCarsTypes.Availablity.Available]
     res = await request(app)
       .post(`/api/cars/${testHelper.PAGE}/${testHelper.SIZE}`)
       .set(env.X_ACCESS_TOKEN, token)
@@ -443,7 +443,7 @@ describe('POST /api/cars/:page/:size', () => {
     expect(res.statusCode).toBe(200)
     expect(res.body[0].resultData.length).toBeGreaterThan(0)
 
-    payload.availability = [bookcarsTypes.Availablity.Unavailable]
+    payload.availability = [BookCarsTypes.Availablity.Unavailable]
     res = await request(app)
       .post(`/api/cars/${testHelper.PAGE}/${testHelper.SIZE}`)
       .set(env.X_ACCESS_TOKEN, token)
@@ -467,7 +467,7 @@ describe('POST /api/booking-cars/:page/:size', () => {
   it('should return booking cars', async () => {
     const token = await testHelper.signinAsAdmin()
 
-    const payload: bookcarsTypes.GetBookingCarsPayload = {
+    const payload: BookCarsTypes.GetBookingCarsPayload = {
       supplier: SUPPLIER2_ID,
       pickupLocation: LOCATION2_ID,
     }
@@ -490,12 +490,12 @@ describe('POST /api/booking-cars/:page/:size', () => {
 
 describe('POST /api/frontend-cars/:page/:size', () => {
   it('should return frontend cars', async () => {
-    const payload: bookcarsTypes.GetCarsPayload = {
+    const payload: BookCarsTypes.GetCarsPayload = {
       suppliers: [SUPPLIER2_ID],
       pickupLocation: LOCATION2_ID,
-      carType: [bookcarsTypes.CarType.Diesel, bookcarsTypes.CarType.Gasoline],
-      gearbox: [bookcarsTypes.GearboxType.Manual, bookcarsTypes.GearboxType.Automatic],
-      mileage: [bookcarsTypes.Mileage.Limited, bookcarsTypes.Mileage.Unlimited],
+      carType: [BookCarsTypes.CarType.Diesel, BookCarsTypes.CarType.Gasoline],
+      gearbox: [BookCarsTypes.GearboxType.Manual, BookCarsTypes.GearboxType.Automatic],
+      mileage: [BookCarsTypes.Mileage.Limited, BookCarsTypes.Mileage.Unlimited],
       deposit: -1,
     }
     let res = await request(app)
@@ -515,14 +515,14 @@ describe('POST /api/frontend-cars/:page/:size', () => {
       .post(`/api/frontend-cars/${testHelper.PAGE}/${testHelper.SIZE}`)
     expect(res.statusCode).toBe(400)
 
-    payload.mileage = [bookcarsTypes.Mileage.Unlimited]
+    payload.mileage = [BookCarsTypes.Mileage.Unlimited]
     res = await request(app)
       .post(`/api/frontend-cars/${testHelper.PAGE}/${testHelper.SIZE}`)
       .send(payload)
     expect(res.statusCode).toBe(200)
     expect(res.body[0].resultData.length).toBe(0)
 
-    payload.mileage = [bookcarsTypes.Mileage.Limited]
+    payload.mileage = [BookCarsTypes.Mileage.Limited]
     res = await request(app)
       .post(`/api/frontend-cars/${testHelper.PAGE}/${testHelper.SIZE}`)
       .send(payload)
@@ -536,7 +536,7 @@ describe('POST /api/frontend-cars/:page/:size', () => {
     expect(res.statusCode).toBe(200)
     expect(res.body[0].resultData.length).toBe(0)
 
-    payload.mileage = [bookcarsTypes.Mileage.Limited]
+    payload.mileage = [BookCarsTypes.Mileage.Limited]
     payload.deposit = 12000
     res = await request(app)
       .post(`/api/frontend-cars/${testHelper.PAGE}/${testHelper.SIZE}`)
@@ -563,7 +563,7 @@ describe('GET /api/check-car/:id', () => {
       dropOffLocation: LOCATION1_ID,
       from: new Date(2024, 2, 1),
       to: new Date(1990, 2, 4),
-      status: bookcarsTypes.BookingStatus.Pending,
+      status: BookCarsTypes.BookingStatus.Pending,
       cancellation: true,
       amendments: true,
       theftProtection: false,
@@ -610,13 +610,13 @@ describe('DELETE /api/delete-car/:id', () => {
       price: 780,
       deposit: 9500,
       available: false,
-      type: bookcarsTypes.CarType.Diesel,
-      gearbox: bookcarsTypes.GearboxType.Automatic,
+      type: BookCarsTypes.CarType.Diesel,
+      gearbox: BookCarsTypes.GearboxType.Automatic,
       aircon: true,
       image: '',
       seats: 5,
       doors: 4,
-      fuelPolicy: bookcarsTypes.FuelPolicy.FreeTank,
+      fuelPolicy: BookCarsTypes.FuelPolicy.FreeTank,
       mileage: -1,
       cancellation: 0,
       amendments: 0,
@@ -639,13 +639,13 @@ describe('DELETE /api/delete-car/:id', () => {
       price: 780,
       deposit: 9500,
       available: false,
-      type: bookcarsTypes.CarType.Diesel,
-      gearbox: bookcarsTypes.GearboxType.Automatic,
+      type: BookCarsTypes.CarType.Diesel,
+      gearbox: BookCarsTypes.GearboxType.Automatic,
       aircon: true,
       image: `${uuid()}.jpg`,
       seats: 5,
       doors: 4,
-      fuelPolicy: bookcarsTypes.FuelPolicy.FreeTank,
+      fuelPolicy: BookCarsTypes.FuelPolicy.FreeTank,
       mileage: -1,
       cancellation: 0,
       amendments: 0,

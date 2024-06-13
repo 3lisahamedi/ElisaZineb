@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 
 import i18n from '../lang/i18n'
 import Accordion from './Accordion'
@@ -11,7 +11,7 @@ import Switch from './Switch'
 interface MileageFilterProps {
   visible?: boolean
   style?: object
-  onChange?: (values: bookcarsTypes.Mileage[]) => void
+  onChange?: (values: BookCarsTypes.Mileage[]) => void
 }
 
 const MileageFilter = ({
@@ -21,19 +21,19 @@ const MileageFilter = ({
 }: MileageFilterProps) => {
   const [limited, setLimited] = useState(true)
   const [unlimited, setUnlimited] = useState(true)
-  const [values, setValues] = useState([bookcarsTypes.Mileage.Limited, bookcarsTypes.Mileage.Unlimited])
+  const [values, setValues] = useState([BookCarsTypes.Mileage.Limited, BookCarsTypes.Mileage.Unlimited])
   const [allChecked, setAllChecked] = useState(true)
 
   const onValueChangeLimited = (checked: boolean) => {
     if (checked) {
-      values.push(bookcarsTypes.Mileage.Limited)
+      values.push(BookCarsTypes.Mileage.Limited)
 
       if (values.length === 2) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.Mileage.Limited),
+        values.findIndex((v) => v === BookCarsTypes.Mileage.Limited),
         1,
       )
 
@@ -45,20 +45,20 @@ const MileageFilter = ({
     setLimited(checked)
     setValues(values)
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
   const onValueChangeUnlimited = (checked: boolean) => {
     if (checked) {
-      values.push(bookcarsTypes.Mileage.Unlimited)
+      values.push(BookCarsTypes.Mileage.Unlimited)
 
       if (values.length === 2) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.Mileage.Unlimited),
+        values.findIndex((v) => v === BookCarsTypes.Mileage.Unlimited),
         1,
       )
 
@@ -70,7 +70,7 @@ const MileageFilter = ({
     setUnlimited(checked)
     setValues(values)
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
@@ -93,13 +93,13 @@ const MileageFilter = ({
                 setAllChecked(false)
                 setValues([])
               } else {
-                const _values = [bookcarsTypes.Mileage.Limited, bookcarsTypes.Mileage.Unlimited]
+                const _values = [BookCarsTypes.Mileage.Limited, BookCarsTypes.Mileage.Unlimited]
                 setLimited(true)
                 setUnlimited(true)
                 setAllChecked(true)
                 setValues(_values)
                 if (onChange) {
-                  onChange(bookcarsHelper.clone(_values))
+                  onChange(BookCarsHelper.clone(_values))
                 }
               }
             }}

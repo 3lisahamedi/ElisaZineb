@@ -17,8 +17,8 @@ import { DateTimeValidationError } from '@mui/x-date-pickers'
 import validator from 'validator'
 import { intervalToDuration } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import Layout from '../components/Layout'
 import env from '../config/env.config'
 import { strings as commonStrings } from '../lang/common'
@@ -44,7 +44,7 @@ const CreateBooking = () => {
   const [isSupplier, setIsSupplier] = useState(false)
   const [visible, setVisible] = useState(false)
   const [supplier, setSupplier] = useState('')
-  const [car, setCar] = useState<bookcarsTypes.Car>()
+  const [car, setCar] = useState<BookCarsTypes.Car>()
   const [driver, setDriver] = useState('')
   const [pickupLocation, setPickupLocation] = useState('')
   const [dropOffLocation, setDropOffLocation] = useState('')
@@ -52,7 +52,7 @@ const CreateBooking = () => {
   const [to, setTo] = useState<Date>()
   const [minDate, setMinDate] = useState<Date>()
   const [maxDate, setMaxDate] = useState<Date>()
-  const [status, setStatus] = useState<bookcarsTypes.BookingStatus>()
+  const [status, setStatus] = useState<BookCarsTypes.BookingStatus>()
   const [cancellation, setCancellation] = useState(false)
   const [amendments, setAmendments] = useState(false)
   const [theftProtection, setTheftProtection] = useState(false)
@@ -69,23 +69,23 @@ const CreateBooking = () => {
   const [fromError, setFromError] = useState(false)
   const [toError, setToError] = useState(false)
 
-  const handleSupplierChange = (values: bookcarsTypes.Option[]) => {
+  const handleSupplierChange = (values: BookCarsTypes.Option[]) => {
     setSupplier(values.length > 0 ? values[0]._id : '')
   }
 
-  const handleDriverChange = (values: bookcarsTypes.Option[]) => {
+  const handleDriverChange = (values: BookCarsTypes.Option[]) => {
     setDriver(values.length > 0 ? values[0]._id : '')
   }
 
-  const handlePickupLocationChange = (values: bookcarsTypes.Option[]) => {
+  const handlePickupLocationChange = (values: BookCarsTypes.Option[]) => {
     setPickupLocation(values.length > 0 ? values[0]._id : '-1')
   }
 
-  const handleDropOffLocationChange = (values: bookcarsTypes.Option[]) => {
+  const handleDropOffLocationChange = (values: BookCarsTypes.Option[]) => {
     setDropOffLocation(values.length > 0 ? values[0]._id : '-1')
   }
 
-  const handleCarSelectListChange = useCallback((values: bookcarsTypes.Car[]) => {
+  const handleCarSelectListChange = useCallback((values: BookCarsTypes.Car[]) => {
     if (Array.isArray(values) && values.length > 0) {
       const _car = values[0]
       if (_car) {
@@ -96,7 +96,7 @@ const CreateBooking = () => {
     }
   }, [])
 
-  const handleStatusChange = (value: bookcarsTypes.BookingStatus) => {
+  const handleStatusChange = (value: BookCarsTypes.BookingStatus) => {
     setStatus(value)
   }
 
@@ -150,7 +150,7 @@ const CreateBooking = () => {
   }
 
   const _validateBirthDate = (date?: Date) => {
-    if (date && bookcarsHelper.isDate(date)) {
+    if (date && BookCarsHelper.isDate(date)) {
       const now = new Date()
       const sub = intervalToDuration({ start: date, end: now }).years ?? 0
       const _birthDateValid = sub >= env.MINIMUM_AGE
@@ -193,7 +193,7 @@ const CreateBooking = () => {
       }
     }
 
-    const booking: bookcarsTypes.Booking = {
+    const booking: BookCarsTypes.Booking = {
       supplier,
       car: car._id,
       driver,
@@ -210,7 +210,7 @@ const CreateBooking = () => {
       additionalDriver: additionalDriverSet,
     }
 
-    let _additionalDriver: bookcarsTypes.AdditionalDriver
+    let _additionalDriver: BookCarsTypes.AdditionalDriver
     if (additionalDriverSet) {
       if (!addtionalDriverBirthDate) {
         helper.error()
@@ -251,11 +251,11 @@ const CreateBooking = () => {
     )
   }
 
-  const onLoad = (user?: bookcarsTypes.User) => {
+  const onLoad = (user?: BookCarsTypes.User) => {
     if (user) {
       setVisible(true)
 
-      if (user.type === bookcarsTypes.RecordType.Supplier) {
+      if (user.type === BookCarsTypes.RecordType.Supplier) {
         setSupplier(user._id as string)
         setIsSupplier(true)
       }

@@ -6,7 +6,7 @@ import {
   SelectChangeEvent,
   TextFieldVariants
 } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import { strings as commonStrings } from '../lang/common'
 import * as helper from '../common/helper'
 
@@ -19,7 +19,7 @@ interface StatusListProps {
   variant?: TextFieldVariants
   disabled?: boolean
   style?: CSSProperties
-  onChange?: (value: bookcarsTypes.BookingStatus) => void
+  onChange?: (value: BookCarsTypes.BookingStatus) => void
 }
 
 const StatusList = ({
@@ -43,7 +43,7 @@ const StatusList = ({
     setValue(e.target.value)
 
     if (onChange) {
-      onChange(e.target.value as bookcarsTypes.BookingStatus)
+      onChange(e.target.value as BookCarsTypes.BookingStatus)
     }
   }
 
@@ -51,7 +51,7 @@ const StatusList = ({
     <div style={style || {}}>
       {disabled ? (
         <span className={`bs-s-sv bs-s-${value}`} style={{ marginTop: 5 }}>
-          {helper.getBookingStatus(value as bookcarsTypes.BookingStatus)}
+          {helper.getBookingStatus(value as BookCarsTypes.BookingStatus)}
         </span>
       ) : (
         <>
@@ -65,26 +65,26 @@ const StatusList = ({
             fullWidth
             renderValue={(_value) => (
               <span className={`bs-s-sv bs-s-${_value}`}>
-                {helper.getBookingStatus(_value as bookcarsTypes.BookingStatus)}
+                {helper.getBookingStatus(_value as BookCarsTypes.BookingStatus)}
               </span>
             )}
           >
-            <MenuItem value={bookcarsTypes.BookingStatus.Void} className="bs-s bs-s-void">
+            <MenuItem value={BookCarsTypes.BookingStatus.Void} className="bs-s bs-s-void">
               {commonStrings.BOOKING_STATUS_VOID}
             </MenuItem>
-            <MenuItem value={bookcarsTypes.BookingStatus.Pending} className="bs-s bs-s-pending">
+            <MenuItem value={BookCarsTypes.BookingStatus.Pending} className="bs-s bs-s-pending">
               {commonStrings.BOOKING_STATUS_PENDING}
             </MenuItem>
-            <MenuItem value={bookcarsTypes.BookingStatus.Deposit} className="bs-s bs-s-deposit">
+            <MenuItem value={BookCarsTypes.BookingStatus.Deposit} className="bs-s bs-s-deposit">
               {commonStrings.BOOKING_STATUS_DEPOSIT}
             </MenuItem>
-            <MenuItem value={bookcarsTypes.BookingStatus.Paid} className="bs-s bs-s-paid">
+            <MenuItem value={BookCarsTypes.BookingStatus.Paid} className="bs-s bs-s-paid">
               {commonStrings.BOOKING_STATUS_PAID}
             </MenuItem>
-            <MenuItem value={bookcarsTypes.BookingStatus.Reserved} className="bs-s bs-s-reserved">
+            <MenuItem value={BookCarsTypes.BookingStatus.Reserved} className="bs-s bs-s-reserved">
               {commonStrings.BOOKING_STATUS_RESERVED}
             </MenuItem>
-            <MenuItem value={bookcarsTypes.BookingStatus.Cancelled} className="bs-s bs-s-cancelled">
+            <MenuItem value={BookCarsTypes.BookingStatus.Cancelled} className="bs-s bs-s-cancelled">
               {commonStrings.BOOKING_STATUS_CANCELLED}
             </MenuItem>
           </Select>

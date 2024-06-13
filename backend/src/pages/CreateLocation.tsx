@@ -7,8 +7,8 @@ import {
   Button,
   Paper
 } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import Layout from '../components/Layout'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/create-location'
@@ -20,7 +20,7 @@ import '../assets/css/create-location.css'
 
 const CreateLocation = () => {
   const [visible, setVisible] = useState(false)
-  const [names, setNames] = useState<bookcarsTypes.LocationName[]>([])
+  const [names, setNames] = useState<BookCarsTypes.LocationName[]>([])
   const [nameErrors, setNameErrors] = useState<boolean[]>([])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,7 +42,7 @@ const CreateLocation = () => {
         }
       }
 
-      setNameErrors(bookcarsHelper.cloneArray(nameErrors) as boolean[])
+      setNameErrors(BookCarsHelper.cloneArray(nameErrors) as boolean[])
 
       if (isValid) {
         const status = await LocationService.create(names)
@@ -51,7 +51,7 @@ const CreateLocation = () => {
           for (let i = 0; i < names.length; i += 1) {
             names[i].name = ''
           }
-          setNames(bookcarsHelper.cloneArray(names) as bookcarsTypes.LocationName[])
+          setNames(BookCarsHelper.cloneArray(names) as BookCarsTypes.LocationName[])
           helper.info(strings.LOCATION_CREATED)
         } else {
           helper.error()
@@ -89,10 +89,10 @@ const CreateLocation = () => {
                       language: language.code,
                       name: e.target.value,
                     }
-                    setNames(bookcarsHelper.cloneArray(names) as bookcarsTypes.LocationName[])
+                    setNames(BookCarsHelper.cloneArray(names) as BookCarsTypes.LocationName[])
 
                     nameErrors[index] = false
-                    setNameErrors(bookcarsHelper.cloneArray(nameErrors) as boolean[])
+                    setNameErrors(BookCarsHelper.cloneArray(nameErrors) as boolean[])
                   }}
                   autoComplete="off"
                 />

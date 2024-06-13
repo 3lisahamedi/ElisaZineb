@@ -16,8 +16,8 @@ import { Info as InfoIcon } from '@mui/icons-material'
 import { intervalToDuration } from 'date-fns'
 import validator from 'validator'
 import { useNavigate } from 'react-router-dom'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import Layout from '../components/Layout'
 import env from '../config/env.config'
 import { strings as commonStrings } from '../lang/common'
@@ -37,8 +37,8 @@ import '../assets/css/update-user.css'
 
 const UpdateUser = () => {
   const navigate = useNavigate()
-  const [loggedUser, setLoggedUser] = useState<bookcarsTypes.User>()
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [loggedUser, setLoggedUser] = useState<BookCarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [visible, setVisible] = useState(false)
   const [noMatch, setNoMatch] = useState(false)
   const [admin, setAdmin] = useState(false)
@@ -89,7 +89,7 @@ const UpdateUser = () => {
 
     setType(e.target.value)
 
-    if (_type === bookcarsTypes.RecordType.Supplier) {
+    if (_type === BookCarsTypes.RecordType.Supplier) {
       await validateFullName(fullName)
     } else {
       setFullNameError(false)
@@ -105,7 +105,7 @@ const UpdateUser = () => {
   }
 
   const handleFullNameBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
-    if (type === bookcarsTypes.RecordType.Supplier) {
+    if (type === BookCarsTypes.RecordType.Supplier) {
       await validateFullName(e.target.value)
     } else {
       setFullNameError(false)
@@ -137,7 +137,7 @@ const UpdateUser = () => {
   }
 
   const validateBirthDate = (date?: Date) => {
-    if (date && bookcarsHelper.isDate(date) && type === bookcarsTypes.RecordType.User) {
+    if (date && BookCarsHelper.isDate(date) && type === BookCarsTypes.RecordType.User) {
       const now = new Date()
       const sub = intervalToDuration({ start: date, end: now }).years ?? 0
       const _birthDateValid = sub >= env.MINIMUM_AGE
@@ -163,20 +163,20 @@ const UpdateUser = () => {
 
   const onAvatarChange = (_avatar: string) => {
     if (loggedUser && user && loggedUser._id === user._id) {
-      const _loggedUser = bookcarsHelper.clone(loggedUser)
+      const _loggedUser = BookCarsHelper.clone(loggedUser)
       _loggedUser.avatar = _avatar
 
       setLoggedUser(_loggedUser)
     }
 
-    const _user = bookcarsHelper.clone(user)
+    const _user = BookCarsHelper.clone(user)
     _user.avatar = _avatar
 
     setLoading(false)
     setUser(_user)
     setAvatar(_avatar)
 
-    if (_avatar !== null && type === bookcarsTypes.RecordType.Supplier) {
+    if (_avatar !== null && type === BookCarsTypes.RecordType.Supplier) {
       setAvatarError(false)
     }
   }
@@ -198,7 +198,7 @@ const UpdateUser = () => {
 
   const handleResendActivationLink = async () => {
     try {
-      const status = await UserService.resend(email, false, type === bookcarsTypes.RecordType.User ? 'frontend' : 'backend')
+      const status = await UserService.resend(email, false, type === BookCarsTypes.RecordType.User ? 'frontend' : 'backend')
 
       if (status === 200) {
         helper.info(commonStrings.ACTIVATION_EMAIL_SENT)
@@ -210,7 +210,7 @@ const UpdateUser = () => {
     }
   }
 
-  const onLoad = async (_loggedUser?: bookcarsTypes.User) => {
+  const onLoad = async (_loggedUser?: BookCarsTypes.User) => {
     if (_loggedUser && _loggedUser.verified) {
       setLoading(true)
 
@@ -265,7 +265,7 @@ const UpdateUser = () => {
         return
       }
 
-      if (type === bookcarsTypes.RecordType.Supplier) {
+      if (type === BookCarsTypes.RecordType.Supplier) {
         const fullNameValid = await validateFullName(fullName, false)
 
         if (!fullNameValid) {
@@ -285,14 +285,14 @@ const UpdateUser = () => {
         return
       }
 
-      if (type === bookcarsTypes.RecordType.Supplier && !avatar) {
+      if (type === BookCarsTypes.RecordType.Supplier && !avatar) {
         setAvatarError(true)
         setError(false)
         return
       }
 
       const language = UserService.getLanguage()
-      const data: bookcarsTypes.UpdateUserPayload = {
+      const data: BookCarsTypes.UpdateUserPayload = {
         _id: user._id as string,
         phone,
         location,
@@ -304,7 +304,7 @@ const UpdateUser = () => {
         birthDate,
       }
 
-      if (type === bookcarsTypes.RecordType.Supplier) {
+      if (type === BookCarsTypes.RecordType.Supplier) {
         data.payLater = payLater
       }
 
@@ -325,10 +325,10 @@ const UpdateUser = () => {
     }
   }
 
-  const supplier = type === bookcarsTypes.RecordType.Supplier
-  const driver = type === bookcarsTypes.RecordType.User
+  const supplier = type === BookCarsTypes.RecordType.Supplier
+  const driver = type === BookCarsTypes.RecordType.User
   const activate = admin
-    || (loggedUser && user && loggedUser.type === bookcarsTypes.RecordType.Supplier && user.type === bookcarsTypes.RecordType.User && user.supplier as string === loggedUser._id)
+    || (loggedUser && user && loggedUser.type === BookCarsTypes.RecordType.Supplier && user.type === BookCarsTypes.RecordType.User && user.supplier as string === loggedUser._id)
 
   return (
     <Layout onLoad={onLoad} user={loggedUser} strict>
@@ -351,7 +351,7 @@ const UpdateUser = () => {
                 onChange={onAvatarChange}
                 color="disabled"
                 className="avatar-ctn"
-                hideDelete={type === bookcarsTypes.RecordType.Supplier}
+                hideDelete={type === BookCarsTypes.RecordType.Supplier}
               />
 
               {supplier && (
@@ -365,9 +365,9 @@ const UpdateUser = () => {
                 <FormControl fullWidth margin="dense" style={{ marginTop: supplier ? 0 : 39 }}>
                   <InputLabel className="required">{commonStrings.TYPE}</InputLabel>
                   <Select label={commonStrings.TYPE} value={type} onChange={handleUserTypeChange} variant="standard" required fullWidth>
-                    <MenuItem value={bookcarsTypes.RecordType.Admin}>{helper.getUserType(bookcarsTypes.UserType.Admin)}</MenuItem>
-                    <MenuItem value={bookcarsTypes.RecordType.Supplier}>{helper.getUserType(bookcarsTypes.UserType.Supplier)}</MenuItem>
-                    <MenuItem value={bookcarsTypes.RecordType.User}>{helper.getUserType(bookcarsTypes.UserType.User)}</MenuItem>
+                    <MenuItem value={BookCarsTypes.RecordType.Admin}>{helper.getUserType(BookCarsTypes.UserType.Admin)}</MenuItem>
+                    <MenuItem value={BookCarsTypes.RecordType.Supplier}>{helper.getUserType(BookCarsTypes.UserType.Supplier)}</MenuItem>
+                    <MenuItem value={BookCarsTypes.RecordType.User}>{helper.getUserType(BookCarsTypes.UserType.User)}</MenuItem>
                   </Select>
                 </FormControl>
               )}

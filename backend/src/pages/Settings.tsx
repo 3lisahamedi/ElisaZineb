@@ -10,8 +10,8 @@ import {
   Paper
 } from '@mui/material'
 import validator from 'validator'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import Layout from '../components/Layout'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/settings'
@@ -23,7 +23,7 @@ import * as helper from '../common/helper'
 import '../assets/css/settings.css'
 
 const Settings = () => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [admin, setAdmin] = useState(false)
   const [fullName, setFullName] = useState('')
   const [phone, setPhone] = useState('')
@@ -73,7 +73,7 @@ const Settings = () => {
 
         user.enableEmailNotifications = e.target.checked
 
-        const payload: bookcarsTypes.UpdateEmailNotificationsPayload = {
+        const payload: BookCarsTypes.UpdateEmailNotificationsPayload = {
           _id: user._id as string,
           enableEmailNotifications: user.enableEmailNotifications
         }
@@ -98,7 +98,7 @@ const Settings = () => {
   }
 
   const onAvatarChange = (avatar: string) => {
-    const _user = bookcarsHelper.clone(user)
+    const _user = BookCarsHelper.clone(user)
     _user.avatar = avatar
     setUser(_user)
     setLoading(false)
@@ -118,7 +118,7 @@ const Settings = () => {
         return
       }
 
-      const data: bookcarsTypes.UpdateUserPayload = {
+      const data: BookCarsTypes.UpdateUserPayload = {
         _id: user._id as string,
         fullName,
         phone,
@@ -138,7 +138,7 @@ const Settings = () => {
     }
   }
 
-  const onLoad = (_user?: bookcarsTypes.User) => {
+  const onLoad = (_user?: BookCarsTypes.User) => {
     if (_user) {
       setUser(_user)
       setAdmin(helper.admin(_user))

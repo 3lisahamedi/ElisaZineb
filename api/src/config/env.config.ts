@@ -1,7 +1,7 @@
 import process from 'process';
 import { Document, Types } from 'mongoose';
 import { CookieOptions } from 'express';
-import * as bookcarsTypes from '../packages/bookcars-types';
+import * as BookCarsTypes from '../packages/BookCars-types';
 import * as helper from '../common/helper';
 
 /**
@@ -63,11 +63,11 @@ export const PRIVATE_KEY = __env__('BC_PRIVATE_KEY', HTTPS);
 export const CERTIFICATE = __env__('BC_CERTIFICATE', HTTPS);
 
 /**
- * MongoDB database URI. Default is: mongodb://127.0.0.1:27017/bookcars?authSource=admin&appName=bookcars
+ * MongoDB database URI. Default is: mongodb://127.0.0.1:27017/BookCars?authSource=admin&appName=BookCars
  *
  * @type {string}
  */
-export const DB_URI = __env__('BC_DB_URI', false, 'mongodb://127.0.0.1:27017/bookcars?authSource=admin&appName=bookcars');
+export const DB_URI = __env__('BC_DB_URI', false, 'mongodb://127.0.0.1:27017/BookCars?authSource=admin&appName=BookCars');
 
 /**
  * Indicate whether MongoDB SSL is enabled or not.
@@ -323,7 +323,7 @@ export interface User extends Document {
   avatar?: string;
   bio?: string;
   location?: string;
-  type?: bookcarsTypes.UserType;
+  type?: BookCarsTypes.UserType;
   blacklisted?: boolean;
   payLater?: boolean;
   customerId?: string;
@@ -388,7 +388,7 @@ export interface Booking extends Document {
   dropOffLocation: Types.ObjectId;
   from: Date;
   to: Date;
-  status: bookcarsTypes.BookingStatus;
+  status: BookCarsTypes.BookingStatus;
   cancellation?: boolean;
   amendments?: boolean;
   theftProtection?: boolean;
@@ -420,13 +420,13 @@ export interface Car extends Document {
   price: number;
   deposit: number;
   available: boolean;
-  type: bookcarsTypes.CarType;
-  gearbox: bookcarsTypes.GearboxType;
+  type: BookCarsTypes.CarType;
+  gearbox: BookCarsTypes.GearboxType;
   aircon: boolean;
   image: string | null;
   seats: number;
   doors: number;
-  fuelPolicy: bookcarsTypes.FuelPolicy;
+  fuelPolicy: BookCarsTypes.FuelPolicy;
   mileage: number;
   cancellation: number;
   amendments: number;
@@ -452,13 +452,13 @@ export interface CarInfo {
   price: number;
   deposit: number;
   available: boolean;
-  type: bookcarsTypes.CarType;
-  gearbox: bookcarsTypes.GearboxType;
+  type: BookCarsTypes.CarType;
+  gearbox: BookCarsTypes.GearboxType;
   aircon: boolean;
   image?: string;
   seats: number;
   doors: number;
-  fuelPolicy: bookcarsTypes.FuelPolicy;
+  fuelPolicy: BookCarsTypes.FuelPolicy;
   mileage: number;
   cancellation: number;
   amendments: number;
@@ -484,7 +484,7 @@ export interface BookingInfo {
   dropOffLocation: Types.ObjectId;
   from: Date;
   to: Date;
-  status: bookcarsTypes.BookingStatus;
+  status: BookCarsTypes.BookingStatus;
   cancellation?: boolean;
   amendments?: boolean;
   theftProtection?: boolean;

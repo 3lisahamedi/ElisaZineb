@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify'
 import validator from 'validator'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/cars'
 import * as CarService from '../services/CarService'
@@ -49,10 +49,10 @@ export const error = (err?: unknown, message?: string) => {
  */
 export const getCarType = (type: string) => {
   switch (type) {
-    case bookcarsTypes.CarType.Diesel:
+    case BookCarsTypes.CarType.Diesel:
       return strings.DIESEL
 
-    case bookcarsTypes.CarType.Gasoline:
+    case BookCarsTypes.CarType.Gasoline:
       return strings.GASOLINE
 
     default:
@@ -68,19 +68,19 @@ export const getCarType = (type: string) => {
  */
 export const getCarTypeShort = (type: string) => {
   switch (type) {
-    case bookcarsTypes.CarType.Diesel:
+    case BookCarsTypes.CarType.Diesel:
       return strings.DIESEL_SHORT
 
-    case bookcarsTypes.CarType.Gasoline:
+    case BookCarsTypes.CarType.Gasoline:
       return strings.GASOLINE_SHORT
 
-    case bookcarsTypes.CarType.Electric:
+    case BookCarsTypes.CarType.Electric:
       return strings.ELECTRIC_SHORT
 
-    case bookcarsTypes.CarType.Hybrid:
+    case BookCarsTypes.CarType.Hybrid:
       return strings.HYBRID_SHORT
 
-    case bookcarsTypes.CarType.PlugInHybrid:
+    case BookCarsTypes.CarType.PlugInHybrid:
       return strings.PLUG_IN_HYBRID_SHORT
 
     default:
@@ -96,10 +96,10 @@ export const getCarTypeShort = (type: string) => {
  */
 export const getGearboxType = (type: string) => {
   switch (type) {
-    case bookcarsTypes.GearboxType.Manual:
+    case BookCarsTypes.GearboxType.Manual:
       return strings.GEARBOX_MANUAL
 
-    case bookcarsTypes.GearboxType.Automatic:
+    case BookCarsTypes.GearboxType.Automatic:
       return strings.GEARBOX_AUTOMATIC
 
     default:
@@ -115,10 +115,10 @@ export const getGearboxType = (type: string) => {
  */
 export const getGearboxTypeShort = (type: string) => {
   switch (type) {
-    case bookcarsTypes.GearboxType.Manual:
+    case BookCarsTypes.GearboxType.Manual:
       return strings.GEARBOX_MANUAL_SHORT
 
-    case bookcarsTypes.GearboxType.Automatic:
+    case BookCarsTypes.GearboxType.Automatic:
       return strings.GEARBOX_AUTOMATIC_SHORT
 
     default:
@@ -134,10 +134,10 @@ export const getGearboxTypeShort = (type: string) => {
  */
 export const getFuelPolicy = (type: string) => {
   switch (type) {
-    case bookcarsTypes.FuelPolicy.LikeForlike:
+    case BookCarsTypes.FuelPolicy.LikeForlike:
       return strings.FUEL_POLICY_LIKE_FOR_LIKE
 
-    case bookcarsTypes.FuelPolicy.FreeTank:
+    case BookCarsTypes.FuelPolicy.FreeTank:
       return strings.FUEL_POLICY_FREE_TANK
 
     default:
@@ -153,19 +153,19 @@ export const getFuelPolicy = (type: string) => {
  */
 export const getCarTypeTooltip = (type: string) => {
   switch (type) {
-    case bookcarsTypes.CarType.Diesel:
+    case BookCarsTypes.CarType.Diesel:
       return strings.DIESEL_TOOLTIP
 
-    case bookcarsTypes.CarType.Gasoline:
+    case BookCarsTypes.CarType.Gasoline:
       return strings.GASOLINE_TOOLTIP
 
-    case bookcarsTypes.CarType.Electric:
+    case BookCarsTypes.CarType.Electric:
       return strings.ELECTRIC_TOOLTIP
 
-    case bookcarsTypes.CarType.Hybrid:
+    case BookCarsTypes.CarType.Hybrid:
       return strings.HYBRID_TOOLTIP
 
-    case bookcarsTypes.CarType.PlugInHybrid:
+    case BookCarsTypes.CarType.PlugInHybrid:
       return strings.PLUG_IN_HYBRID_TOOLTIP
 
     default:
@@ -181,10 +181,10 @@ export const getCarTypeTooltip = (type: string) => {
  */
 export const getGearboxTooltip = (type: string) => {
   switch (type) {
-    case bookcarsTypes.GearboxType.Manual:
+    case BookCarsTypes.GearboxType.Manual:
       return strings.GEARBOX_MANUAL_TOOLTIP
 
-    case bookcarsTypes.GearboxType.Automatic:
+    case BookCarsTypes.GearboxType.Automatic:
       return strings.GEARBOX_AUTOMATIC_TOOLTIP
 
     default:
@@ -216,10 +216,10 @@ export const getDoorsTooltip = (doors: number) => `${strings.DOORS_TOOLTIP_1}${d
  */
 export const getFuelPolicyTooltip = (fuelPolicy: string) => {
   switch (fuelPolicy) {
-    case bookcarsTypes.FuelPolicy.LikeForlike:
+    case BookCarsTypes.FuelPolicy.LikeForlike:
       return strings.FUEL_POLICY_LIKE_FOR_LIKE_TOOLTIP
 
-    case bookcarsTypes.FuelPolicy.FreeTank:
+    case BookCarsTypes.FuelPolicy.FreeTank:
       return strings.FUEL_POLICY_FREE_TANK_TOOLTIP
 
     default:
@@ -238,7 +238,7 @@ export const getMileage = (mileage: number, language: string) => {
   if (mileage === -1) {
     return strings.UNLIMITED
   }
-  return `${bookcarsHelper.formatNumber(mileage, language)} ${strings.MILEAGE_UNIT}`
+  return `${BookCarsHelper.formatNumber(mileage, language)} ${strings.MILEAGE_UNIT}`
 }
 
 /**
@@ -249,12 +249,12 @@ export const getMileage = (mileage: number, language: string) => {
  * @returns {string}
  */
 export const getMileageTooltip = (mileage: number, language: string) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (mileage === -1) {
     return `${strings.MILEAGE} ${strings.UNLIMITED.toLocaleLowerCase()}.`
   }
-  return `${strings.MILEAGE}${fr ? ' : ' : ': '}${bookcarsHelper.formatNumber(mileage, language)} ${strings.MILEAGE_UNIT}`
+  return `${strings.MILEAGE}${fr ? ' : ' : ': '}${BookCarsHelper.formatNumber(mileage, language)} ${strings.MILEAGE_UNIT}`
 }
 
 /**
@@ -265,14 +265,14 @@ export const getMileageTooltip = (mileage: number, language: string) => {
  * @returns {string}
  */
 export const getAdditionalDriver = (additionalDriver: number, language: string) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (additionalDriver === -1) {
     return `${strings.ADDITIONAL_DRIVER}${fr ? ' : ' : ': '}${strings.UNAVAILABLE}`
   } if (additionalDriver === 0) {
     return `${strings.ADDITIONAL_DRIVER}${fr ? ' : ' : ': '}${strings.INCLUDED}`
   }
-  return `${strings.ADDITIONAL_DRIVER}${fr ? ' : ' : ': '}${bookcarsHelper.formatPrice(additionalDriver, commonStrings.CURRENCY, language)}${commonStrings.DAILY}`
+  return `${strings.ADDITIONAL_DRIVER}${fr ? ' : ' : ': '}${BookCarsHelper.formatPrice(additionalDriver, commonStrings.CURRENCY, language)}${commonStrings.DAILY}`
 }
 
 /**
@@ -283,14 +283,14 @@ export const getAdditionalDriver = (additionalDriver: number, language: string) 
  * @returns {string}
  */
 export const getFullInsurance = (fullInsurance: number, language: string) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (fullInsurance === -1) {
     return `${strings.FULL_INSURANCE}${fr ? ' : ' : ': '}${strings.UNAVAILABLE}`
   } if (fullInsurance === 0) {
     return `${strings.FULL_INSURANCE}${fr ? ' : ' : ': '}${strings.INCLUDED}${fr ? 'e' : ''}`
   }
-  return `${strings.FULL_INSURANCE}${fr ? ' : ' : ': '}${bookcarsHelper.formatPrice(fullInsurance, commonStrings.CURRENCY, language)}${commonStrings.DAILY}`
+  return `${strings.FULL_INSURANCE}${fr ? ' : ' : ': '}${BookCarsHelper.formatPrice(fullInsurance, commonStrings.CURRENCY, language)}${commonStrings.DAILY}`
 }
 
 /**
@@ -301,14 +301,14 @@ export const getFullInsurance = (fullInsurance: number, language: string) => {
  * @returns {string}
  */
 export const getCollisionDamageWaiver = (collisionDamageWaiver: number, language: string) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (collisionDamageWaiver === -1) {
     return `${strings.COLLISION_DAMAGE_WAVER}${fr ? ' : ' : ': '}${strings.UNAVAILABLE}`
   } if (collisionDamageWaiver === 0) {
     return `${strings.COLLISION_DAMAGE_WAVER}${fr ? ' : ' : ': '}${strings.INCLUDED}${fr ? 'e' : ''}`
   }
-  return `${strings.COLLISION_DAMAGE_WAVER}${fr ? ' : ' : ': '}${bookcarsHelper.formatPrice(collisionDamageWaiver, commonStrings.CURRENCY, language)}${commonStrings.DAILY}`
+  return `${strings.COLLISION_DAMAGE_WAVER}${fr ? ' : ' : ': '}${BookCarsHelper.formatPrice(collisionDamageWaiver, commonStrings.CURRENCY, language)}${commonStrings.DAILY}`
 }
 
 /**
@@ -319,14 +319,14 @@ export const getCollisionDamageWaiver = (collisionDamageWaiver: number, language
  * @returns {string}
  */
 export const getTheftProtection = (theftProtection: number, language: string) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (theftProtection === -1) {
     return `${strings.THEFT_PROTECTION}${fr ? ' : ' : ': '}${strings.UNAVAILABLE}`
   } if (theftProtection === 0) {
     return `${strings.THEFT_PROTECTION}${fr ? ' : ' : ': '}${strings.INCLUDED}${fr ? 'e' : ''}`
   }
-  return `${strings.THEFT_PROTECTION}${fr ? ' : ' : ': '}${bookcarsHelper.formatPrice(theftProtection, commonStrings.CURRENCY, language)}${commonStrings.DAILY}`
+  return `${strings.THEFT_PROTECTION}${fr ? ' : ' : ': '}${BookCarsHelper.formatPrice(theftProtection, commonStrings.CURRENCY, language)}${commonStrings.DAILY}`
 }
 
 /**
@@ -337,14 +337,14 @@ export const getTheftProtection = (theftProtection: number, language: string) =>
  * @returns {string}
  */
 export const getAmendments = (amendments: number, language: string) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (amendments === -1) {
     return `${strings.AMENDMENTS}${fr ? ' : ' : ': '}${strings.UNAVAILABLE}${fr ? 's' : ''}`
   } if (amendments === 0) {
     return `${strings.AMENDMENTS}${fr ? ' : ' : ': '}${strings.INCLUDED}${fr ? 'es' : ''}`
   }
-  return `${strings.AMENDMENTS}${fr ? ' : ' : ': '}${bookcarsHelper.formatPrice(amendments, commonStrings.CURRENCY, language)}`
+  return `${strings.AMENDMENTS}${fr ? ' : ' : ': '}${BookCarsHelper.formatPrice(amendments, commonStrings.CURRENCY, language)}`
 }
 
 /**
@@ -355,23 +355,23 @@ export const getAmendments = (amendments: number, language: string) => {
  * @returns {string}
  */
 export const getCancellation = (cancellation: number, language: string) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (cancellation === -1) {
     return `${strings.CANCELLATION}${fr ? ' : ' : ': '}${strings.UNAVAILABLE}`
   } if (cancellation === 0) {
     return `${strings.CANCELLATION}${fr ? ' : ' : ': '}${strings.INCLUDED}${fr ? 'e' : ''}`
   }
-  return `${strings.CANCELLATION}${fr ? ' : ' : ': '}${bookcarsHelper.formatPrice(cancellation, commonStrings.CURRENCY, language)}`
+  return `${strings.CANCELLATION}${fr ? ' : ' : ': '}${BookCarsHelper.formatPrice(cancellation, commonStrings.CURRENCY, language)}`
 }
 
 /**
  * Check whether a user is and administrator or not.
  *
- * @param {?bookcarsTypes.User} [user]
+ * @param {?BookCarsTypes.User} [user]
  * @returns {boolean}
  */
-export const admin = (user?: bookcarsTypes.User): boolean => (user && user.type === bookcarsTypes.RecordType.Admin) ?? false
+export const admin = (user?: BookCarsTypes.User): boolean => (user && user.type === BookCarsTypes.RecordType.Admin) ?? false
 
 /**
  * Get booking status label.
@@ -379,24 +379,24 @@ export const admin = (user?: bookcarsTypes.User): boolean => (user && user.type 
  * @param {string} status
  * @returns {string}
  */
-export const getBookingStatus = (status?: bookcarsTypes.BookingStatus) => {
+export const getBookingStatus = (status?: BookCarsTypes.BookingStatus) => {
   switch (status) {
-    case bookcarsTypes.BookingStatus.Void:
+    case BookCarsTypes.BookingStatus.Void:
       return commonStrings.BOOKING_STATUS_VOID
 
-    case bookcarsTypes.BookingStatus.Pending:
+    case BookCarsTypes.BookingStatus.Pending:
       return commonStrings.BOOKING_STATUS_PENDING
 
-    case bookcarsTypes.BookingStatus.Deposit:
+    case BookCarsTypes.BookingStatus.Deposit:
       return commonStrings.BOOKING_STATUS_DEPOSIT
 
-    case bookcarsTypes.BookingStatus.Paid:
+    case BookCarsTypes.BookingStatus.Paid:
       return commonStrings.BOOKING_STATUS_PAID
 
-    case bookcarsTypes.BookingStatus.Reserved:
+    case BookCarsTypes.BookingStatus.Reserved:
       return commonStrings.BOOKING_STATUS_RESERVED
 
-    case bookcarsTypes.BookingStatus.Cancelled:
+    case BookCarsTypes.BookingStatus.Cancelled:
       return commonStrings.BOOKING_STATUS_CANCELLED
 
     default:
@@ -407,31 +407,31 @@ export const getBookingStatus = (status?: bookcarsTypes.BookingStatus) => {
 /**
  * Get all booking statuses.
  *
- * @returns {bookcarsTypes.StatusFilterItem[]}
+ * @returns {BookCarsTypes.StatusFilterItem[]}
  */
-export const getBookingStatuses = (): bookcarsTypes.StatusFilterItem[] => [
+export const getBookingStatuses = (): BookCarsTypes.StatusFilterItem[] => [
   {
-    value: bookcarsTypes.BookingStatus.Void,
+    value: BookCarsTypes.BookingStatus.Void,
     label: commonStrings.BOOKING_STATUS_VOID,
   },
   {
-    value: bookcarsTypes.BookingStatus.Pending,
+    value: BookCarsTypes.BookingStatus.Pending,
     label: commonStrings.BOOKING_STATUS_PENDING,
   },
   {
-    value: bookcarsTypes.BookingStatus.Deposit,
+    value: BookCarsTypes.BookingStatus.Deposit,
     label: commonStrings.BOOKING_STATUS_DEPOSIT,
   },
   {
-    value: bookcarsTypes.BookingStatus.Paid,
+    value: BookCarsTypes.BookingStatus.Paid,
     label: commonStrings.BOOKING_STATUS_PAID,
   },
   {
-    value: bookcarsTypes.BookingStatus.Reserved,
+    value: BookCarsTypes.BookingStatus.Reserved,
     label: commonStrings.BOOKING_STATUS_RESERVED,
   },
   {
-    value: bookcarsTypes.BookingStatus.Cancelled,
+    value: BookCarsTypes.BookingStatus.Cancelled,
     label: commonStrings.BOOKING_STATUS_CANCELLED,
   },
 ]
@@ -440,15 +440,15 @@ export const getBookingStatuses = (): bookcarsTypes.StatusFilterItem[] => [
  * Get price.
  *
  * @async
- * @param {bookcarsTypes.Booking} booking
- * @param {(bookcarsTypes.Car | undefined | null)} car
+ * @param {BookCarsTypes.Booking} booking
+ * @param {(BookCarsTypes.Car | undefined | null)} car
  * @param {(price: number) => void} onSucess
  * @param {(err: unknown) => void} onError
  * @returns {void, onError: (err: unknown) => void) => any}
  */
 export const price = async (
-  booking: bookcarsTypes.Booking,
-  car: bookcarsTypes.Car | undefined | null,
+  booking: BookCarsTypes.Booking,
+  car: BookCarsTypes.Car | undefined | null,
   onSucess: (_price: number) => void,
   onError: (err: unknown) => void
 ) => {
@@ -504,15 +504,15 @@ export const price = async (
  */
 export const getUserTypes = () => [
   {
-    value: bookcarsTypes.UserType.Admin,
+    value: BookCarsTypes.UserType.Admin,
     label: commonStrings.RECORD_TYPE_ADMIN
   },
   {
-    value: bookcarsTypes.UserType.Supplier,
+    value: BookCarsTypes.UserType.Supplier,
     label: commonStrings.RECORD_TYPE_SUPPLIER,
   },
   {
-    value: bookcarsTypes.UserType.User,
+    value: BookCarsTypes.UserType.User,
     label: commonStrings.RECORD_TYPE_USER
   },
 ]
@@ -523,15 +523,15 @@ export const getUserTypes = () => [
  * @param {string} status
  * @returns {string}
  */
-export const getUserType = (status?: bookcarsTypes.UserType) => {
+export const getUserType = (status?: BookCarsTypes.UserType) => {
   switch (status) {
-    case bookcarsTypes.UserType.Admin:
+    case BookCarsTypes.UserType.Admin:
       return commonStrings.RECORD_TYPE_ADMIN
 
-    case bookcarsTypes.UserType.Supplier:
+    case BookCarsTypes.UserType.Supplier:
       return commonStrings.RECORD_TYPE_SUPPLIER
 
-    case bookcarsTypes.UserType.User:
+    case BookCarsTypes.UserType.User:
       return commonStrings.RECORD_TYPE_USER
 
     default:
@@ -565,14 +565,14 @@ export const getDaysShort = (days: number) => `${days} ${strings.PRICE_DAYS_PART
  * @returns {string}
  */
 export const getCancellationOption = (cancellation: number, language: string, hidePlus: boolean) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (cancellation === -1) {
     return strings.UNAVAILABLE
   } if (cancellation === 0) {
     return `${strings.INCLUDED}${fr ? 'e' : ''}`
   }
-  return `${hidePlus ? '' : '+ '}${bookcarsHelper.formatPrice(cancellation, commonStrings.CURRENCY, language)}`
+  return `${hidePlus ? '' : '+ '}${BookCarsHelper.formatPrice(cancellation, commonStrings.CURRENCY, language)}`
 }
 
 /**
@@ -584,14 +584,14 @@ export const getCancellationOption = (cancellation: number, language: string, hi
  * @returns {string}
  */
 export const getAmendmentsOption = (amendments: number, language: string, hidePlus: boolean) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (amendments === -1) {
     return `${strings.UNAVAILABLE}${fr ? 's' : ''}`
   } if (amendments === 0) {
     return `${strings.INCLUDED}${fr ? 'es' : ''}`
   }
-  return `${hidePlus ? '' : '+ '}${bookcarsHelper.formatPrice(amendments, commonStrings.CURRENCY, language)}`
+  return `${hidePlus ? '' : '+ '}${BookCarsHelper.formatPrice(amendments, commonStrings.CURRENCY, language)}`
 }
 
 /**
@@ -604,14 +604,14 @@ export const getAmendmentsOption = (amendments: number, language: string, hidePl
  * @returns {string}
  */
 export const getCollisionDamageWaiverOption = (collisionDamageWaiver: number, days: number, language: string, hidePlus: boolean) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (collisionDamageWaiver === -1) {
     return strings.UNAVAILABLE
   } if (collisionDamageWaiver === 0) {
     return `${strings.INCLUDED}${fr ? 'e' : ''}`
   }
-  return `${hidePlus ? '' : '+ '}${bookcarsHelper.formatPrice(collisionDamageWaiver * days, commonStrings.CURRENCY, language)} (${bookcarsHelper.formatPrice(collisionDamageWaiver, commonStrings.CURRENCY, language)}${commonStrings.DAILY})`
+  return `${hidePlus ? '' : '+ '}${BookCarsHelper.formatPrice(collisionDamageWaiver * days, commonStrings.CURRENCY, language)} (${BookCarsHelper.formatPrice(collisionDamageWaiver, commonStrings.CURRENCY, language)}${commonStrings.DAILY})`
 }
 
 /**
@@ -624,14 +624,14 @@ export const getCollisionDamageWaiverOption = (collisionDamageWaiver: number, da
  * @returns {string}
  */
 export const getTheftProtectionOption = (theftProtection: number, days: number, language: string, hidePlus: boolean) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (theftProtection === -1) {
     return strings.UNAVAILABLE
   } if (theftProtection === 0) {
     return `${strings.INCLUDED}${fr ? 'e' : ''}`
   }
-  return `${hidePlus ? '' : '+ '}${bookcarsHelper.formatPrice(theftProtection * days, commonStrings.CURRENCY, language)} (${bookcarsHelper.formatPrice(theftProtection, commonStrings.CURRENCY, language)}${commonStrings.DAILY})`
+  return `${hidePlus ? '' : '+ '}${BookCarsHelper.formatPrice(theftProtection * days, commonStrings.CURRENCY, language)} (${BookCarsHelper.formatPrice(theftProtection, commonStrings.CURRENCY, language)}${commonStrings.DAILY})`
 }
 
 /**
@@ -644,14 +644,14 @@ export const getTheftProtectionOption = (theftProtection: number, days: number, 
  * @returns {string}
  */
 export const getFullInsuranceOption = (fullInsurance: number, days: number, language: string, hidePlus: boolean) => {
-  const fr = bookcarsHelper.isFrench(language)
+  const fr = BookCarsHelper.isFrench(language)
 
   if (fullInsurance === -1) {
     return strings.UNAVAILABLE
   } if (fullInsurance === 0) {
     return `${strings.INCLUDED}${fr ? 'e' : ''}`
   }
-  return `${hidePlus ? '' : '+ '}${bookcarsHelper.formatPrice(fullInsurance * days, commonStrings.CURRENCY, language)} (${bookcarsHelper.formatPrice(fullInsurance, commonStrings.CURRENCY, language)}${commonStrings.DAILY})`
+  return `${hidePlus ? '' : '+ '}${BookCarsHelper.formatPrice(fullInsurance * days, commonStrings.CURRENCY, language)} (${BookCarsHelper.formatPrice(fullInsurance, commonStrings.CURRENCY, language)}${commonStrings.DAILY})`
 }
 
 /**
@@ -669,7 +669,7 @@ export const getAdditionalDriverOption = (additionalDriver: number, days: number
   } if (additionalDriver === 0) {
     return strings.INCLUDED
   }
-  return `${hidePlus ? '' : '+ '}${bookcarsHelper.formatPrice(additionalDriver * days, commonStrings.CURRENCY, language)} (${bookcarsHelper.formatPrice(additionalDriver, commonStrings.CURRENCY, language)}${commonStrings.DAILY})`
+  return `${hidePlus ? '' : '+ '}${BookCarsHelper.formatPrice(additionalDriver * days, commonStrings.CURRENCY, language)} (${BookCarsHelper.formatPrice(additionalDriver, commonStrings.CURRENCY, language)}${commonStrings.DAILY})`
 }
 
 /**
@@ -684,11 +684,11 @@ export const getBirthDateError = (minimumAge: number) =>
 /**
  * Check whether a car option is available or not.
  *
- * @param {(bookcarsTypes.Car | undefined)} car
+ * @param {(BookCarsTypes.Car | undefined)} car
  * @param {string} option
  * @returns {boolean}
  */
-export const carOptionAvailable = (car: bookcarsTypes.Car | undefined, option: string) =>
+export const carOptionAvailable = (car: BookCarsTypes.Car | undefined, option: string) =>
   car && option in car && (car[option] as number) > -1
 
 /**

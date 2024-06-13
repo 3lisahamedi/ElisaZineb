@@ -30,8 +30,8 @@ import {
 } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import CarList from '../components/CarList'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import * as BookingService from '../services/BookingService'
 import { strings as commonStrings } from '../lang/common'
@@ -60,10 +60,10 @@ const Checkout = () => {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const [user, setUser] = useState<bookcarsTypes.User>()
-  const [car, setCar] = useState<bookcarsTypes.Car>()
-  const [pickupLocation, setPickupLocation] = useState<bookcarsTypes.Location>()
-  const [dropOffLocation, setDropOffLocation] = useState<bookcarsTypes.Location>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
+  const [car, setCar] = useState<BookCarsTypes.Car>()
+  const [pickupLocation, setPickupLocation] = useState<BookCarsTypes.Location>()
+  const [dropOffLocation, setDropOffLocation] = useState<BookCarsTypes.Location>()
   const [from, setFrom] = useState<Date>()
   const [to, setTo] = useState<Date>()
   const [visible, setVisible] = useState(false)
@@ -113,17 +113,17 @@ const Checkout = () => {
   const _locale = _fr ? fr : enUS
   const _format = _fr ? 'eee d LLL yyyy kk:mm' : 'eee, d LLL yyyy, p'
   const bookingDetailHeight = env.SUPPLIER_IMAGE_HEIGHT + 10
-  const days = bookcarsHelper.days(from, to)
+  const days = BookCarsHelper.days(from, to)
   const daysLabel = from && to && `
-  ${helper.getDaysShort(days)} (${bookcarsHelper.capitalize(
+  ${helper.getDaysShort(days)} (${BookCarsHelper.capitalize(
     format(from, _format, { locale: _locale }),
   )} 
-  - ${bookcarsHelper.capitalize(format(to, _format, { locale: _locale }))})`
+  - ${BookCarsHelper.capitalize(format(to, _format, { locale: _locale }))})`
 
   const handleCancellationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (car && from && to) {
       const _cancellation = e.target.checked
-      const options: bookcarsTypes.CarOptions = {
+      const options: BookCarsTypes.CarOptions = {
         cancellation: _cancellation,
         amendments,
         theftProtection,
@@ -141,7 +141,7 @@ const Checkout = () => {
   const handleAmendmentsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (car && from && to) {
       const _amendments = e.target.checked
-      const options: bookcarsTypes.CarOptions = {
+      const options: BookCarsTypes.CarOptions = {
         cancellation,
         amendments: _amendments,
         theftProtection,
@@ -159,7 +159,7 @@ const Checkout = () => {
   const handleTheftProtectionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (car && from && to) {
       const _theftProtection = e.target.checked
-      const options: bookcarsTypes.CarOptions = {
+      const options: BookCarsTypes.CarOptions = {
         cancellation,
         amendments,
         theftProtection: _theftProtection,
@@ -177,7 +177,7 @@ const Checkout = () => {
   const handleCollisionDamageWaiverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (car && from && to) {
       const _collisionDamageWaiver = e.target.checked
-      const options: bookcarsTypes.CarOptions = {
+      const options: BookCarsTypes.CarOptions = {
         cancellation,
         amendments,
         theftProtection,
@@ -195,7 +195,7 @@ const Checkout = () => {
   const handleFullInsuranceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (car && from && to) {
       const _fullInsurance = e.target.checked
-      const options: bookcarsTypes.CarOptions = {
+      const options: BookCarsTypes.CarOptions = {
         cancellation,
         amendments,
         theftProtection,
@@ -213,7 +213,7 @@ const Checkout = () => {
   const handleAdditionalDriverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (car && from && to) {
       const _additionalDriver = e.target.checked
-      const options: bookcarsTypes.CarOptions = {
+      const options: BookCarsTypes.CarOptions = {
         cancellation,
         amendments,
         theftProtection,
@@ -337,7 +337,7 @@ const Checkout = () => {
   }
 
   const validateBirthDate = (date?: Date) => {
-    if (car && date && bookcarsHelper.isDate(date)) {
+    if (car && date && BookCarsHelper.isDate(date)) {
       const now = new Date()
       const sub = intervalToDuration({ start: date, end: now }).years ?? 0
       const _birthDateValid = sub >= car.minimumAge
@@ -351,7 +351,7 @@ const Checkout = () => {
 
   // additionalDriver
   const _validateBirthDate = (date?: Date) => {
-    if (car && date && bookcarsHelper.isDate(date)) {
+    if (car && date && BookCarsHelper.isDate(date)) {
       const now = new Date()
       const sub = intervalToDuration({ start: date, end: now }).years ?? 0
       const _birthDateValid = sub >= car.minimumAge
@@ -422,8 +422,8 @@ const Checkout = () => {
       setLoading(true)
       setPaymentFailed(false)
 
-      let driver: bookcarsTypes.User | undefined
-      let _additionalDriver: bookcarsTypes.AdditionalDriver | undefined
+      let driver: BookCarsTypes.User | undefined
+      let _additionalDriver: BookCarsTypes.AdditionalDriver | undefined
 
       if (!authenticated) {
         driver = {
@@ -435,7 +435,7 @@ const Checkout = () => {
         }
       }
 
-      const booking: bookcarsTypes.Booking = {
+      const booking: BookCarsTypes.Booking = {
         supplier: car.supplier._id as string,
         car: car._id,
         driver: authenticated ? user?._id : undefined,
@@ -443,7 +443,7 @@ const Checkout = () => {
         dropOffLocation: dropOffLocation._id,
         from,
         to,
-        status: bookcarsTypes.BookingStatus.Pending,
+        status: BookCarsTypes.BookingStatus.Pending,
         cancellation,
         amendments,
         theftProtection,
@@ -468,7 +468,7 @@ const Checkout = () => {
       let _customerId: string | undefined
       let _sessionId: string | undefined
       if (!payLater) {
-        const payload: bookcarsTypes.CreatePaymentPayload = {
+        const payload: BookCarsTypes.CreatePaymentPayload = {
           amount: price,
           currency: env.STRIPE_CURRENCY_CODE,
           locale: language,
@@ -485,7 +485,7 @@ const Checkout = () => {
         _customerId = res.customerId
       }
 
-      const payload: bookcarsTypes.CheckoutPayload = {
+      const payload: BookCarsTypes.CheckoutPayload = {
         driver,
         booking,
         additionalDriver: _additionalDriver,
@@ -514,7 +514,7 @@ const Checkout = () => {
     }
   }
 
-  const onLoad = async (_user?: bookcarsTypes.User) => {
+  const onLoad = async (_user?: BookCarsTypes.User) => {
     setUser(_user)
     setAuthenticated(_user !== undefined)
     setLanguage(UserService.getLanguage())
@@ -713,20 +713,20 @@ const Checkout = () => {
                     </div>
                     <div className="booking-detail" style={{ height: bookingDetailHeight }}>
                       <span className="booking-detail-title">{strings.CAR}</span>
-                      <div className="booking-detail-value">{`${car.name} (${bookcarsHelper.formatPrice(car.price, commonStrings.CURRENCY, language)}${commonStrings.DAILY})`}</div>
+                      <div className="booking-detail-value">{`${car.name} (${BookCarsHelper.formatPrice(car.price, commonStrings.CURRENCY, language)}${commonStrings.DAILY})`}</div>
                     </div>
                     <div className="booking-detail" style={{ height: bookingDetailHeight }}>
                       <span className="booking-detail-title">{commonStrings.SUPPLIER}</span>
                       <div className="booking-detail-value">
                         <div className="car-supplier">
-                          <img src={bookcarsHelper.joinURL(env.CDN_USERS, car.supplier.avatar)} alt={car.supplier.fullName} style={{ height: env.SUPPLIER_IMAGE_HEIGHT }} />
+                          <img src={BookCarsHelper.joinURL(env.CDN_USERS, car.supplier.avatar)} alt={car.supplier.fullName} style={{ height: env.SUPPLIER_IMAGE_HEIGHT }} />
                           <span className="car-supplier-name">{car.supplier.fullName}</span>
                         </div>
                       </div>
                     </div>
                     <div className="booking-detail" style={{ height: bookingDetailHeight }}>
                       <span className="booking-detail-title">{strings.COST}</span>
-                      <div className="booking-detail-value booking-price">{bookcarsHelper.formatPrice(price, commonStrings.CURRENCY, language)}</div>
+                      <div className="booking-detail-value booking-price">{BookCarsHelper.formatPrice(price, commonStrings.CURRENCY, language)}</div>
                     </div>
                   </div>
                 </div>

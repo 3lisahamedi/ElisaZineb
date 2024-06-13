@@ -1,4 +1,4 @@
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import axiosInstance from './axiosInstance'
 import env from '../config/env.config'
 
@@ -6,9 +6,9 @@ import env from '../config/env.config'
  * Get NotificationCounter by UserID.
  *
  * @param {string} userId
- * @returns {Promise<bookcarsTypes.NotificationCounter>}
+ * @returns {Promise<BookCarsTypes.NotificationCounter>}
  */
-export const getNotificationCounter = (userId: string): Promise<bookcarsTypes.NotificationCounter> => (
+export const getNotificationCounter = (userId: string): Promise<BookCarsTypes.NotificationCounter> => (
   axiosInstance
     .get(
       `/api/notification-counter/${encodeURIComponent(userId)}`,
@@ -73,9 +73,9 @@ export const deleteNotifications = (userId: string, ids: string[]): Promise<numb
  *
  * @param {string} userId
  * @param {number} page
- * @returns {Promise<bookcarsTypes.Result<bookcarsTypes.Notification>>}
+ * @returns {Promise<BookCarsTypes.Result<BookCarsTypes.Notification>>}
  */
-export const getNotifications = (userId: string, page: number): Promise<bookcarsTypes.Result<bookcarsTypes.Notification>> => (
+export const getNotifications = (userId: string, page: number): Promise<BookCarsTypes.Result<BookCarsTypes.Notification>> => (
   axiosInstance
     .get(
       `/api/Notifications/${encodeURIComponent(userId)}/${page}/${env.PAGE_SIZE}`,

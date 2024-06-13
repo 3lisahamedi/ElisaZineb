@@ -13,8 +13,8 @@ import {
 import validator from 'validator'
 import { intervalToDuration } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/sign-up'
@@ -124,7 +124,7 @@ const SignUp = () => {
   }
 
   const validateBirthDate = (date?: Date) => {
-    if (date && bookcarsHelper.isDate(date)) {
+    if (date && BookCarsHelper.isDate(date)) {
       const now = new Date()
       const sub = intervalToDuration({ start: date, end: now }).years ?? 0
       const _birthDateValid = sub >= env.MINIMUM_AGE
@@ -214,7 +214,7 @@ const SignUp = () => {
 
       setLoading(true)
 
-      const data: bookcarsTypes.SignUpPayload = {
+      const data: BookCarsTypes.SignUpPayload = {
         email,
         phone,
         password,
@@ -259,7 +259,7 @@ const SignUp = () => {
     }
   }
 
-  const onLoad = (user?: bookcarsTypes.User) => {
+  const onLoad = (user?: BookCarsTypes.User) => {
     if (user) {
       navigate('/')
     } else {

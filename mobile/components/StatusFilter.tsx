@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 
 import * as helper from '../common/helper'
 import i18n from '../lang/i18n'
@@ -13,8 +13,8 @@ import Switch from './Switch'
 interface StatusFilterProps {
   visible?: boolean
   style?: object
-  onLoad?: (checkedStatuses: bookcarsTypes.BookingStatus[]) => void
-  onChange?: (checkedStatuses: bookcarsTypes.BookingStatus[]) => void
+  onLoad?: (checkedStatuses: BookCarsTypes.BookingStatus[]) => void
+  onChange?: (checkedStatuses: BookCarsTypes.BookingStatus[]) => void
 }
 
 const StatusFilter = ({
@@ -23,7 +23,7 @@ const StatusFilter = ({
   onLoad,
   onChange
 }: StatusFilterProps) => {
-  const [statuses, setStatuses] = useState<bookcarsTypes.StatusFilterItem[]>(
+  const [statuses, setStatuses] = useState<BookCarsTypes.StatusFilterItem[]>(
     helper.getBookingStatuses().map((status) => ({ ...status, checked: true }))
   )
   const [checkedStatuses, setCheckedStatuses] = useState(
@@ -51,7 +51,7 @@ const StatusFilter = ({
                     onValueChange={(checked) => {
                       if (checked) {
                         status.checked = true
-                        setStatuses(bookcarsHelper.clone(statuses))
+                        setStatuses(BookCarsHelper.clone(statuses))
                         checkedStatuses.push(status.value)
 
                         if (checkedStatuses.length === statuses.length) {
@@ -59,7 +59,7 @@ const StatusFilter = ({
                         }
                       } else {
                         status.checked = false
-                        setStatuses(bookcarsHelper.clone(statuses))
+                        setStatuses(BookCarsHelper.clone(statuses))
                         const index = checkedStatuses.indexOf(status.value)
                         checkedStatuses.splice(index, 1)
 
@@ -69,7 +69,7 @@ const StatusFilter = ({
                       }
 
                       if (onChange) {
-                        onChange(bookcarsHelper.clone(checkedStatuses))
+                        onChange(BookCarsHelper.clone(checkedStatuses))
                       }
                     }}
                   >
@@ -84,21 +84,21 @@ const StatusFilter = ({
               textStyle={styles.linkText}
               label={allChecked ? i18n.t('UNCHECK_ALL') : i18n.t('CHECK_ALL')}
               onPress={() => {
-                let _checkedStatuses: bookcarsTypes.BookingStatus[] = []
+                let _checkedStatuses: BookCarsTypes.BookingStatus[] = []
                 if (allChecked) {
                   statuses.forEach((status) => {
                     status.checked = false
                   })
                   setAllChecked(false)
-                  setStatuses(bookcarsHelper.clone(statuses))
+                  setStatuses(BookCarsHelper.clone(statuses))
                   setCheckedStatuses(_checkedStatuses)
                 } else {
                   statuses.forEach((status) => {
                     status.checked = true
                   })
                   setAllChecked(true)
-                  setStatuses(bookcarsHelper.clone(statuses))
-                  _checkedStatuses = bookcarsHelper.clone(statuses.map((status) => status.value))
+                  setStatuses(BookCarsHelper.clone(statuses))
+                  _checkedStatuses = BookCarsHelper.clone(statuses.map((status) => status.value))
                   setCheckedStatuses(_checkedStatuses)
 
                   if (onChange) {

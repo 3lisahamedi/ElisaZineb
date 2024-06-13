@@ -32,7 +32,7 @@ import {
   ExitToApp as SignoutIcon,
 } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import env from '../config/env.config'
 import { strings } from '../lang/header'
 import { strings as commonStrings } from '../lang/common'
@@ -46,7 +46,7 @@ import { useGlobalContext, GlobalContextType } from '../context/GlobalContext'
 import '../assets/css/header.css'
 
 interface HeaderProps {
-  user?: bookcarsTypes.User
+  user?: BookCarsTypes.User
   hidden?: boolean
 }
 
@@ -124,7 +124,7 @@ const Header = ({
       const currentLang = UserService.getLanguage()
       if (isSignedIn && user) {
         // Update user language
-        const data: bookcarsTypes.UpdateLanguagePayload = {
+        const data: BookCarsTypes.UpdateLanguagePayload = {
           id: user._id as string,
           language: code,
         }

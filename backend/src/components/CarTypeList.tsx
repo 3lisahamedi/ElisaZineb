@@ -5,7 +5,7 @@ import {
   MenuItem,
   SelectChangeEvent
 } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import { strings } from '../lang/cars'
 
 interface CarTypeListProps {
@@ -42,12 +42,12 @@ const CarTypeList = ({
     <div>
       <InputLabel className={required ? 'required' : ''}>{label}</InputLabel>
       <Select label={label} value={value} onChange={handleChange} variant={variant || 'standard'} required={required} fullWidth>
-        <MenuItem value={bookcarsTypes.CarType.Diesel}>{strings.DIESEL}</MenuItem>
-        <MenuItem value={bookcarsTypes.CarType.Gasoline}>{strings.GASOLINE}</MenuItem>
-        <MenuItem value={bookcarsTypes.CarType.Electric}>{strings.ELECTRIC}</MenuItem>
-        <MenuItem value={bookcarsTypes.CarType.Hybrid}>{strings.HYBRID}</MenuItem>
-        <MenuItem value={bookcarsTypes.CarType.PlugInHybrid}>{strings.PLUG_IN_HYBRID}</MenuItem>
-        <MenuItem value={bookcarsTypes.CarType.Unknown}>{strings.UNKNOWN}</MenuItem>
+        <MenuItem value={BookCarsTypes.CarType.Diesel}>{strings.DIESEL}</MenuItem>
+        <MenuItem value={BookCarsTypes.CarType.Gasoline}>{strings.GASOLINE}</MenuItem>
+        <MenuItem value={BookCarsTypes.CarType.Electric}>{strings.ELECTRIC}</MenuItem>
+        <MenuItem value={BookCarsTypes.CarType.Hybrid}>{strings.HYBRID}</MenuItem>
+        <MenuItem value={BookCarsTypes.CarType.PlugInHybrid}>{strings.PLUG_IN_HYBRID}</MenuItem>
+        <MenuItem value={BookCarsTypes.CarType.Unknown}>{strings.UNKNOWN}</MenuItem>
       </Select>
     </div>
   )

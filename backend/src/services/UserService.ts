@@ -1,14 +1,14 @@
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import axiosInstance from './axiosInstance'
 import env from '../config/env.config'
 
 /**
  * Create a User.
  *
- * @param {bookcarsTypes.CreateUserPayload} data
+ * @param {BookCarsTypes.CreateUserPayload} data
  * @returns {Promise<number>}
  */
-export const create = (data: bookcarsTypes.CreateUserPayload): Promise<number> =>
+export const create = (data: BookCarsTypes.CreateUserPayload): Promise<number> =>
   axiosInstance
     .post(
       '/api/create-user',
@@ -20,10 +20,10 @@ export const create = (data: bookcarsTypes.CreateUserPayload): Promise<number> =
 /**
  * Sign up.
  *
- * @param {bookcarsTypes.SignUpPayload} data
+ * @param {BookCarsTypes.SignUpPayload} data
  * @returns {Promise<number>}
  */
-export const signup = (data: bookcarsTypes.SignUpPayload): Promise<number> =>
+export const signup = (data: BookCarsTypes.SignUpPayload): Promise<number> =>
   axiosInstance
     .post(
       '/api/admin-sign-up/ ',
@@ -64,10 +64,10 @@ export const deleteTokens = (userId: string): Promise<number> =>
  *
  * @param {?string} [email]
  * @param {boolean} [reset=false]
- * @param {string} [appType=bookcarsTypes.AppType.Backend]
+ * @param {string} [appType=BookCarsTypes.AppType.Backend]
  * @returns {Promise<number>}
  */
-export const resend = (email?: string, reset = false, appType: string = bookcarsTypes.AppType.Backend): Promise<number> =>
+export const resend = (email?: string, reset = false, appType: string = BookCarsTypes.AppType.Backend): Promise<number> =>
   axiosInstance
     .post(
       `/api/resend/${appType}/${encodeURIComponent(email || '')}/${reset}`
@@ -77,10 +77,10 @@ export const resend = (email?: string, reset = false, appType: string = bookcars
 /**
  * Activate an account.
  *
- * @param {bookcarsTypes.ActivatePayload} data
+ * @param {BookCarsTypes.ActivatePayload} data
  * @returns {Promise<number>}
  */
-export const activate = (data: bookcarsTypes.ActivatePayload): Promise<number> =>
+export const activate = (data: BookCarsTypes.ActivatePayload): Promise<number> =>
   axiosInstance
     .post(
       '/api/activate/ ',
@@ -92,10 +92,10 @@ export const activate = (data: bookcarsTypes.ActivatePayload): Promise<number> =
 /**
  * Validate an email.
  *
- * @param {bookcarsTypes.ValidateEmailPayload} data
+ * @param {BookCarsTypes.ValidateEmailPayload} data
  * @returns {Promise<number>}
  */
-export const validateEmail = (data: bookcarsTypes.ValidateEmailPayload): Promise<number> =>
+export const validateEmail = (data: BookCarsTypes.ValidateEmailPayload): Promise<number> =>
   axiosInstance
     .post(
       '/api/validate-email',
@@ -106,10 +106,10 @@ export const validateEmail = (data: bookcarsTypes.ValidateEmailPayload): Promise
 /**
  * Sign in.
  *
- * @param {bookcarsTypes.SignInPayload} data
- * @returns {Promise<{ status: number, data: bookcarsTypes.User }>}
+ * @param {BookCarsTypes.SignInPayload} data
+ * @returns {Promise<{ status: number, data: BookCarsTypes.User }>}
  */
-export const signin = (data: bookcarsTypes.SignInPayload): Promise<{ status: number, data: bookcarsTypes.User }> =>
+export const signin = (data: BookCarsTypes.SignInPayload): Promise<{ status: number, data: BookCarsTypes.User }> =>
   axiosInstance
     .post(
       `/api/sign-in/${env.APP_TYPE}`,
@@ -185,10 +185,10 @@ export const confirmEmail = (email: string, token: string): Promise<number> => (
 /**
  * Resend validation email.
  *
- * @param {bookcarsTypes.ResendLinkPayload} data
+ * @param {BookCarsTypes.ResendLinkPayload} data
  * @returns {Promise<number>}
  */
-export const resendLink = (data: bookcarsTypes.ResendLinkPayload): Promise<number> =>
+export const resendLink = (data: BookCarsTypes.ResendLinkPayload): Promise<number> =>
   axiosInstance
     .post(
       '/api/resend-link',
@@ -231,10 +231,10 @@ export const getQueryLanguage = (): string | null => {
 /**
  * Update language.
  *
- * @param {bookcarsTypes.UpdateLanguagePayload} data
+ * @param {BookCarsTypes.UpdateLanguagePayload} data
  * @returns {Promise<number>}
  */
-export const updateLanguage = (data: bookcarsTypes.UpdateLanguagePayload) =>
+export const updateLanguage = (data: BookCarsTypes.UpdateLanguagePayload) =>
   axiosInstance
     .post(
       '/api/update-language',
@@ -262,9 +262,9 @@ export const setLanguage = (lang: string) => {
 /**
  * Get current User.
  *
- * @returns {bookcarsTypes.User|null}
+ * @returns {BookCarsTypes.User|null}
  */
-export const getCurrentUser = (): bookcarsTypes.User | null => {
+export const getCurrentUser = (): BookCarsTypes.User | null => {
   const user = JSON.parse(localStorage.getItem('bc-user') ?? 'null')
   return user
 }
@@ -273,9 +273,9 @@ export const getCurrentUser = (): bookcarsTypes.User | null => {
  * Get User by ID.
  *
  * @param {string} id
- * @returns {Promise<bookcarsTypes.User|null>}
+ * @returns {Promise<BookCarsTypes.User|null>}
  */
-export const getUser = (id?: string): Promise<bookcarsTypes.User | null> => {
+export const getUser = (id?: string): Promise<BookCarsTypes.User | null> => {
   if (id) {
     return axiosInstance
       .get(
@@ -295,13 +295,13 @@ export const getUser = (id?: string): Promise<bookcarsTypes.User | null> => {
  * @param {string} keyword
  * @param {number} page
  * @param {number} size
- * @returns {Promise<bookcarsTypes.Result<bookcarsTypes.User>>}
+ * @returns {Promise<BookCarsTypes.Result<BookCarsTypes.User>>}
  */
-export const getDrivers = (keyword: string, page: number, size: number): Promise<bookcarsTypes.Result<bookcarsTypes.User>> =>
+export const getDrivers = (keyword: string, page: number, size: number): Promise<BookCarsTypes.Result<BookCarsTypes.User>> =>
   axiosInstance
     .post(
       `/api/users/${page}/${size}/?s=${encodeURIComponent(keyword)}`,
-      { types: [bookcarsTypes.RecordType.User] },
+      { types: [BookCarsTypes.RecordType.User] },
       { withCredentials: true }
     )
     .then((res) => res.data)
@@ -309,18 +309,18 @@ export const getDrivers = (keyword: string, page: number, size: number): Promise
 /**
  * Get Users.
  *
- * @param {bookcarsTypes.GetUsersBody} payload
+ * @param {BookCarsTypes.GetUsersBody} payload
  * @param {string} keyword
  * @param {number} page
  * @param {number} size
- * @returns {Promise<bookcarsTypes.Result<bookcarsTypes.User>>}
+ * @returns {Promise<BookCarsTypes.Result<BookCarsTypes.User>>}
  */
 export const getUsers = (
-  payload: bookcarsTypes.GetUsersBody,
+  payload: BookCarsTypes.GetUsersBody,
   keyword: string,
   page: number,
   size: number
-): Promise<bookcarsTypes.Result<bookcarsTypes.User>> =>
+): Promise<BookCarsTypes.Result<BookCarsTypes.User>> =>
   axiosInstance
     .post(
       `/api/users/${page}/${size}/?s=${encodeURIComponent(keyword)}`,
@@ -332,10 +332,10 @@ export const getUsers = (
 /**
  * Update a User.
  *
- * @param {bookcarsTypes.UpdateUserPayload} data
+ * @param {BookCarsTypes.UpdateUserPayload} data
  * @returns {Promise<number>}
  */
-export const updateUser = (data: bookcarsTypes.UpdateUserPayload): Promise<number> =>
+export const updateUser = (data: BookCarsTypes.UpdateUserPayload): Promise<number> =>
   axiosInstance
     .post(
       '/api/update-user',
@@ -347,10 +347,10 @@ export const updateUser = (data: bookcarsTypes.UpdateUserPayload): Promise<numbe
 /**
  * Update email notifications flag.
  *
- * @param {bookcarsTypes.UpdateEmailNotificationsPayload} data
+ * @param {BookCarsTypes.UpdateEmailNotificationsPayload} data
  * @returns {Promise<number>}
  */
-export const updateEmailNotifications = (data: bookcarsTypes.UpdateEmailNotificationsPayload): Promise<number> =>
+export const updateEmailNotifications = (data: BookCarsTypes.UpdateEmailNotificationsPayload): Promise<number> =>
   axiosInstance
     .post(
       '/api/update-email-notifications',
@@ -462,10 +462,10 @@ export const checkPassword = (id: string, pass: string): Promise<number> =>
 /**
  * Change Password.
  *
- * @param {bookcarsTypes.ChangePasswordPayload} data
+ * @param {BookCarsTypes.ChangePasswordPayload} data
  * @returns {Promise<number>}
  */
-export const changePassword = (data: bookcarsTypes.ChangePasswordPayload): Promise<number> =>
+export const changePassword = (data: BookCarsTypes.ChangePasswordPayload): Promise<number> =>
   axiosInstance
     .post(
       '/api/change-password/ ',

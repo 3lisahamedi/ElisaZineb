@@ -1,0 +1,37 @@
+
+## Features
+
+* Supplier management
+* Ready for one or multiple suppliers
+* Car fleet management
+* Booking management
+* Payment management
+* Customer management
+* Multiple payment methods (Credit Card, PayPal, Google Pay, Apple Pay, Link, Pay Later)
+* Operational Stripe Payment Gateway
+* Multiple language support (English, French)
+* Multiple pagination options (Classic pagination with next and previous buttons, infinite scroll)
+* Responsive backend and frontend
+* Native Mobile app for Android and iOS with single codebase
+* Push notifications
+* Secure against XSS, XST, CSRF and MITM
+* Supported Platforms: iOS, Android, Web, Docker
+
+## Live Demo
+
+### Frontend
+* URL: https://BookCars.v6.rocks:3002/
+* Login: jdoe@BookCars.ma
+* Password: B00kC4r5
+
+### Backend
+* URL: https://BookCars.v6.rocks:3001/
+* Login: admin@BookCars.ma
+* Password: B00kC4r5
+
+### Mobile App
+
+* [Download APK](https://github.com/aelassas/BookCars/releases/download/v4.1/BookCars-4.1.apk)
+* Login: jdoe@BookCars.ma
+* Password: B00kC4r5
+    

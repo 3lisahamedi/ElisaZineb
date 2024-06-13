@@ -1,7 +1,7 @@
 import escapeStringRegexp from 'escape-string-regexp'
 import mongoose from 'mongoose'
 import { Request, Response } from 'express'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import * as env from '../config/env.config'
 import i18n from '../lang/i18n'
 import Location from '../models/Location'
@@ -19,7 +19,7 @@ import * as logger from '../common/logger'
  * @returns {unknown}
  */
 export const validate = async (req: Request, res: Response) => {
-  const { body }: { body: bookcarsTypes.ValidateLocationPayload } = req
+  const { body }: { body: BookCarsTypes.ValidateLocationPayload } = req
   const { language, name } = body
 
   try {
@@ -47,7 +47,7 @@ export const validate = async (req: Request, res: Response) => {
  * @returns {unknown}
  */
 export const create = async (req: Request, res: Response) => {
-  const { body }: { body: bookcarsTypes.LocationName[] } = req
+  const { body }: { body: BookCarsTypes.LocationName[] } = req
   const names = body
 
   try {
@@ -86,7 +86,7 @@ export const update = async (req: Request, res: Response) => {
     const location = await Location.findById(id).populate<{ values: env.LocationValue[] }>('values')
 
     if (location) {
-      const names: bookcarsTypes.LocationName[] = req.body
+      const names: BookCarsTypes.LocationName[] = req.body
 
       for (const name of names) {
         const locationValue = location.values.filter((value) => value.language === name.language)[0]

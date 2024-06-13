@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import Layout from '../components/Layout'
 import env from '../config/env.config'
 import { strings } from '../lang/bookings'
@@ -15,13 +15,13 @@ import * as SupplierService from '../services/SupplierService'
 import '../assets/css/bookings.css'
 
 const Bookings = () => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [leftPanel, setLeftPanel] = useState(false)
   const [admin, setAdmin] = useState(false)
-  const [allSuppliers, setAllSuppliers] = useState<bookcarsTypes.User[]>([])
+  const [allSuppliers, setAllSuppliers] = useState<BookCarsTypes.User[]>([])
   const [suppliers, setSuppliers] = useState<string[]>()
   const [statuses, setStatuses] = useState(helper.getBookingStatuses().map((status) => status.value))
-  const [filter, setFilter] = useState<bookcarsTypes.Filter | null>()
+  const [filter, setFilter] = useState<BookCarsTypes.Filter | null>()
   const [loadingSuppliers, setLoadingSuppliers] = useState(true)
   const [offset, setOffset] = useState(0)
 
@@ -38,15 +38,15 @@ const Bookings = () => {
     setSuppliers(_suppliers)
   }
 
-  const handleStatusFilterChange = (_statuses: bookcarsTypes.BookingStatus[]) => {
+  const handleStatusFilterChange = (_statuses: BookCarsTypes.BookingStatus[]) => {
     setStatuses(_statuses)
   }
 
-  const handleBookingFilterSubmit = (_filter: bookcarsTypes.Filter | null) => {
+  const handleBookingFilterSubmit = (_filter: BookCarsTypes.Filter | null) => {
     setFilter(_filter)
   }
 
-  const onLoad = async (_user?: bookcarsTypes.User) => {
+  const onLoad = async (_user?: BookCarsTypes.User) => {
     if (_user) {
       const _admin = helper.admin(_user)
       setUser(_user)
@@ -55,7 +55,7 @@ const Bookings = () => {
       setLoadingSuppliers(_admin)
 
       const _allSuppliers = await SupplierService.getAllSuppliers()
-      const _suppliers = _admin ? bookcarsHelper.flattenSuppliers(_allSuppliers) : [_user._id ?? '']
+      const _suppliers = _admin ? BookCarsHelper.flattenSuppliers(_allSuppliers) : [_user._id ?? '']
       setAllSuppliers(_allSuppliers)
       setSuppliers(_suppliers)
       setLeftPanel(true)

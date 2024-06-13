@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import * as helper from '../common/helper'
 import * as LocationService from '../services/LocationService'
@@ -23,38 +23,38 @@ const Search = () => {
 
   const [visible, setVisible] = useState(false)
   const [noMatch, setNoMatch] = useState(false)
-  const [pickupLocation, setPickupLocation] = useState<bookcarsTypes.Location>()
-  const [dropOffLocation, setDropOffLocation] = useState<bookcarsTypes.Location>()
+  const [pickupLocation, setPickupLocation] = useState<BookCarsTypes.Location>()
+  const [dropOffLocation, setDropOffLocation] = useState<BookCarsTypes.Location>()
   const [from, setFrom] = useState<Date>()
   const [to, setTo] = useState<Date>()
-  const [allSuppliers, setAllSuppliers] = useState<bookcarsTypes.User[]>([])
+  const [allSuppliers, setAllSuppliers] = useState<BookCarsTypes.User[]>([])
   const [suppliers, setSuppliers] = useState<string[]>()
   const [loading, setLoading] = useState(true)
-  const [carType, setCarType] = useState(bookcarsHelper.getAllCarTypes())
-  const [gearbox, setGearbox] = useState([bookcarsTypes.GearboxType.Automatic, bookcarsTypes.GearboxType.Manual])
-  const [mileage, setMileage] = useState([bookcarsTypes.Mileage.Limited, bookcarsTypes.Mileage.Unlimited])
+  const [carType, setCarType] = useState(BookCarsHelper.getAllCarTypes())
+  const [gearbox, setGearbox] = useState([BookCarsTypes.GearboxType.Automatic, BookCarsTypes.GearboxType.Manual])
+  const [mileage, setMileage] = useState([BookCarsTypes.Mileage.Limited, BookCarsTypes.Mileage.Unlimited])
   const [deposit, setDeposit] = useState(-1)
 
   const handleSupplierFilterChange = (newSuppliers: string[]) => {
     setSuppliers(newSuppliers)
   }
 
-  const handleCarFilterSubmit = (filter: bookcarsTypes.CarFilter) => {
+  const handleCarFilterSubmit = (filter: BookCarsTypes.CarFilter) => {
     setPickupLocation(filter.pickupLocation)
     setDropOffLocation(filter.dropOffLocation)
     setFrom(filter.from)
     setTo(filter.to)
   }
 
-  const handleCarTypeFilterChange = (values: bookcarsTypes.CarType[]) => {
+  const handleCarTypeFilterChange = (values: BookCarsTypes.CarType[]) => {
     setCarType(values)
   }
 
-  const handleGearboxFilterChange = (values: bookcarsTypes.GearboxType[]) => {
+  const handleGearboxFilterChange = (values: BookCarsTypes.GearboxType[]) => {
     setGearbox(values)
   }
 
-  const handleMileageFilterChange = (values: bookcarsTypes.Mileage[]) => {
+  const handleMileageFilterChange = (values: BookCarsTypes.Mileage[]) => {
     setMileage(values)
   }
 
@@ -62,7 +62,7 @@ const Search = () => {
     setDeposit(value)
   }
 
-  const onLoad = async (user?: bookcarsTypes.User) => {
+  const onLoad = async (user?: BookCarsTypes.User) => {
     const { state } = location
     if (!state) {
       setNoMatch(true)
@@ -104,7 +104,7 @@ const Search = () => {
       }
 
       const _allSuppliers = await SupplierService.getAllSuppliers()
-      const _suppliers = bookcarsHelper.flattenSuppliers(_allSuppliers)
+      const _suppliers = BookCarsHelper.flattenSuppliers(_allSuppliers)
 
       setPickupLocation(_pickupLocation)
       setDropOffLocation(_dropOffLocation)

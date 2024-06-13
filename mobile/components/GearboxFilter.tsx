@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 
 import i18n from '../lang/i18n'
 import Accordion from './Accordion'
@@ -11,7 +11,7 @@ import Switch from './Switch'
 interface GearboxFilterProps {
   visible?: boolean
   style?: object
-  onChange?: (values: bookcarsTypes.GearboxType[]) => void
+  onChange?: (values: BookCarsTypes.GearboxType[]) => void
 }
 
 const GearboxFilter = ({
@@ -21,19 +21,19 @@ const GearboxFilter = ({
 }: GearboxFilterProps) => {
   const [automatic, setAutomatic] = useState(true)
   const [manual, setManual] = useState(true)
-  const [values, setValues] = useState([bookcarsTypes.GearboxType.Automatic, bookcarsTypes.GearboxType.Manual])
+  const [values, setValues] = useState([BookCarsTypes.GearboxType.Automatic, BookCarsTypes.GearboxType.Manual])
   const [allChecked, setAllChecked] = useState(true)
 
   const onValueChangeAutomatic = (checked: boolean) => {
     if (checked) {
-      values.push(bookcarsTypes.GearboxType.Automatic)
+      values.push(BookCarsTypes.GearboxType.Automatic)
 
       if (values.length === 2) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.GearboxType.Automatic),
+        values.findIndex((v) => v === BookCarsTypes.GearboxType.Automatic),
         1,
       )
 
@@ -45,20 +45,20 @@ const GearboxFilter = ({
     setAutomatic(checked)
     setValues(values)
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
   const onValueChangeManual = (checked: boolean) => {
     if (checked) {
-      values.push(bookcarsTypes.GearboxType.Manual)
+      values.push(BookCarsTypes.GearboxType.Manual)
 
       if (values.length === 2) {
         setAllChecked(true)
       }
     } else {
       values.splice(
-        values.findIndex((v) => v === bookcarsTypes.GearboxType.Manual),
+        values.findIndex((v) => v === BookCarsTypes.GearboxType.Manual),
         1,
       )
 
@@ -70,7 +70,7 @@ const GearboxFilter = ({
     setManual(checked)
     setValues(values)
     if (onChange) {
-      onChange(bookcarsHelper.clone(values))
+      onChange(BookCarsHelper.clone(values))
     }
   }
 
@@ -93,13 +93,13 @@ const GearboxFilter = ({
                 setAllChecked(false)
                 setValues([])
               } else {
-                const _values = [bookcarsTypes.GearboxType.Automatic, bookcarsTypes.GearboxType.Manual]
+                const _values = [BookCarsTypes.GearboxType.Automatic, BookCarsTypes.GearboxType.Manual]
                 setAutomatic(true)
                 setManual(true)
                 setAllChecked(true)
                 setValues(_values)
                 if (onChange) {
-                  onChange(bookcarsHelper.clone(_values))
+                  onChange(BookCarsHelper.clone(_values))
                 }
               }
             }}

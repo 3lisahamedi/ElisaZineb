@@ -1,14 +1,14 @@
 import axiosInstance from './axiosInstance'
 import * as UserService from './UserService'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 
 /**
  * Complete the checkout process and create the booking.
  *
- * @param {bookcarsTypes.CheckoutPayload} data
+ * @param {BookCarsTypes.CheckoutPayload} data
  * @returns {Promise<number>}
  */
-export const checkout = (data: bookcarsTypes.CheckoutPayload): Promise<number> =>
+export const checkout = (data: BookCarsTypes.CheckoutPayload): Promise<number> =>
   axiosInstance
     .post(
       '/api/checkout',
@@ -20,12 +20,12 @@ export const checkout = (data: bookcarsTypes.CheckoutPayload): Promise<number> =
  * Get bookings.
  *
  * @async
- * @param {bookcarsTypes.GetBookingsPayload} payload
+ * @param {BookCarsTypes.GetBookingsPayload} payload
  * @param {number} page
  * @param {number} size
- * @returns {Promise<bookcarsTypes.Result<bookcarsTypes.Booking>>}
+ * @returns {Promise<BookCarsTypes.Result<BookCarsTypes.Booking>>}
  */
-export const getBookings = async (payload: bookcarsTypes.GetBookingsPayload, page: number, size: number): Promise<bookcarsTypes.Result<bookcarsTypes.Booking>> => {
+export const getBookings = async (payload: BookCarsTypes.GetBookingsPayload, page: number, size: number): Promise<BookCarsTypes.Result<BookCarsTypes.Booking>> => {
   const headers = await UserService.authHeader()
   const language = await UserService.getLanguage()
   return axiosInstance
@@ -42,9 +42,9 @@ export const getBookings = async (payload: bookcarsTypes.GetBookingsPayload, pag
  *
  * @async
  * @param {string} id
- * @returns {Promise<bookcarsTypes.Booking>}
+ * @returns {Promise<BookCarsTypes.Booking>}
  */
-export const getBooking = async (id: string): Promise<bookcarsTypes.Booking> => {
+export const getBooking = async (id: string): Promise<BookCarsTypes.Booking> => {
   const headers = await UserService.authHeader()
   const language = await UserService.getLanguage()
   return axiosInstance

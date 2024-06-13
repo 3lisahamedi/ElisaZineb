@@ -1,6 +1,6 @@
 import React, { useState, useEffect, CSSProperties, ReactNode } from 'react'
 import { Button } from '@mui/material'
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import { strings } from '../lang/master'
 import Header from './Header'
 import * as UserService from '../services/UserService'
@@ -9,13 +9,13 @@ import * as helper from '../common/helper'
 import { useInit } from '../common/customHooks'
 
 interface LayoutProps {
-  user?: bookcarsTypes.User
+  user?: BookCarsTypes.User
   strict?: boolean
   admin?: boolean
   hideHeader?: boolean
   style?: CSSProperties
   children: ReactNode
-  onLoad?: (user?: bookcarsTypes.User) => void
+  onLoad?: (user?: BookCarsTypes.User) => void
 }
 
 const Layout = ({
@@ -27,7 +27,7 @@ const Layout = ({
   children,
   onLoad
 }: LayoutProps) => {
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [loading, setLoading] = useState(true)
   const [unauthorized, setUnauthorized] = useState(false)
 
@@ -68,7 +68,7 @@ const Layout = ({
               return
             }
 
-            if (admin && _user.type !== bookcarsTypes.RecordType.Admin) {
+            if (admin && _user.type !== BookCarsTypes.RecordType.Admin) {
               setUser(_user)
               setUnauthorized(true)
               setLoading(false)

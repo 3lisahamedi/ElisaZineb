@@ -7,8 +7,8 @@ import { Avatar, Dialog, Portal, Button as NativeButton, Paragraph } from 'react
 import * as ImagePicker from 'expo-image-picker'
 import validator from 'validator'
 import { intervalToDuration } from 'date-fns'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 
 import Layout from '../components/Layout'
 import i18n from '../lang/i18n'
@@ -25,7 +25,7 @@ const SettingsScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
   const [reload, setReload] = useState(false)
   const [visible, setVisible] = useState(false)
   const [language, setLanguage] = useState(env.DEFAULT_LANGUAGE)
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -63,7 +63,7 @@ const SettingsScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
 
       setUser(_user)
       if (_user.avatar) {
-        setAvatar(bookcarsHelper.joinURL(env.CDN_USERS, _user.avatar))
+        setAvatar(BookCarsHelper.joinURL(env.CDN_USERS, _user.avatar))
       } else {
         setAvatar(null)
       }
@@ -205,7 +205,7 @@ const SettingsScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
         return
       }
 
-      const data: bookcarsTypes.UpdateUserPayload = {
+      const data: BookCarsTypes.UpdateUserPayload = {
         _id: user._id,
         fullName,
         birthDate,
@@ -291,7 +291,7 @@ const SettingsScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
                         if (status === 200) {
                           const _user = await UserService.getUser(user._id)
                           setUser(_user)
-                          const _avatar = bookcarsHelper.joinURL(env.CDN_USERS, _user.avatar)
+                          const _avatar = BookCarsHelper.joinURL(env.CDN_USERS, _user.avatar)
                           setAvatar(_avatar)
                         } else {
                           helper.error()

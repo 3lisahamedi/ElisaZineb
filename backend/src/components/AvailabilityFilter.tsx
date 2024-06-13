@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import { strings as commonStrings } from '../lang/common'
 import { strings } from '../lang/cars'
 import Accordion from './Accordion'
@@ -19,8 +19,8 @@ const AvailabilityFilter = ({
 }: AvailabilityFilterProps) => {
   const [allChecked, setAllChecked] = useState(true)
   const [values, setValues] = useState<string[]>([
-    bookcarsTypes.Availablity.Available,
-    bookcarsTypes.Availablity.Unavailable
+    BookCarsTypes.Availablity.Available,
+    BookCarsTypes.Availablity.Unavailable
   ])
 
   const availableRef = useRef<HTMLInputElement>(null)
@@ -36,14 +36,14 @@ const AvailabilityFilter = ({
   const handleAvailableChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
     if (e.currentTarget instanceof HTMLInputElement) {
       if (e.currentTarget.checked) {
-        values.push(bookcarsTypes.Availablity.Available)
+        values.push(BookCarsTypes.Availablity.Available)
 
         if (values.length === 2) {
           setAllChecked(true)
         }
       } else {
         values.splice(
-          values.findIndex((v) => v === bookcarsTypes.Availablity.Available),
+          values.findIndex((v) => v === BookCarsTypes.Availablity.Available),
           1,
         )
 
@@ -55,7 +55,7 @@ const AvailabilityFilter = ({
       setValues(values)
 
       if (onChange) {
-        onChange(bookcarsHelper.clone(values))
+        onChange(BookCarsHelper.clone(values))
       }
     } else {
       helper.error()
@@ -73,14 +73,14 @@ const AvailabilityFilter = ({
   const handleUnavailableChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
     if (e.currentTarget instanceof HTMLInputElement) {
       if (e.currentTarget.checked) {
-        values.push(bookcarsTypes.Availablity.Unavailable)
+        values.push(BookCarsTypes.Availablity.Unavailable)
 
         if (values.length === 2) {
           setAllChecked(true)
         }
       } else {
         values.splice(
-          values.findIndex((v) => v === bookcarsTypes.Availablity.Unavailable),
+          values.findIndex((v) => v === BookCarsTypes.Availablity.Unavailable),
           1,
         )
 
@@ -92,7 +92,7 @@ const AvailabilityFilter = ({
       setValues(values)
 
       if (onChange) {
-        onChange(bookcarsHelper.clone(values))
+        onChange(BookCarsHelper.clone(values))
       }
     } else {
       helper.error()
@@ -121,13 +121,13 @@ const AvailabilityFilter = ({
         availableRef.current.checked = true
         unavailableRef.current.checked = true
 
-        const _values = [bookcarsTypes.Availablity.Available, bookcarsTypes.Availablity.Unavailable]
+        const _values = [BookCarsTypes.Availablity.Available, BookCarsTypes.Availablity.Unavailable]
 
         setAllChecked(true)
         setValues(_values)
 
         if (onChange) {
-          onChange(bookcarsHelper.clone(_values))
+          onChange(BookCarsHelper.clone(_values))
         }
       }
     } else {

@@ -1,4 +1,4 @@
-import * as bookcarsTypes from ':bookcars-types'
+import * as BookCarsTypes from ':BookCars-types'
 import axiosInstance from './axiosInstance'
 import * as UserService from './UserService'
 
@@ -8,9 +8,9 @@ import * as UserService from './UserService'
  * @param {string} keyword
  * @param {number} page
  * @param {number} size
- * @returns {Promise<bookcarsTypes.Result<bookcarsTypes.Location>>}
+ * @returns {Promise<BookCarsTypes.Result<BookCarsTypes.Location>>}
  */
-export const getLocations = (keyword: string, page: number, size: number): Promise<bookcarsTypes.Result<bookcarsTypes.Location>> =>
+export const getLocations = (keyword: string, page: number, size: number): Promise<BookCarsTypes.Result<BookCarsTypes.Location>> =>
   axiosInstance
     .get(
       `/api/locations/${page}/${size}/${UserService.getLanguage()}/?s=${encodeURIComponent(keyword)}`
@@ -21,9 +21,9 @@ export const getLocations = (keyword: string, page: number, size: number): Promi
  * Get a Location by ID.
  *
  * @param {string} id
- * @returns {Promise<bookcarsTypes.Location>}
+ * @returns {Promise<BookCarsTypes.Location>}
  */
-export const getLocation = (id: string): Promise<bookcarsTypes.Location> =>
+export const getLocation = (id: string): Promise<BookCarsTypes.Location> =>
   axiosInstance
     .get(
       `/api/location/${encodeURIComponent(id)}/${UserService.getLanguage()}`

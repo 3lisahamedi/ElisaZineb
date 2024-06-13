@@ -20,8 +20,8 @@ import { DateTimeValidationError } from '@mui/x-date-pickers'
 import validator from 'validator'
 import { intervalToDuration } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import env from '../config/env.config'
 import { strings as commonStrings } from '../lang/common'
 import { strings as blStrings } from '../lang/booking-list'
@@ -49,24 +49,24 @@ import '../assets/css/booking.css'
 
 const UpdateBooking = () => {
   const navigate = useNavigate()
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [loading, setLoading] = useState(false)
   const [noMatch, setNoMatch] = useState(false)
   const [error, setError] = useState(false)
-  const [booking, setBooking] = useState<bookcarsTypes.Booking>()
+  const [booking, setBooking] = useState<BookCarsTypes.Booking>()
   const [visible, setVisible] = useState(false)
   const [isSupplier, setIsSupplier] = useState(false)
-  const [supplier, setSupplier] = useState<bookcarsTypes.Option>()
-  const [car, setCar] = useState<bookcarsTypes.Car>()
+  const [supplier, setSupplier] = useState<BookCarsTypes.Option>()
+  const [car, setCar] = useState<BookCarsTypes.Car>()
   const [price, setPrice] = useState<number>()
-  const [driver, setDriver] = useState<bookcarsTypes.Option>()
-  const [pickupLocation, setPickupLocation] = useState<bookcarsTypes.Option>()
-  const [dropOffLocation, setDropOffLocation] = useState<bookcarsTypes.Option>()
+  const [driver, setDriver] = useState<BookCarsTypes.Option>()
+  const [pickupLocation, setPickupLocation] = useState<BookCarsTypes.Option>()
+  const [dropOffLocation, setDropOffLocation] = useState<BookCarsTypes.Option>()
   const [from, setFrom] = useState<Date>()
   const [to, setTo] = useState<Date>()
   const [minDate, setMinDate] = useState<Date>()
   const [maxDate, setMaxDate] = useState<Date>()
-  const [status, setStatus] = useState<bookcarsTypes.BookingStatus>()
+  const [status, setStatus] = useState<BookCarsTypes.BookingStatus>()
   const [cancellation, setCancellation] = useState(false)
   const [amendments, setAmendments] = useState(false)
   const [theftProtection, setTheftProtection] = useState(false)
@@ -85,24 +85,24 @@ const UpdateBooking = () => {
   const [fromError, setFromError] = useState(false)
   const [toError, setToError] = useState(false)
 
-  const handleSupplierChange = (values: bookcarsTypes.Option[]) => {
+  const handleSupplierChange = (values: BookCarsTypes.Option[]) => {
     setSupplier(values.length > 0 ? values[0] : undefined)
   }
 
-  const handleDriverChange = (values: bookcarsTypes.Option[]) => {
+  const handleDriverChange = (values: BookCarsTypes.Option[]) => {
     setDriver(values.length > 0 ? values[0] : undefined)
   }
 
-  const handlePickupLocationChange = (values: bookcarsTypes.Option[]) => {
+  const handlePickupLocationChange = (values: BookCarsTypes.Option[]) => {
     setPickupLocation(values.length > 0 ? values[0] : undefined)
   }
 
-  const handleDropOffLocationChange = (values: bookcarsTypes.Option[]) => {
+  const handleDropOffLocationChange = (values: BookCarsTypes.Option[]) => {
     setDropOffLocation(values.length > 0 ? values[0] : undefined)
   }
 
   const handleCarSelectListChange = useCallback(
-    async (values: bookcarsTypes.Car[]) => {
+    async (values: BookCarsTypes.Car[]) => {
       try {
         const newCar = values.length > 0 ? values[0] : undefined
 
@@ -111,7 +111,7 @@ const UpdateBooking = () => {
           const _car = await CarService.getCar(newCar._id)
 
           if (_car) {
-            const _booking = bookcarsHelper.clone(booking)
+            const _booking = BookCarsHelper.clone(booking)
             _booking.car = _car
             helper.price(
               _booking,
@@ -142,7 +142,7 @@ const UpdateBooking = () => {
     [car, booking],
   )
 
-  const handleStatusChange = (value: bookcarsTypes.BookingStatus) => {
+  const handleStatusChange = (value: BookCarsTypes.BookingStatus) => {
     setStatus(value)
   }
 
@@ -152,7 +152,7 @@ const UpdateBooking = () => {
 
       helper.price(
         booking,
-        booking.car as bookcarsTypes.Car,
+        booking.car as BookCarsTypes.Car,
         (_price) => {
           setBooking(booking)
           setPrice(_price)
@@ -171,7 +171,7 @@ const UpdateBooking = () => {
 
       helper.price(
         booking,
-        booking.car as bookcarsTypes.Car,
+        booking.car as BookCarsTypes.Car,
         (_price) => {
           setBooking(booking)
           setPrice(_price)
@@ -190,7 +190,7 @@ const UpdateBooking = () => {
 
       helper.price(
         booking,
-        booking.car as bookcarsTypes.Car,
+        booking.car as BookCarsTypes.Car,
         (_price) => {
           setBooking(booking)
           setPrice(_price)
@@ -209,7 +209,7 @@ const UpdateBooking = () => {
 
       helper.price(
         booking,
-        booking.car as bookcarsTypes.Car,
+        booking.car as BookCarsTypes.Car,
         (_price) => {
           setBooking(booking)
           setPrice(_price)
@@ -228,7 +228,7 @@ const UpdateBooking = () => {
 
       helper.price(
         booking,
-        booking.car as bookcarsTypes.Car,
+        booking.car as BookCarsTypes.Car,
         (_price) => {
           setBooking(booking)
           setPrice(_price)
@@ -247,7 +247,7 @@ const UpdateBooking = () => {
 
       helper.price(
         booking,
-        booking.car as bookcarsTypes.Car,
+        booking.car as BookCarsTypes.Car,
         (_price) => {
           setBooking(booking)
           setPrice(_price)
@@ -365,7 +365,7 @@ const UpdateBooking = () => {
         return
       }
 
-      const _booking: bookcarsTypes.Booking = {
+      const _booking: BookCarsTypes.Booking = {
         _id: booking._id,
         supplier: supplier._id,
         car: car._id,
@@ -384,8 +384,8 @@ const UpdateBooking = () => {
         price,
       }
 
-      let payload: bookcarsTypes.UpsertBookingPayload
-      let _additionalDriver: bookcarsTypes.AdditionalDriver
+      let payload: BookCarsTypes.UpsertBookingPayload
+      let _additionalDriver: BookCarsTypes.AdditionalDriver
       if (additionalDriverSet) {
         if (!addtionalDriverBirthDate) {
           helper.error()
@@ -424,7 +424,7 @@ const UpdateBooking = () => {
     }
   }
 
-  const onLoad = async (_user?: bookcarsTypes.User) => {
+  const onLoad = async (_user?: BookCarsTypes.User) => {
     if (_user) {
       setUser(_user)
       setLanguage(UserService.getLanguage())
@@ -438,7 +438,7 @@ const UpdateBooking = () => {
             const _booking = await BookingService.getBooking(id)
 
             if (_booking) {
-              if (!helper.admin(_user) && (_booking.supplier as bookcarsTypes.User)._id !== _user._id) {
+              if (!helper.admin(_user) && (_booking.supplier as BookCarsTypes.User)._id !== _user._id) {
                 setLoading(false)
                 setNoMatch(true)
                 return
@@ -448,26 +448,26 @@ const UpdateBooking = () => {
               setPrice(_booking.price)
               setLoading(false)
               setVisible(true)
-              setIsSupplier(_user.type === bookcarsTypes.RecordType.Supplier)
-              const cmp = _booking.supplier as bookcarsTypes.User
+              setIsSupplier(_user.type === BookCarsTypes.RecordType.Supplier)
+              const cmp = _booking.supplier as BookCarsTypes.User
               setSupplier({
                 _id: cmp._id as string,
                 name: cmp.fullName,
                 image: cmp.avatar,
               })
-              setCar(_booking.car as bookcarsTypes.Car)
-              const drv = _booking.driver as bookcarsTypes.User
+              setCar(_booking.car as BookCarsTypes.Car)
+              const drv = _booking.driver as BookCarsTypes.User
               setDriver({
                 _id: drv._id as string,
                 name: drv.fullName,
                 image: drv.avatar,
               })
-              const pul = _booking.pickupLocation as bookcarsTypes.Location
+              const pul = _booking.pickupLocation as BookCarsTypes.Location
               setPickupLocation({
                 _id: pul._id,
                 name: pul.name || '',
               })
-              const dol = _booking.dropOffLocation as bookcarsTypes.Location
+              const dol = _booking.dropOffLocation as BookCarsTypes.Location
               setDropOffLocation({
                 _id: dol._id,
                 name: dol.name || '',
@@ -488,7 +488,7 @@ const UpdateBooking = () => {
               setFullInsurance(_booking.fullInsurance || false)
               setAdditionalDriver((_booking.additionalDriver && !!_booking._additionalDriver) || false)
               if (_booking.additionalDriver && _booking._additionalDriver) {
-                const _additionalDriver = _booking._additionalDriver as bookcarsTypes.AdditionalDriver
+                const _additionalDriver = _booking._additionalDriver as BookCarsTypes.AdditionalDriver
                 setAdditionalDriverFullName(_additionalDriver.fullName)
                 setAdditionalDriverEmail(_additionalDriver.email)
                 setAdditionalDriverPhone(_additionalDriver.phone)
@@ -514,7 +514,7 @@ const UpdateBooking = () => {
     }
   }
 
-  const days = bookcarsHelper.days(from, to)
+  const days = BookCarsHelper.days(from, to)
 
   return (
     <Layout onLoad={onLoad} strict>
@@ -584,7 +584,7 @@ const UpdateBooking = () => {
 
                       helper.price(
                         booking,
-                        booking.car as bookcarsTypes.Car,
+                        booking.car as BookCarsTypes.Car,
                         (_price) => {
                           setBooking(booking)
                           setPrice(_price)
@@ -627,7 +627,7 @@ const UpdateBooking = () => {
 
                       helper.price(
                         booking,
-                        booking.car as bookcarsTypes.Car,
+                        booking.car as BookCarsTypes.Car,
                         (_price) => {
                           setBooking(booking)
                           setPrice(_price)
@@ -819,15 +819,15 @@ const UpdateBooking = () => {
             <div className="col-2-header">
               <div className="price">
                 <span className="price-days">{helper.getDays(days)}</span>
-                <span className="price-main">{bookcarsHelper.formatPrice(price as number, commonStrings.CURRENCY, language)}</span>
-                <span className="price-day">{`${csStrings.PRICE_PER_DAY} ${bookcarsHelper.formatPrice(Math.floor((price as number) / days), commonStrings.CURRENCY, language)}`}</span>
+                <span className="price-main">{BookCarsHelper.formatPrice(price as number, commonStrings.CURRENCY, language)}</span>
+                <span className="price-day">{`${csStrings.PRICE_PER_DAY} ${BookCarsHelper.formatPrice(Math.floor((price as number) / days), commonStrings.CURRENCY, language)}`}</span>
               </div>
             </div>
             <CarList
               className="car"
               user={user}
               booking={booking}
-              cars={((car && [booking.car]) as bookcarsTypes.Car[]) || []}
+              cars={((car && [booking.car]) as BookCarsTypes.Car[]) || []}
               language={language}
               hidePrice
             />

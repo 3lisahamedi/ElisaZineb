@@ -7,8 +7,8 @@ import validator from 'validator'
 import { format, intervalToDuration } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
 import { PaymentSheetError, initPaymentSheet, useStripe } from '@stripe/stripe-react-native'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 
 import Layout from '../components/Layout'
 import i18n from '../lang/i18n'
@@ -36,16 +36,16 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
   const [formVisible, setFormVisible] = useState(false)
   const [loading, setLoading] = useState(false)
   const [authenticated, setAuthenticated] = useState(false)
-  const [user, setUser] = useState<bookcarsTypes.User | null>()
+  const [user, setUser] = useState<BookCarsTypes.User | null>()
   const [language, setLanguage] = useState(env.DEFAULT_LANGUAGE)
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [birthDate, setBirthDate] = useState<Date>()
   const [tosChecked, setTosChecked] = useState(false)
-  const [car, setCar] = useState<bookcarsTypes.Car | null>(null)
-  const [pickupLocation, setPickupLocation] = useState<bookcarsTypes.Location | null>(null)
-  const [dropOffLocation, setDropOffLocation] = useState<bookcarsTypes.Location | null>(null)
+  const [car, setCar] = useState<BookCarsTypes.Car | null>(null)
+  const [pickupLocation, setPickupLocation] = useState<BookCarsTypes.Location | null>(null)
+  const [dropOffLocation, setDropOffLocation] = useState<BookCarsTypes.Location | null>(null)
   const [from, setFrom] = useState<Date>()
   const [to, setTo] = useState<Date>()
   const [price, setPrice] = useState(0)
@@ -114,7 +114,7 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
       setUser(null)
 
       let _authenticated = false
-      let _user: bookcarsTypes.User | null = null
+      let _user: BookCarsTypes.User | null = null
       const currentUser = await UserService.getCurrentUser()
 
       if (currentUser?._id) {
@@ -458,7 +458,7 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
       fullInsurance,
       additionalDriver,
     }
-    const _price = helper.price(car as bookcarsTypes.Car, from as Date, to as Date, options)
+    const _price = helper.price(car as BookCarsTypes.Car, from as Date, to as Date, options)
     setCancellation(checked)
     setPrice(_price)
   }
@@ -472,7 +472,7 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
       fullInsurance,
       additionalDriver,
     }
-    const _price = helper.price(car as bookcarsTypes.Car, from as Date, to as Date, options)
+    const _price = helper.price(car as BookCarsTypes.Car, from as Date, to as Date, options)
     setAmendments(checked)
     setPrice(_price)
   }
@@ -486,7 +486,7 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
       fullInsurance,
       additionalDriver,
     }
-    const _price = helper.price(car as bookcarsTypes.Car, from as Date, to as Date, options)
+    const _price = helper.price(car as BookCarsTypes.Car, from as Date, to as Date, options)
     setCollisionDamageWaiver(checked)
     setPrice(_price)
   }
@@ -500,7 +500,7 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
       fullInsurance,
       additionalDriver,
     }
-    const _price = helper.price(car as bookcarsTypes.Car, from as Date, to as Date, options)
+    const _price = helper.price(car as BookCarsTypes.Car, from as Date, to as Date, options)
     setTheftProtection(checked)
     setPrice(_price)
   }
@@ -514,7 +514,7 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
       fullInsurance: checked,
       additionalDriver,
     }
-    const _price = helper.price(car as bookcarsTypes.Car, from as Date, to as Date, options)
+    const _price = helper.price(car as BookCarsTypes.Car, from as Date, to as Date, options)
     setFullInsurance(checked)
     setPrice(_price)
   }
@@ -528,7 +528,7 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
       fullInsurance,
       additionalDriver: checked,
     }
-    const _price = helper.price(car as bookcarsTypes.Car, from as Date, to as Date, options)
+    const _price = helper.price(car as BookCarsTypes.Car, from as Date, to as Date, options)
     setAdditionalDriver(checked)
     setPrice(_price)
     setAdManuallyChecked(checked)
@@ -601,8 +601,8 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
 
       setLoading(true)
 
-      let driver: bookcarsTypes.User | undefined
-      let _additionalDriver: bookcarsTypes.AdditionalDriver | undefined
+      let driver: BookCarsTypes.User | undefined
+      let _additionalDriver: BookCarsTypes.AdditionalDriver | undefined
 
       if (!authenticated) {
         driver = {
@@ -620,7 +620,7 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
       let customerId: string | undefined
       try {
         if (!payLater) {
-          const createPaymentIntentPayload: bookcarsTypes.CreatePaymentPayload = {
+          const createPaymentIntentPayload: BookCarsTypes.CreatePaymentPayload = {
             amount: price,
             currency: env.STRIPE_CURRENCY_CODE,
             locale: language,
@@ -686,7 +686,7 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
         return
       }
 
-      const booking: bookcarsTypes.Booking = {
+      const booking: BookCarsTypes.Booking = {
         supplier: car.supplier._id as string,
         car: car._id as string,
         driver: authenticated ? user?._id : undefined,
@@ -694,7 +694,7 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
         dropOffLocation: dropOffLocation._id as string,
         from,
         to,
-        status: payLater ? bookcarsTypes.BookingStatus.Pending : bookcarsTypes.BookingStatus.Paid,
+        status: payLater ? BookCarsTypes.BookingStatus.Pending : BookCarsTypes.BookingStatus.Paid,
         cancellation,
         amendments,
         theftProtection,
@@ -713,7 +713,7 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
         }
       }
 
-      const payload: bookcarsTypes.CheckoutPayload = {
+      const payload: BookCarsTypes.CheckoutPayload = {
         driver,
         booking,
         additionalDriver: _additionalDriver,
@@ -738,9 +738,9 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
 
   const iconSize = 18
   const iconColor = '#000'
-  const _fr = bookcarsHelper.isFrench(language)
+  const _fr = BookCarsHelper.isFrench(language)
   const _format = _fr ? 'eee d LLL yyyy kk:mm' : 'eee, d LLL yyyy, p'
-  const days = bookcarsHelper.days(from, to)
+  const days = BookCarsHelper.days(from, to)
 
   return (
     <Layout style={styles.master} navigation={navigation} onLoad={onLoad} reload={reload} route={route}>
@@ -835,7 +835,7 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
 
                     <Text style={styles.detailTitle}>{i18n.t('DAYS')}</Text>
                     <Text style={styles.detailText}>
-                      {`${helper.getDaysShort(bookcarsHelper.days(from, to))} (${bookcarsHelper.capitalize(format(from, _format, { locale }))} - ${bookcarsHelper.capitalize(
+                      {`${helper.getDaysShort(BookCarsHelper.days(from, to))} (${BookCarsHelper.capitalize(format(from, _format, { locale }))} - ${BookCarsHelper.capitalize(
                         format(to, _format, { locale }),
                       )})`}
                     </Text>
@@ -847,21 +847,21 @@ const CheckoutScreen = ({ navigation, route }: NativeStackScreenProps<StackParam
                     <Text style={styles.detailText}>{dropOffLocation.name}</Text>
 
                     <Text style={styles.detailTitle}>{i18n.t('CAR')}</Text>
-                    <Text style={styles.detailText}>{`${car.name} (${bookcarsHelper.formatPrice(car.price, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')})`}</Text>
+                    <Text style={styles.detailText}>{`${car.name} (${BookCarsHelper.formatPrice(car.price, i18n.t('CURRENCY'), language)}${i18n.t('DAILY')})`}</Text>
 
                     <Text style={styles.detailTitle}>{i18n.t('SUPPLIER')}</Text>
                     <View style={styles.supplier}>
                       <Image
                         style={styles.supplierImg}
                         source={{
-                          uri: bookcarsHelper.joinURL(env.CDN_USERS, car.supplier.avatar),
+                          uri: BookCarsHelper.joinURL(env.CDN_USERS, car.supplier.avatar),
                         }}
                       />
                       <Text style={styles.supplierText} numberOfLines={2} ellipsizeMode="tail">{car.supplier.fullName}</Text>
                     </View>
 
                     <Text style={styles.detailTitle}>{i18n.t('COST')}</Text>
-                    <Text style={styles.detailTextBold}>{`${bookcarsHelper.formatPrice(price, i18n.t('CURRENCY'), language)}`}</Text>
+                    <Text style={styles.detailTextBold}>{`${BookCarsHelper.formatPrice(price, i18n.t('CURRENCY'), language)}`}</Text>
                   </View>
 
                   {!authenticated && (

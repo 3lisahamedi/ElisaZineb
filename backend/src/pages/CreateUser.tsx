@@ -16,8 +16,8 @@ import { Info as InfoIcon } from '@mui/icons-material'
 import validator from 'validator'
 import { intervalToDuration } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
-import * as bookcarsTypes from ':bookcars-types'
-import * as bookcarsHelper from ':bookcars-helper'
+import * as BookCarsTypes from ':BookCars-types'
+import * as BookCarsHelper from ':BookCars-helper'
 import Layout from '../components/Layout'
 import env from '../config/env.config'
 import { strings as commonStrings } from '../lang/common'
@@ -35,7 +35,7 @@ import '../assets/css/create-user.css'
 
 const CreateUser = () => {
   const navigate = useNavigate()
-  const [user, setUser] = useState<bookcarsTypes.User>()
+  const [user, setUser] = useState<BookCarsTypes.User>()
   const [admin, setAdmin] = useState(false)
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
@@ -93,7 +93,7 @@ const CreateUser = () => {
 
     setType(_type)
 
-    if (_type === bookcarsTypes.RecordType.Supplier) {
+    if (_type === BookCarsTypes.RecordType.Supplier) {
       await validateFullName(fullName)
     } else {
       setFullNameError(false)
@@ -101,7 +101,7 @@ const CreateUser = () => {
   }
 
   const handleFullNameBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
-    if (type === bookcarsTypes.RecordType.Supplier) {
+    if (type === BookCarsTypes.RecordType.Supplier) {
       await validateFullName(e.target.value)
     } else {
       setFullNameError(false)
@@ -177,7 +177,7 @@ const CreateUser = () => {
   }
 
   const validateBirthDate = (date?: Date) => {
-    if (date && bookcarsHelper.isDate(date) && type === bookcarsTypes.RecordType.User) {
+    if (date && BookCarsHelper.isDate(date) && type === BookCarsTypes.RecordType.User) {
       const now = new Date()
       const sub = intervalToDuration({ start: date, end: now }).years ?? 0
       const _birthDateValid = sub >= env.MINIMUM_AGE
@@ -205,7 +205,7 @@ const CreateUser = () => {
     setLoading(false)
     setAvatar(_avatar)
 
-    if (_avatar !== null && type === bookcarsTypes.RecordType.Supplier) {
+    if (_avatar !== null && type === BookCarsTypes.RecordType.Supplier) {
       setAvatarError(false)
     }
   }
@@ -223,12 +223,12 @@ const CreateUser = () => {
     }
   }
 
-  const onLoad = (_user?: bookcarsTypes.User) => {
+  const onLoad = (_user?: BookCarsTypes.User) => {
     if (_user && _user.verified) {
       const _admin = helper.admin(_user)
       setUser(_user)
       setAdmin(_admin)
-      setType(_admin ? '' : bookcarsTypes.RecordType.User)
+      setType(_admin ? '' : BookCarsTypes.RecordType.User)
       setVisible(true)
     }
   }
@@ -242,7 +242,7 @@ const CreateUser = () => {
         return
       }
 
-      if (type === bookcarsTypes.RecordType.Supplier) {
+      if (type === BookCarsTypes.RecordType.Supplier) {
         const fullNameValid = await validateFullName(fullName)
 
         if (!fullNameValid) {
@@ -267,7 +267,7 @@ const CreateUser = () => {
         return
       }
 
-      if (type === bookcarsTypes.RecordType.Supplier && !avatar) {
+      if (type === BookCarsTypes.RecordType.Supplier && !avatar) {
         setAvatarError(true)
         setError(false)
         return
@@ -276,7 +276,7 @@ const CreateUser = () => {
       const language = UserService.getLanguage()
       const supplier = admin ? undefined : user._id
 
-      const data: bookcarsTypes.CreateUserPayload = {
+      const data: BookCarsTypes.CreateUserPayload = {
         email,
         phone,
         location,
@@ -289,7 +289,7 @@ const CreateUser = () => {
         supplier,
       }
 
-      if (type === bookcarsTypes.RecordType.Supplier) {
+      if (type === BookCarsTypes.RecordType.Supplier) {
         data.payLater = payLater
       }
 
@@ -305,8 +305,8 @@ const CreateUser = () => {
     }
   }
 
-  const supplier = type === bookcarsTypes.RecordType.Supplier
-  const driver = type === bookcarsTypes.RecordType.User
+  const supplier = type === BookCarsTypes.RecordType.Supplier
+  const driver = type === BookCarsTypes.RecordType.User
 
   return (
     <Layout onLoad={onLoad} strict>
@@ -342,9 +342,9 @@ const CreateUser = () => {
                 <FormControl fullWidth margin="dense" style={{ marginTop: supplier ? 0 : 39 }}>
                   <InputLabel className="required">{commonStrings.TYPE}</InputLabel>
                   <Select label={commonStrings.TYPE} value={type} onChange={handleUserTypeChange} variant="standard" required fullWidth>
-                    <MenuItem value={bookcarsTypes.RecordType.Admin}>{helper.getUserType(bookcarsTypes.UserType.Admin)}</MenuItem>
-                    <MenuItem value={bookcarsTypes.RecordType.Supplier}>{helper.getUserType(bookcarsTypes.UserType.Supplier)}</MenuItem>
-                    <MenuItem value={bookcarsTypes.RecordType.User}>{helper.getUserType(bookcarsTypes.UserType.User)}</MenuItem>
+                    <MenuItem value={BookCarsTypes.RecordType.Admin}>{helper.getUserType(BookCarsTypes.UserType.Admin)}</MenuItem>
+                    <MenuItem value={BookCarsTypes.RecordType.Supplier}>{helper.getUserType(BookCarsTypes.UserType.Supplier)}</MenuItem>
+                    <MenuItem value={BookCarsTypes.RecordType.User}>{helper.getUserType(BookCarsTypes.UserType.User)}</MenuItem>
                   </Select>
                 </FormControl>
               )}
