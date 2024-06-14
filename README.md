@@ -45,6 +45,5 @@ A key design decision was made to use TypeScript instead of JavaScript due to it
 
 ### Mobile App
 
-* [Download APK](https://github.com/aelassas/BookCars/releases/download/v4.1/BookCars-4.1.apk)
 * Login: jdoe@BookCars.ma
 * Password: B00kC4r5
